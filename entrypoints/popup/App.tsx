@@ -72,8 +72,7 @@ export default function App() {
   return (
     <div className="flex flex-col h-full">
       <Header
-        lastCrawlTime={crawlState.lastCrawlTime}
-        status={crawlState.lastCrawlStatus}
+        crawlState={crawlState}
         onRefresh={handleRefresh}
       />
       <SearchBar value={searchQuery} onChange={setSearchQuery} />

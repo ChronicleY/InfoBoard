@@ -17,9 +17,11 @@ async function fetchAndCheck(url: string): Promise<Response> {
 }
 
 export async function fetchBoardPage(url: string): Promise<Document> {
+  console.log(`[fetcher] Fetching: ${url}`);
   const response = await fetchAndCheck(url);
 
   const buffer = await response.arrayBuffer();
+  console.log(`[fetcher] Response: ${buffer.byteLength} bytes`);
   // Try GBK first (SZUniv board uses GB2312/GBK), fall back to UTF-8
   let html: string;
   const decoder = new TextDecoder("gbk", { fatal: false });
@@ -43,21 +45,26 @@ export async function fetchBoardPage(url: string): Promise<Document> {
 
 export async function checkSSO(): Promise<boolean> {
   try {
+    console.log("[fetcher] Checking SSO status...");
     const response = await fetch("https://www1.szu.edu.cn/", {
       credentials: "include",
       redirect: "manual",
     });
 
+    console.log(`[fetcher] SSO check: status=${response.status}, type=${response.type}`);
+
     // If redirected to CAS login, session is expired
     if (response.status >= 300 && response.status < 400) {
       const location = response.headers.get("location") || "";
+      console.log(`[fetcher] SSO redirect to: ${location}`);
       if (location.includes("cas") || location.includes("login")) {
         return false;
       }
     }
 
     return true;
-  } catch {
+  } catch (err) {
+    console.error("[fetcher] SSO check failed:", err);
     return false;
   }
 }

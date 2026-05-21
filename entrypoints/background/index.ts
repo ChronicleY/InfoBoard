@@ -145,11 +145,15 @@ export default defineBackground(() => {
       let allNewArticles: Article[] = [];
 
       // Step 1: Crawl the main board page (latest 10 per category)
+      console.log("[crawl] Fetching main board page:", BOARD_MAIN_URL);
       const mainDoc = await fetchBoardPage(BOARD_MAIN_URL);
       const mainPreviews = parseBoardList(mainDoc);
+      console.log(`[crawl] Main page: ${mainPreviews.length} articles across all categories`);
+
       const subscribedPreviews = mainPreviews.filter((p) =>
         subscriptions.includes(p.section),
       );
+      console.log(`[crawl] Subscribed: ${subscribedPreviews.length} articles`);
 
       // Step 2: Also crawl infolist first page for each subscribed category
       const infotypeMap: Record<string, string> = {
@@ -166,19 +170,24 @@ export default defineBackground(() => {
         try {
           const encodedType = gbkEncodeUrl(infotype);
           const infolistUrl = `https://www1.szu.edu.cn/board/infolist.asp?infotype=${encodedType}`;
+          console.log(`[crawl] Fetching infolist for ${section}...`);
           const infolistDoc = await fetchBoardPage(infolistUrl);
           const infolistPreviews = parseInfolistPage(infolistDoc, section);
-          // Limit to 20 per category from infolist to keep crawl manageable
+          console.log(`[crawl] Infolist ${section}: ${infolistPreviews.length} articles`);
           allPreviews.push(...infolistPreviews.slice(0, 20));
-        } catch {
-          // Infolist fetch failed — non-critical, continue with main page results
+        } catch (err) {
+          console.warn(`[crawl] Infolist fetch failed for ${section}:`, err);
         }
       }
+
+      console.log(`[crawl] Total previews to check: ${allPreviews.length}`);
 
       const newPreviews = await filterNewUrls(allPreviews);
 
       // Step 3: Fetch detail pages and classify
       let ssoExpired = false;
+      let detailOk = 0;
+      let detailFail = 0;
 
       for (const preview of newPreviews) {
         try {
@@ -257,13 +266,18 @@ export default defineBackground(() => {
           };
 
           allNewArticles.push(article);
+          detailOk++;
         } catch (err) {
           if (err instanceof SSOExpiredError) {
             ssoExpired = true;
             break;
           }
+          detailFail++;
+          console.error(`[crawl] Detail fetch failed for ${preview.url}:`, err);
         }
       }
+
+      console.log(`[crawl] Detail results: ${detailOk} ok, ${detailFail} failed`);
 
       if (ssoExpired) {
         await saveCrawlState({
@@ -277,6 +291,8 @@ export default defineBackground(() => {
         };
       }
 
+      console.log(`[crawl] Saving ${allNewArticles.length} new articles (${detailFail} detail errors)`);
+
       const existingArticles = await getArticles();
       const existingMap = new Map(existingArticles.map((a) => [a.id, a]));
 
@@ -287,10 +303,23 @@ export default defineBackground(() => {
       const allArticles = [...existingMap.values()];
       await saveArticles(allArticles);
 
+      const status = detailFail > 0 && allNewArticles.length === 0
+        ? "error"
+        : detailFail > 0
+          ? "partial"
+          : "success";
+
+      let lastError = null;
+      if (status === "error") {
+        lastError = `所有 ${detailFail} 篇文章抓取失败，请检查网络或网站状态`;
+      } else if (status === "partial") {
+        lastError = `${detailFail} 篇文章详情抓取失败`;
+      }
+
       await saveCrawlState({
         lastCrawlTime: Date.now(),
-        lastCrawlStatus: "success",
-        lastCrawlError: null,
+        lastCrawlStatus: status,
+        lastCrawlError: lastError,
         newArticleCount: allNewArticles.length,
         totalArticleCount: allArticles.length,
       });
