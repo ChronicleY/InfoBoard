@@ -16,16 +16,15 @@ async function fetchAndCheck(url: string): Promise<Response> {
   return response;
 }
 
-export async function fetchBoardPage(url: string): Promise<Document> {
+export async function fetchBoardPage(url: string): Promise<string> {
   console.log(`[fetcher] Fetching: ${url}`);
   const response = await fetchAndCheck(url);
 
   const buffer = await response.arrayBuffer();
   console.log(`[fetcher] Response: ${buffer.byteLength} bytes`);
   // Try GBK first (SZUniv board uses GB2312/GBK), fall back to UTF-8
-  let html: string;
   const decoder = new TextDecoder("gbk", { fatal: false });
-  html = decoder.decode(buffer);
+  let html = decoder.decode(buffer);
 
   // Check for CAS login form in HTML
   if (html.includes("统一身份认证平台") || html.includes("casLoginForm")) {
@@ -39,8 +38,7 @@ export async function fetchBoardPage(url: string): Promise<Document> {
     html = utf8Decoder.decode(buffer);
   }
 
-  const parser = new DOMParser();
-  return parser.parseFromString(html, "text/html");
+  return html;
 }
 
 export async function checkSSO(): Promise<boolean> {

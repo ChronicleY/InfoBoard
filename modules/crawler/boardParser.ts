@@ -13,59 +13,65 @@ export interface ArticlePreview {
  * Parse the board main page.
  *
  * The page uses a deeply nested table layout with 6 category panels
- * arranged in a 3×2 grid: 教务教学, 科研动态, 党务行政, 学生工作, 学术讲座, 校园生活.
- * Each panel has a <strong> heading followed by 10 article rows.
- *
- * Lecture articles (学术讲座) use /board/view.asp?id=XXXXX URLs and include
- * campus/building prefix in the title like "粤海｜汇文楼｜...".
+ * arranged in a 3×2 grid. Each panel has a <strong> heading followed by article rows.
+ * Since MV3 service workers lack DOMParser, all parsing is regex/string-based.
  */
-export function parseBoardList(doc: Document): ArticlePreview[] {
+export function parseBoardList(html: string): ArticlePreview[] {
   const articles: ArticlePreview[] = [];
 
-  const strongEls = doc.querySelectorAll("strong");
-  for (const strong of strongEls) {
-    const section = strong.textContent?.trim() ?? "";
-    if (!isBoardSection(section)) continue;
+  // Locate each <strong> section heading and its position
+  const strongRegex = /<strong[^>]*>([^<]+)<\/strong>/gi;
+  const sections: { name: string; end: number }[] = [];
+  let strongMatch: RegExpExecArray | null;
 
-    // Each category panel is a <td> containing the <strong> heading and an article list table
-    const containerTd = strong.closest("td");
-    if (!containerTd) continue;
+  while ((strongMatch = strongRegex.exec(html)) !== null) {
+    const name = strongMatch[1].trim();
+    if (isBoardSection(name)) {
+      sections.push({ name, end: strongMatch.index + strongMatch[0].length });
+    }
+  }
 
-    const links = containerTd.querySelectorAll("a[href*='view.asp']");
-    for (const link of links) {
-      const title = link.textContent?.trim() ?? "";
-      const href = link.getAttribute("href") ?? "";
-      if (!title || !href) continue;
+  // For each section, extract links between its </strong> and the next <strong>
+  for (let i = 0; i < sections.length; i++) {
+    const section = sections[i];
+    const nextStart = i + 1 < sections.length
+      ? html.indexOf("<strong", section.end)
+      : html.length;
+    const sectionHtml = html.substring(section.end, nextStart > 0 ? nextStart : html.length);
 
-      // Resolve relative to the board page. Most links are "view.asp?id=XXXXX" (relative)
-      // but lecture links are "/board/view.asp?id=XXXXX" (absolute with /board/ prefix).
+    // Match each <tr> row within this section's HTML
+    const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+    let rowMatch: RegExpExecArray | null;
+
+    while ((rowMatch = rowRegex.exec(sectionHtml)) !== null) {
+      const rowContent = rowMatch[1];
+
+      // Only rows containing view.asp links
+      const linkMatch = /<a[^>]*href\s*=\s*["']?([^"'\s>]*view\.asp[^"'\s>]*)["']?[^>]*>([^<]*)<\/a>/i.exec(rowContent);
+      if (!linkMatch) continue;
+
+      const href = linkMatch[1];
+      const title = linkMatch[2].trim();
+      if (!title) continue;
+
       const url = new URL(
         href.startsWith("/") ? href : `./${href}`,
         "https://www1.szu.edu.cn/board/",
       ).href;
 
-      // Date is in the last <td> of the same row
-      const row = link.closest("tr");
-      const cells = row?.querySelectorAll("td");
-      const dateStr = cells?.length
-        ? (cells[cells.length - 1]?.textContent?.trim() ?? "")
-        : "";
+      // Date is in the last <td> of the row
+      const tdMatches = [...rowContent.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)];
+      const lastTd = tdMatches.length > 0 ? tdMatches[tdMatches.length - 1][1] : "";
+      const dateStr = stripTags(lastTd).trim();
 
-      // Lecture items have location prefix in the title: "粤海｜汇文楼｜..."
+      // Lecture items have location prefix: "粤海｜汇文楼｜..."
       let location: string | undefined;
       const pipeParts = title.split("｜");
       if (pipeParts.length >= 3 && /^(粤海|丽湖|沧海|罗湖)/.test(pipeParts[0])) {
         location = `${pipeParts[0]}｜${pipeParts[1]}`;
       }
 
-      articles.push({
-        title,
-        url,
-        section,
-        publisher: "",
-        dateStr,
-        location,
-      });
+      articles.push({ title, url, section: section.name, publisher: "", dateStr, location });
     }
   }
 
@@ -80,17 +86,19 @@ function isBoardSection(name: string): boolean {
 }
 
 /**
- * Parse a board detail page (view.asp?id=XXXXX or /board/view.asp?id=XXXXX).
+ * Parse a board detail page (view.asp?id=XXXXX).
  *
  * Detail page has nested tables:
  *   outer table > row with "关闭窗口｜打印张贴版"
  *              > row with inner table:
  *                  row[0]: TITLE
- *                  row[1]: PUBLISHER DATE (USER_WATERMARK)
- *                  row[2]: CONTENT <p>...</p>
- *                  row[4]: 撰稿：WRITER 审核：REVIEWER
+ *                  row[1]: PUBLISHER DATE (WATERMARK)
+ *                  row[2]+: CONTENT <p>...</p>
+ *                  footer:  撰稿：WRITER 审核：REVIEWER
+ *
+ * All regex-based for MV3 service worker compatibility.
  */
-export function parseBoardDetail(doc: Document): {
+export function parseBoardDetail(html: string): {
   publisher: string;
   publishDate: string;
   location: string | null;
@@ -101,63 +109,48 @@ export function parseBoardDetail(doc: Document): {
   let publishDate = "";
   let bodyText = "";
 
-  // Navigate: close link → outer table → first nested table (inner table)
-  const closeLink = doc.querySelector("a[href*='window.close']");
-  const outerTable = closeLink?.closest("table");
-  const innerTable = outerTable?.querySelector("table");
+  // Find the info row: a <td> with a datetime pattern and short text
+  const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+  let tdMatch: RegExpExecArray | null;
+  const dateTimeRe = /(\d{4}[\/-]\d{1,2}[\/-]\d{1,2}\s*\d{1,2}:\d{2}:\d{2})/;
 
-  if (innerTable) {
-    const rows = innerTable.querySelectorAll("tr");
-
-    for (let i = 0; i < rows.length; i++) {
-      const text = rows[i]?.textContent?.trim() ?? "";
-      if (!text) continue;
-
-      // Row 0: title (skip, we already have it from the list page)
-      if (i === 0) continue;
-
-      // Row 1: publisher + date + watermark
-      if (i === 1) {
-        const infoText = text.replace(/（[^）]+?\d{6,}[^）]*?）/, "").trim();
-        const dateMatch = infoText.match(/(\d{4}[\/-]\d{1,2}[\/-]\d{1,2}\s*\d{1,2}:\d{2}:\d{2})/);
-        if (dateMatch) {
-          publishDate = normalizeDate(dateMatch[1]);
-          publisher = infoText.substring(0, dateMatch.index).trim();
-        }
-        continue;
-      }
-
-      // Remaining rows: content with <p> elements or plain text
-      // Skip footer row (撰稿/审核)
-      const cellText = rows[i]?.textContent?.trim() ?? "";
-      if (/^撰稿[：:]/.test(cellText)) continue;
-
-      if (bodyText.length < 2000) {
-        const paragraphs = rows[i]?.querySelectorAll("p") ?? [];
-        for (const p of paragraphs) {
-          const pText = p.textContent?.trim() ?? "";
-          if (pText) {
-            bodyText += (bodyText ? "\n\n" : "") + pText;
-          }
-        }
-        // If no <p> tags, use cell text directly
-        if (paragraphs.length === 0 && cellText) {
-          bodyText += (bodyText ? "\n\n" : "") + cellText;
-        }
-      }
+  while ((tdMatch = tdRegex.exec(html)) !== null) {
+    const text = stripTags(tdMatch[1]).trim();
+    const dateMatch = text.match(dateTimeRe);
+    if (dateMatch && text.length < 200) {
+      // Remove watermark like （USER_NAME 1234567890）
+      const clean = text.replace(/（[^）]+?\d{6,}[^）]*?）/, "").trim();
+      publishDate = normalizeDate(dateMatch[1]);
+      publisher = clean.substring(0, dateMatch.index!).trim();
+      break;
     }
   }
 
-  // Fallback: if the close-link approach didn't work
+  // Extract body from <p> tags
+  const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+  let pMatch: RegExpExecArray | null;
+  const parts: string[] = [];
+
+  while ((pMatch = pRegex.exec(html)) !== null) {
+    const text = stripTags(pMatch[1]).trim();
+    if (!text) continue;
+    if (/^撰稿[：:]/.test(text)) continue;
+    if (/^（[^）]+）$/.test(text) && text.length < 30) continue;
+    if (bodyText.length + text.length > 2000) break;
+    parts.push(text);
+    bodyText = parts.join("\n\n");
+  }
+
+  // Fallback: if no <p> tags found, try extracting from large <td> cells
   if (!publisher) {
-    const infoText = extractInfoText(doc);
+    const infoText = extractInfoText(html);
     const { pub, date } = parseInfoLine(infoText);
     publisher = pub;
     publishDate = date;
   }
 
   if (!bodyText) {
-    bodyText = extractBodyFallback(doc);
+    bodyText = extractBodyFallback(html);
   }
 
   const summary = bodyText.substring(0, 500);
@@ -181,35 +174,32 @@ export function parseBoardDetail(doc: Document): {
  * Parse an infolist.asp page (category list with pagination).
  *
  * Structure: flat table rows with columns for index, category tag, title link, date.
- *   <tr>
- *     <td align="center" height="32px">1</td>
- *     <td align="center"><a href="?infotype=教务">教务</a></td>
- *     <td align="center">...</td>
- *     <td><a href="view.asp?id=XXXXX">TITLE</a></td>
- *     <td>DATE</td>
- *   </tr>
  */
-export function parseInfolistPage(doc: Document, section: string): ArticlePreview[] {
+export function parseInfolistPage(html: string, section: string): ArticlePreview[] {
   const articles: ArticlePreview[] = [];
 
-  const rows = doc.querySelectorAll("tr");
-  for (const row of rows) {
-    const link = row.querySelector("a[href*='view.asp']");
-    if (!link) continue;
+  const trRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let trMatch: RegExpExecArray | null;
 
-    const href = link.getAttribute("href") ?? "";
-    const title = link.textContent?.trim() ?? "";
-    if (!title || !href) continue;
+  while ((trMatch = trRegex.exec(html)) !== null) {
+    const rowContent = trMatch[1];
+
+    const linkMatch = /<a[^>]*href\s*=\s*["']?([^"'\s>]*view\.asp[^"'\s>]*)["']?[^>]*>([^<]*)<\/a>/i.exec(rowContent);
+    if (!linkMatch) continue;
+
+    const href = linkMatch[1];
+    const title = linkMatch[2].trim();
+    if (!title) continue;
 
     const url = new URL(
       href.startsWith("/") ? href : `./${href}`,
       "https://www1.szu.edu.cn/board/",
     ).href;
 
-    const cells = row.querySelectorAll("td");
-    const dateStr = cells.length > 0
-      ? (cells[cells.length - 1]?.textContent?.trim() ?? "")
-      : "";
+    // Date in the last <td>
+    const tdMatches = [...rowContent.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)];
+    const lastTd = tdMatches.length > 0 ? tdMatches[tdMatches.length - 1][1] : "";
+    const dateStr = stripTags(lastTd).trim();
 
     articles.push({ title, url, section, publisher: "", dateStr });
   }
@@ -219,20 +209,16 @@ export function parseInfolistPage(doc: Document, section: string): ArticlePrevie
 
 /**
  * Parse pagination links from an infolist page.
- *
- * Pagination uses form submission via javascript.
- * We extract page URLs by modifying the infotype parameter with &page=N.
  */
-export function getPaginationUrls(doc: Document, baseUrl: string): string[] {
+export function getPaginationUrls(html: string, baseUrl: string): string[] {
   const urls: string[] = [];
-  const bodyText = doc.body.textContent ?? "";
+  const bodyText = stripTags(html);
 
-  // Try to find total records and page size
   const totalMatch = bodyText.match(/共\s*(\d+)\s*条/);
   if (!totalMatch) return urls;
 
   const totalRecords = parseInt(totalMatch[1], 10);
-  const PAGE_SIZE = 20; // infolist shows ~20 items per page
+  const PAGE_SIZE = 20;
 
   if (totalRecords <= PAGE_SIZE) return urls;
 
@@ -255,13 +241,10 @@ export function gbkEncodeUrl(value: string): string {
   const bytes: number[] = [];
   for (let i = 0; i < value.length; i++) {
     const code = value.charCodeAt(i);
-    // ASCII passthrough
     if (code < 0x80) {
       bytes.push(code);
       continue;
     }
-    // Use encodeURIComponent to get UTF-8 bytes, then map to a known set
-    // For the infotype values we need, use a hardcoded map
     const gbkBytes = GBK_MAP[value.charAt(i)];
     if (gbkBytes) {
       bytes.push(gbkBytes[0], gbkBytes[1]);
@@ -271,7 +254,6 @@ export function gbkEncodeUrl(value: string): string {
   return bytes.map((b) => `%${b.toString(16).toUpperCase().padStart(2, "0")}`).join("");
 }
 
-// GBK encoding for the specific Chinese characters used in infotype URLs
 const GBK_MAP: Record<string, [number, number]> = {
   "教": [0xBD, 0xCC], "务": [0xCE, 0xF1],
   "科": [0xBF, 0xC6], "研": [0xD1, 0xD0],
@@ -299,6 +281,17 @@ export function getSectionFromInfotype(infotype: string): string {
 
 // -- helpers --
 
+function stripTags(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
 function normalizeDate(raw: string): string {
   const cleaned = raw
     .replace(/[年月]/g, "-")
@@ -309,7 +302,6 @@ function normalizeDate(raw: string): string {
   if (!isNaN(date.getTime())) {
     return date.toISOString().split("T")[0];
   }
-  // Try matching just the date part
   const dateOnly = cleaned.match(/(\d{4}[\/-]\d{1,2}[\/-]\d{1,2})/);
   if (dateOnly) {
     const d = new Date(dateOnly[1]);
@@ -322,11 +314,12 @@ function formatToday(): string {
   return new Date().toISOString().split("T")[0];
 }
 
-function extractInfoText(doc: Document): string {
-  // Try all <td> cells — the info line contains a date pattern
-  const tds = doc.querySelectorAll("td");
-  for (const td of tds) {
-    const text = td.textContent?.trim() ?? "";
+function extractInfoText(html: string): string {
+  const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+  let match: RegExpExecArray | null;
+
+  while ((match = tdRegex.exec(html)) !== null) {
+    const text = stripTags(match[1]).trim();
     if (/\d{4}[\/-]\d{1,2}[\/-]\d{1,2}\s*\d{1,2}:\d{2}:\d{2}/.test(text) && text.length < 80) {
       return text;
     }
@@ -335,7 +328,6 @@ function extractInfoText(doc: Document): string {
 }
 
 function parseInfoLine(text: string): { pub: string; date: string } {
-  // Remove watermark
   const clean = text.replace(/（[^）]+?\d{6,}[^）]*?）/, "").trim();
   const dateMatch = clean.match(/(\d{4}[\/-]\d{1,2}[\/-]\d{1,2}\s*\d{1,2}:\d{2}:\d{2})/);
   if (dateMatch) {
@@ -347,12 +339,13 @@ function parseInfoLine(text: string): { pub: string; date: string } {
   return { pub: clean, date: "" };
 }
 
-function extractBodyFallback(doc: Document): string {
-  // Collect all <p> content, skipping footers and single-char paragraphs
-  const paragraphs = doc.querySelectorAll("p");
+function extractBodyFallback(html: string): string {
+  const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+  let match: RegExpExecArray | null;
   const parts: string[] = [];
-  for (const p of paragraphs) {
-    const text = p.textContent?.trim() ?? "";
+
+  while ((match = pRegex.exec(html)) !== null) {
+    const text = stripTags(match[1]).trim();
     if (!text) continue;
     if (/^撰稿[：:]/.test(text)) continue;
     if (/^（[^）]+）$/.test(text) && text.length < 30) continue;
