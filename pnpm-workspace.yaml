@@ -1,0 +1,8 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  spawn-sync: true
+  unrs-resolver: false
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver

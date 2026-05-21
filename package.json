@@ -1,0 +1,31 @@
+{
+  "name": "szu-board-extension",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wxt",
+    "dev:chrome": "wxt -b chrome",
+    "dev:edge": "wxt -b edge",
+    "build": "wxt build",
+    "build:chrome": "wxt build -b chrome",
+    "build:edge": "wxt build -b edge",
+    "lint": "eslint",
+    "compile-competitions": "tsx scripts/compile-competitions.ts"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "tailwindcss": "^4",
+    "tsx": "^4",
+    "typescript": "^5",
+    "wxt": "^0.20",
+    "@wxt-dev/module-react": "^1.0.0",
+    "xlsx": "^0.18.5"
+  }
+}

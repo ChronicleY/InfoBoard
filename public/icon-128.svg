@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <rect width="128" height="128" rx="20" fill="#8b0012"/>
+  <text x="64" y="48" text-anchor="middle" fill="white" font-size="36" font-family="sans-serif" font-weight="bold">SZU</text>
+  <text x="64" y="84" text-anchor="middle" fill="#e8c44a" font-size="22" font-family="sans-serif">公文通</text>
+</svg>
