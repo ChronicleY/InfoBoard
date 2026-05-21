@@ -22,7 +22,10 @@ export default function App() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    checkSSO().then(setSsoValid);
+    checkSSO().then((valid) => {
+      setSsoValid(valid);
+      if (valid) startCrawl();
+    });
   }, []);
 
   const toggleExpand = useCallback((id: string) => {

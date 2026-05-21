@@ -3,7 +3,14 @@ interface SubscriptionSelectorProps {
   onSave: (subscriptions: string[]) => void;
 }
 
-const SECTIONS = ["学生事务", "荔园生活", "教师事务", "网上服务"];
+const SECTIONS = [
+  "教务教学",
+  "科研动态",
+  "党务行政",
+  "学生工作",
+  "学术讲座",
+  "校园生活",
+];
 
 export default function SubscriptionSelector({ selected, onSave }: SubscriptionSelectorProps) {
   const toggle = (section: string) => {

@@ -12,21 +12,33 @@ import { getSettings, saveSettings } from "../../modules/storage/settings";
 import { getCrawlState, saveCrawlState } from "../../modules/storage/crawlState";
 import { cleanupExpired } from "../../modules/storage/cleanup";
 import { fetchBoardPage, SSOExpiredError, checkSSO } from "../../modules/crawler/fetcher";
-import { parseBoardList, parseBoardDetail } from "../../modules/crawler/boardParser";
+import { parseBoardList, parseBoardDetail, parseInfolistPage, gbkEncodeUrl } from "../../modules/crawler/boardParser";
 import { filterNewUrls, getArticleId } from "../../modules/crawler/deduplicator";
 import { matchByKeywords } from "../../modules/classifier/keywordMatcher";
 import { classifyWithLLM } from "../../modules/classifier/llmClassifier";
 import { matchCompetition } from "../../modules/classifier/competitionMatcher";
 
 export default defineBackground(() => {
-  const SUBSCRIPTION_SECTIONS = ["学生事务", "荔园生活", "教师事务", "网上服务"];
+  const BOARD_CATEGORIES = [
+    "教务教学",
+    "科研动态",
+    "党务行政",
+    "学生工作",
+    "学术讲座",
+    "校园生活",
+  ];
 
-  const BOARD_URLS: Record<string, string> = {
-    "学生事务": "https://www1.szu.edu.cn/board/",
-    "荔园生活": "https://www1.szu.edu.cn/board/",
-    "教师事务": "https://www1.szu.edu.cn/board/",
-    "网上服务": "https://www1.szu.edu.cn/board/",
-  };
+  // Board sections to subscribe by default — matches the 6 panels on the main page
+  const DEFAULT_SUBSCRIPTIONS = [
+    "教务教学",
+    "科研动态",
+    "党务行政",
+    "学生工作",
+    "学术讲座",
+    "校园生活",
+  ];
+
+  const BOARD_MAIN_URL = "https://www1.szu.edu.cn/board/";
 
   // === Message Router ===
 
@@ -125,96 +137,126 @@ export default defineBackground(() => {
     try {
       const settings = await getSettings();
       const categories = await getCategories();
-      const subscriptions = settings.subscriptions.length > 0 ? settings.subscriptions : SUBSCRIPTION_SECTIONS;
+      const subscriptions =
+        settings.subscriptions.length > 0
+          ? settings.subscriptions
+          : BOARD_CATEGORIES;
 
       let allNewArticles: Article[] = [];
-      let ssoExpired = false;
+
+      // Step 1: Crawl the main board page (latest 10 per category)
+      const mainDoc = await fetchBoardPage(BOARD_MAIN_URL);
+      const mainPreviews = parseBoardList(mainDoc);
+      const subscribedPreviews = mainPreviews.filter((p) =>
+        subscriptions.includes(p.section),
+      );
+
+      // Step 2: Also crawl infolist first page for each subscribed category
+      const infotypeMap: Record<string, string> = {
+        "教务教学": "教务", "科研动态": "科研", "党务行政": "行政",
+        "学生工作": "学工", "学术讲座": "讲座", "校园生活": "生活",
+      };
+
+      const allPreviews = [...subscribedPreviews];
 
       for (const section of subscriptions) {
+        const infotype = infotypeMap[section];
+        if (!infotype) continue;
+
         try {
-          const boardUrl = BOARD_URLS[section];
-          const doc = await fetchBoardPage(boardUrl);
+          const encodedType = gbkEncodeUrl(infotype);
+          const infolistUrl = `https://www1.szu.edu.cn/board/infolist.asp?infotype=${encodedType}`;
+          const infolistDoc = await fetchBoardPage(infolistUrl);
+          const infolistPreviews = parseInfolistPage(infolistDoc, section);
+          // Limit to 20 per category from infolist to keep crawl manageable
+          allPreviews.push(...infolistPreviews.slice(0, 20));
+        } catch {
+          // Infolist fetch failed — non-critical, continue with main page results
+        }
+      }
 
-          const previews = parseBoardList(doc, section);
-          const newPreviews = await filterNewUrls(previews);
+      const newPreviews = await filterNewUrls(allPreviews);
 
-          for (const preview of newPreviews) {
+      // Step 3: Fetch detail pages and classify
+      let ssoExpired = false;
+
+      for (const preview of newPreviews) {
+        try {
+          const detailDoc = await fetchBoardPage(preview.url);
+          const detail = parseBoardDetail(detailDoc);
+
+          const id = getArticleId(preview.url);
+
+          let category = "待分类";
+          let matchedKeywords: string[] = [];
+          let llmClassified = false;
+
+          const keywordResult = matchByKeywords(
+            preview.title,
+            detail.summary,
+            categories,
+          );
+          if (keywordResult) {
+            category = keywordResult.category.name;
+            matchedKeywords = keywordResult.matchedKeywords;
+          } else if (settings.deepseekApiKey) {
             try {
-              const detailDoc = await fetchBoardPage(preview.url);
-              const detail = parseBoardDetail(detailDoc);
-
-              const id = getArticleId(preview.url);
-
-              let category = "待分类";
-              let matchedKeywords: string[] = [];
-              let llmClassified = false;
-
-              const keywordResult = matchByKeywords(preview.title, detail.summary, categories);
-              if (keywordResult) {
-                category = keywordResult.category.name;
-                matchedKeywords = keywordResult.matchedKeywords;
-              } else if (settings.deepseekApiKey) {
-                try {
-                  const tempArticle: Article = {
-                    id,
-                    title: preview.title,
-                    url: preview.url,
-                    section,
-                    publisher: detail.publisher,
-                    publishDate: detail.publishDate,
-                    location: detail.location,
-                    summary: detail.summary,
-                    category: "待分类",
-                    matchedKeywords: [],
-                    llmClassified: false,
-                    competitionMatch: null,
-                    favorite: false,
-                    crawledAt: Date.now(),
-                    isRead: false,
-                  };
-                  category = await classifyWithLLM(
-                    tempArticle,
-                    settings.deepseekApiKey,
-                    settings.deepseekModel,
-                    categories,
-                  );
-                  llmClassified = true;
-                } catch {
-                  // LLM failed, stay "待分类"
-                }
-              }
-
-              let competitionMatch: string | null = null;
-              if (category === "比赛") {
-                competitionMatch = matchCompetition(preview.title, detail.summary);
-              }
-
-              const article: Article = {
+              const tempArticle: Article = {
                 id,
                 title: preview.title,
                 url: preview.url,
-                section,
+                section: preview.section,
                 publisher: detail.publisher,
                 publishDate: detail.publishDate,
                 location: detail.location,
                 summary: detail.summary,
-                category,
-                matchedKeywords,
-                llmClassified,
-                competitionMatch,
+                category: "待分类",
+                matchedKeywords: [],
+                llmClassified: false,
+                competitionMatch: null,
                 favorite: false,
                 crawledAt: Date.now(),
                 isRead: false,
               };
-
-              allNewArticles.push(article);
-            } catch (err) {
-              if (err instanceof SSOExpiredError) {
-                ssoExpired = true;
-                break;
-              }
+              category = await classifyWithLLM(
+                tempArticle,
+                settings.deepseekApiKey,
+                settings.deepseekModel,
+                categories,
+              );
+              llmClassified = true;
+            } catch {
+              // LLM failed, stay "待分类"
             }
           }
+
+          let competitionMatch: string | null = null;
+          if (category === "比赛") {
+            competitionMatch = matchCompetition(
+              preview.title,
+              detail.summary,
+            );
+          }
+
+          const article: Article = {
+            id,
+            title: preview.title,
+            url: preview.url,
+            section: preview.section,
+            publisher: detail.publisher,
+            publishDate: detail.publishDate,
+            location: detail.location,
+            summary: detail.summary,
+            category,
+            matchedKeywords,
+            llmClassified,
+            competitionMatch,
+            favorite: false,
+            crawledAt: Date.now(),
+            isRead: false,
+          };
+
+          allNewArticles.push(article);
         } catch (err) {
           if (err instanceof SSOExpiredError) {
             ssoExpired = true;

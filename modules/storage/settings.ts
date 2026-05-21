@@ -3,7 +3,7 @@ import type { Settings } from "../types";
 const DEFAULT_SETTINGS: Settings = {
   deepseekApiKey: "",
   deepseekModel: "deepseek-chat",
-  subscriptions: ["学生事务", "荔园生活", "教师事务", "网上服务"],
+  subscriptions: [],
 };
 
 export async function getSettings(): Promise<Settings> {
