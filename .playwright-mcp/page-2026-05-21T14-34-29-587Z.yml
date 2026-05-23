@@ -1,0 +1,208 @@
+- table [ref=e2]:
+  - rowgroup [ref=e3]:
+    - row [ref=e4]:
+      - cell [ref=e5]:
+        - table [ref=e6]:
+          - rowgroup [ref=e7]:
+            - row "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e8]:
+              - cell "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e9]:
+                - table [ref=e10]:
+                  - rowgroup [ref=e11]:
+                    - row "深大主页 English 返回首页" [ref=e12]:
+                      - cell "深大主页 English 返回首页" [ref=e13]:
+                        - table [ref=e14]:
+                          - rowgroup [ref=e15]:
+                            - row "深大主页 English" [ref=e16]:
+                              - cell [ref=e17]
+                              - cell "深大主页 English" [ref=e18]:
+                                - generic [ref=e19]:
+                                  - link "深大主页" [ref=e20] [cursor=pointer]:
+                                    - /url: http://www.szu.edu.cn
+                                  - link "English" [ref=e21] [cursor=pointer]:
+                                    - /url: http://en.szu.edu.cn
+                            - row "返回首页" [ref=e22]:
+                              - cell "返回首页" [ref=e23]:
+                                - link "返回首页" [ref=e24] [cursor=pointer]:
+                                  - /url: /
+                                  - img [ref=e25]
+                              - cell [ref=e26]
+                    - row [ref=e27]:
+                      - cell [ref=e28]
+                    - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e29]:
+                      - cell "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e30]:
+                        - table [ref=e31]:
+                          - rowgroup [ref=e32]:
+                            - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e33]:
+                              - cell "曹韵涵 个人中心｜注销 ｜说明" [ref=e34]:
+                                - img [ref=e35]
+                                - link "曹韵涵 个人中心｜" [ref=e36] [cursor=pointer]:
+                                  - /url: https://authserver.szu.edu.cn/personalInfo
+                                - link "注销" [ref=e37] [cursor=pointer]:
+                                  - /url: /manage/caslogout.asp
+                                - link "｜说明" [ref=e38] [cursor=pointer]:
+                                  - /url: /v.asp?id=136
+                              - cell "首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e39]:
+                                - generic [ref=e40]:
+                                  - link "首 页" [ref=e41] [cursor=pointer]:
+                                    - /url: /
+                                  - text: ｜
+                                  - link "公文通" [ref=e42] [cursor=pointer]:
+                                    - /url: /board
+                                  - text: ｜
+                                  - link "教师事务" [ref=e43] [cursor=pointer]:
+                                    - /url: /view.asp?id=12
+                                  - text: ｜
+                                  - link "学生事务" [ref=e44] [cursor=pointer]:
+                                    - /url: /view.asp?id=13
+                                  - text: ｜
+                                  - link "荔园生活" [ref=e45] [cursor=pointer]:
+                                    - /url: /tv
+                                  - text: ｜
+                                  - link "网上服务" [ref=e46] [cursor=pointer]:
+                                    - /url: /nc
+                              - cell [ref=e47]
+                    - row [ref=e48]:
+                      - cell [ref=e49]
+            - row "校园公文通 首页＞校园公文通" [ref=e50]:
+              - cell "校园公文通" [ref=e51]
+              - cell "首页＞校园公文通" [ref=e52]:
+                - link "首页" [ref=e53] [cursor=pointer]:
+                  - /url: /
+                - text: ＞校园公文通
+            - row [ref=e54]:
+              - cell [ref=e55]
+              - cell [ref=e56]
+            - row [ref=e57]:
+              - cell [ref=e58]:
+                - table [ref=e59]:
+                  - rowgroup [ref=e60]:
+                    - row "关闭窗口｜打印张贴版" [ref=e61]:
+                      - cell "关闭窗口｜打印张贴版" [ref=e62]:
+                        - link "关闭窗口" [ref=e63] [cursor=pointer]:
+                          - /url: javascript:window.close()
+                        - text: ｜
+                        - link "打印张贴版" [ref=e64] [cursor=pointer]:
+                          - /url: print.asp?id=574389
+                    - row [ref=e65]:
+                      - cell [ref=e66]:
+                        - table [ref=e67]:
+                          - rowgroup [ref=e68]:
+                            - row "深圳大学电子商务·启智论坛（第45期）" [ref=e69]:
+                              - cell "深圳大学电子商务·启智论坛（第45期）" [ref=e70]
+                            - row "管理学院 2026/5/18 10:24:00 （曹韵涵 2024363054）" [ref=e71]:
+                              - cell "管理学院 2026/5/18 10:24:00 （曹韵涵 2024363054）" [ref=e72]:
+                                - text: 管理学院 2026/5/18 10:24:00
+                                - text: （曹韵涵 2024363054）
+                            - row [ref=e73]:
+                              - cell [ref=e74]:
+                                - paragraph [ref=e75]:
+                                  - generic [ref=e77]: 讲座题
+                                  - generic [ref=e79]: 目
+                                  - generic [ref=e81]: ：
+                                  - text: "Pricing in Probabilistic Services: Allocation-Dependent versus Fixed Pricing"
+                                - paragraph [ref=e82]:
+                                  - generic [ref=e84]: 主讲嘉
+                                  - generic [ref=e86]: 宾
+                                  - generic [ref=e88]: ：
+                                  - generic [ref=e89]: 汪玉兰
+                                  - generic [ref=e90]: 教授
+                                  - generic [ref=e91]: ，
+                                  - generic [ref=e92]: 香港
+                                  - generic [ref=e93]: 理工
+                                  - generic [ref=e94]: 大学
+                                - paragraph [ref=e95]:
+                                  - generic [ref=e97]: 主持
+                                  - generic [ref=e99]: 人
+                                  - generic [ref=e101]: ：
+                                  - generic [ref=e102]: 马利军
+                                  - generic [ref=e103]: 教授，深圳大学管理学院
+                                - paragraph [ref=e104]:
+                                  - generic [ref=e106]: 时
+                                  - generic [ref=e108]: 间
+                                  - generic [ref=e110]: ：
+                                  - text: "2026"
+                                  - generic [ref=e111]: 年
+                                  - text: "5"
+                                  - generic [ref=e112]: 月
+                                  - text: "22"
+                                  - generic [ref=e113]: 日（周
+                                  - generic [ref=e114]: 五
+                                  - generic [ref=e115]: ）
+                                  - generic [ref=e116]: "9:"
+                                  - text: "00"
+                                  - generic [ref=e117]: "-"
+                                  - text: "1"
+                                  - generic [ref=e118]: "0:"
+                                  - text: "00"
+                                - paragraph [ref=e119]:
+                                  - generic [ref=e121]: 讲座地
+                                  - generic [ref=e123]: 点
+                                  - generic [ref=e125]: ：
+                                  - generic [ref=e126]: 明理楼
+                                  - text: A205
+                                - paragraph [ref=e127]
+                                - paragraph [ref=e128]:
+                                  - generic [ref=e130]: 讲座摘
+                                  - generic [ref=e132]: 要
+                                  - generic [ref=e134]: ：
+                                - paragraph [ref=e135]: "We examine the optimal pricing decisions of a firm offering both dedicated service options and a probabilistic service option, where customers can upfront select multiple services simultaneously and have a chance of eventually being served by one. Customers are heterogeneous in their preferences towards different services. Two pricing schemes for the probabilistic service are considered: an allocation-dependent pricing, where customers pay based on the service they eventually receive, and a fixed pricing, where customers pay a preset price regardless of which type of service they receive. We model the service system as a loss system and characterize the customer equilibrium choice behavior and the firm's optimal pricing decisions under both schemes. Our findings indicate that the introduction of a probabilistic service always enhances the firm profit and improves both service efficiency and quality by enabling finer customer segmentation and exploiting the pooling effect across service facilities. In contrast to fixed pricing, our analysis reveals that under allocation-dependent pricing: (i) all customers can obtain a positive utility; (ii) expanding service capacity does not always benefit the firm and can even reduce its profit; and (iii) providing only probabilistic service, i.e., offering fewer service options to customers, can be beneficial to the firm. Relative to fixed pricing, allocation-dependent pricing results in lower firm profit but a higher surplus to customers. Moreover, offering a probabilistic service creates a win-win outcome for both the firm and its customers under allocation-dependent pricing, whereas it leads to a win-lose outcome when fixed pricing is adopted."
+                                - paragraph [ref=e136]:
+                                  - generic [ref=e138]: 主讲人简
+                                  - generic [ref=e140]: 介
+                                  - generic [ref=e142]: ：
+                                - paragraph [ref=e143]: Yulan Wang is a full professor and associated head (research) of the Department of the Logistics and Maritime Studies at Faculty of Business, the Hong Kong Polytechnic University. She has a broad research interest in supply chain management, socially responsible operations, platform operations, behavioral operations and OM-IS/Marketing interfaces. Her research work has been published and accepted by leading academic journals such as Management Science, Operations Research, Manufacturing & Service Operations Management, Marketing Science and Production and Operations Management. Dr Wang serves as an associate/senior editor of Manufacturing & Service Operations Management, Naval Research Logistics, and Production and Operations Management, and a department/area editor of Decision Sciences and Omega.
+                                - paragraph [ref=e144]:
+                                  - generic [ref=e145]: 深圳大学管理学院电子商务系
+                                - paragraph [ref=e146]:
+                                  - generic [ref=e147]: 2026年5月18日
+                                - paragraph [ref=e148]
+                            - row [ref=e149]:
+                              - cell [ref=e150]
+                            - row "撰稿：林美燕 审核：马利军 （更新于2026/5/19 14:20:00）" [ref=e151]:
+                              - cell "撰稿：林美燕 审核：马利军 （更新于2026/5/19 14:20:00）" [ref=e152]:
+                                - text: 撰稿：林美燕 审核：马利军
+                                - text: （更新于2026/5/19 14:20:00）
+    - row "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e153]:
+      - cell "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e154]:
+        - generic [ref=e155]:
+          - link "深大新闻网" [ref=e156] [cursor=pointer]:
+            - /url: http://news.szu.edu.cn
+          - text: ｜
+          - link "公文通" [ref=e157] [cursor=pointer]:
+            - /url: /board/
+          - text: ｜
+          - link "OA系统" [ref=e158] [cursor=pointer]:
+            - /url: http://210.39.3.155:9090/goLogin.do
+          - text: ｜
+          - link "畅课平台" [ref=e159] [cursor=pointer]:
+            - /url: https://lms.szu.edu.cn
+          - text: ｜
+          - link "院系设置" [ref=e160] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/xbxy.htm
+          - text: ｜
+          - link "职能部门" [ref=e161] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/znbm.htm
+          - text: ｜
+          - link "教师事务" [ref=e162] [cursor=pointer]:
+            - /url: /view.asp?id=12
+          - text: ｜
+          - link "学生事务" [ref=e163] [cursor=pointer]:
+            - /url: /view.asp?id=13
+          - text: ｜
+          - link "网上服务" [ref=e164] [cursor=pointer]:
+            - /url: /nc
+          - text: ｜
+          - link "教工区上网" [ref=e165] [cursor=pointer]:
+            - /url: https://net.szu.edu.cn/
+          - text: ｜
+          - link "合同管理" [ref=e166] [cursor=pointer]:
+            - /url: https://cmp.szu.edu.cn
+          - text: ｜
+          - link "一网通办" [ref=e167] [cursor=pointer]:
+            - /url: https://mk.szu.edu.cn/web/#/1j4jgb14ewnwbc6w2s7sg63en18qp3sqjvw0/sys-portal/1j4ro8gt9wnwobmw1uv6l8b198s5n068gow0
+        - text: 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时)
+        - text: 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188
+        - text: 版权所有©深圳大学信息中心
+        - link "返回顶部" [ref=e169] [cursor=pointer]:
+          - /url: "#top"
+          - img "返回顶部" [ref=e170]

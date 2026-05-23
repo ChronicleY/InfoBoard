@@ -13,7 +13,6 @@ export interface Article {
   competitionMatch: string | null;
   favorite: boolean;
   crawledAt: number;
-  isRead: boolean;
 }
 
 export interface CategoryDef {
@@ -111,7 +110,6 @@ export type Message =
   | { type: "notice:update"; id: string; changes: Partial<Article> }
   | { type: "notice:favorite"; id: string; favorite: boolean }
   | { type: "notice:delete"; id: string }
-  | { type: "notice:read"; id: string; isRead: boolean }
   | { type: "notices:cleanup" }
   | { type: "categories:list" }
   | { type: "categories:save"; categories: CategoryDef[] }

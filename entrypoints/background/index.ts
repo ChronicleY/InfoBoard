@@ -120,16 +120,50 @@ export default defineBackground(() => {
         await addToDeletedIds(message.id);
         return { success: true, data: undefined };
       }
-      case "notice:read": {
-        await updateArticle(message.id, { isRead: message.isRead });
-        return { success: true, data: undefined };
-      }
       case "check:sso": {
         const ok = await checkSSO();
         return { success: true, data: ok };
       }
       default:
         return { success: false, error: "Unknown message type" };
+    }
+  }
+
+  // === Re-classify existing articles with current keyword rules ===
+
+  async function reclassifyExisting(): Promise<void> {
+    const articles = await getArticles();
+    const categories = await getCategories();
+
+    let changed = 0;
+    for (const article of articles) {
+      // Skip LLM-classified articles — only re-classify keyword-based ones
+      if (article.llmClassified) continue;
+
+      const newsMatches = matchNewsKeywords(article.title, article.summary);
+      if (newsMatches) {
+        if (article.category !== "新闻") {
+          article.category = "新闻";
+          article.matchedKeywords = newsMatches;
+          changed++;
+        }
+        continue;
+      }
+
+      const keywordResult = matchByKeywords(article.title, article.summary, categories);
+      if (keywordResult) {
+        const newCategory = keywordResult.category.name;
+        if (article.category !== newCategory) {
+          article.category = newCategory;
+          article.matchedKeywords = keywordResult.matchedKeywords;
+          changed++;
+        }
+      }
+    }
+
+    if (changed > 0) {
+      await saveArticles(articles);
+      console.log(`[crawl] Re-classified ${changed} existing articles`);
     }
   }
 
@@ -144,6 +178,9 @@ export default defineBackground(() => {
     await saveCrawlState({ lastCrawlStatus: "crawling", lastCrawlError: null });
 
     try {
+      // Re-classify existing articles to pick up new categories
+      await reclassifyExisting();
+
       const settings = await getSettings();
       const categories = await getCategories();
       const subscriptions =
@@ -243,7 +280,6 @@ export default defineBackground(() => {
                 competitionMatch: null,
                 favorite: false,
                 crawledAt: Date.now(),
-                isRead: false,
               };
               category = await classifyWithLLM(
                 tempArticle,
@@ -280,7 +316,6 @@ export default defineBackground(() => {
             competitionMatch,
             favorite: false,
             crawledAt: Date.now(),
-            isRead: false,
           };
 
           allNewArticles.push(article);

@@ -12,15 +12,12 @@ interface NoticeCardProps {
 
 export default function NoticeCard({ article, expanded, onToggleExpand, onReclassify, onRefresh }: NoticeCardProps) {
   const [favorite, setFavorite] = useState(article.favorite);
-  const [isRead, setIsRead] = useState(article.isRead);
   const [showMenu, setShowMenu] = useState(false);
   const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
 
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wasLongPress = useRef(false);
 
-  // -- Long press detection --
   const startPress = (clientX: number, clientY: number) => {
     wasLongPress.current = false;
     longPressTimer.current = setTimeout(() => {
@@ -46,35 +43,15 @@ export default function NoticeCard({ article, expanded, onToggleExpand, onReclas
     if (touch) startPress(touch.clientX, touch.clientY);
   };
 
-  // -- Click vs double-click --
   const handleCardClick = () => {
     endPress();
     if (wasLongPress.current) {
       wasLongPress.current = false;
       return;
     }
-
-    if (clickTimer.current) {
-      // Double click → expand
-      clearTimeout(clickTimer.current);
-      clickTimer.current = null;
-      onToggleExpand(article.id);
-    } else {
-      // Single click → toggle read (after delay)
-      clickTimer.current = setTimeout(() => {
-        clickTimer.current = null;
-        handleToggleRead();
-      }, 300);
-    }
+    onToggleExpand(article.id);
   };
 
-  const handleToggleRead = async () => {
-    const newRead = !isRead;
-    setIsRead(newRead);
-    await chrome.runtime.sendMessage({ type: "notice:read", id: article.id, isRead: newRead });
-  };
-
-  // -- Favorite --
   const handleFavorite = async (e: React.MouseEvent) => {
     e.stopPropagation();
     const newFav = !favorite;
@@ -83,13 +60,11 @@ export default function NoticeCard({ article, expanded, onToggleExpand, onReclas
     onRefresh();
   };
 
-  // -- Open link --
   const handleOpenLink = (e: React.MouseEvent) => {
     e.stopPropagation();
     chrome.tabs.create({ url: article.url });
   };
 
-  // -- Context menu actions --
   const handleDelete = async () => {
     await chrome.runtime.sendMessage({ type: "notice:delete", id: article.id });
     setShowMenu(false);
@@ -109,7 +84,7 @@ export default function NoticeCard({ article, expanded, onToggleExpand, onReclas
   return (
     <>
       <div
-        className={`border border-card-border rounded-lg bg-white hover:shadow-sm transition-shadow cursor-pointer ${isRead ? "opacity-50" : ""}`}
+        className="border border-card-border rounded-lg bg-white hover:shadow-sm transition-shadow cursor-pointer"
         onClick={handleCardClick}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}

@@ -1,0 +1,37 @@
+- generic [ref=e5]:
+  - generic [ref=e6]:
+    - generic "统一身份认证" [ref=e9]
+    - button "简体中文" [ref=e12]:
+      - generic [ref=e13]: 简体中文
+  - generic [ref=e16]:
+    - generic:
+      - generic:
+        - form [ref=e20]:
+          - img [ref=e23]
+        - paragraph [ref=e25]: 企业微信扫码
+      - link "使用说明" [ref=e26] [cursor=pointer]:
+        - /url: https://www1.szu.edu.cn/v.asp?id=191
+    - generic [ref=e29]:
+      - generic "账号登录" [ref=e31] [cursor=pointer]:
+        - link "账号登录" [ref=e32]:
+          - /url: javascript:void(0)
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - textbox "请输入学号/工号" [active] [ref=e41]
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - textbox "请输入密码" [ref=e44]
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - checkbox [ref=e48]
+              - generic [ref=e49]: 7天免登录
+              - img [ref=e51]
+            - generic [ref=e52]:
+              - link "账号激活" [ref=e53] [cursor=pointer]:
+                - /url: https://authserver.szu.edu.cn/retrieve-password/accountActivation/index.html?service=http%3A%2F%2Fwww1.szu.edu.cn%2Fmanage%2Fcaslogin.asp%3Frurl%3D%252Fboard%252F
+              - link "忘记密码" [ref=e55] [cursor=pointer]:
+                - /url: https://authserver.szu.edu.cn/retrieve-password/retrievePassword/index.html?service=http%3A%2F%2Fwww1.szu.edu.cn%2Fmanage%2Fcaslogin.asp%3Frurl%3D%252Fboard%252F
+        - link "登录" [ref=e58] [cursor=pointer]:
+          - /url: javascript:void(0);

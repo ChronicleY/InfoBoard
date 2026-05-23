@@ -1,0 +1,508 @@
+- generic [active] [ref=e1]:
+  - table [ref=e2]:
+    - rowgroup [ref=e3]:
+      - row "深大主页 English 曹韵涵 个人中心｜注销 ｜说明 校园公文通 《授权须知》 重要通知 ｜ 深大新闻 ｜ 学术讲座 2026年5月21日 星期四 本学期第11周 (查看校历) 教师事务 学生事务 荔园生活 网上服务 · 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多…… · UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多…… · 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多…… · 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e4]:
+        - cell "深大主页 English 曹韵涵 个人中心｜注销 ｜说明 校园公文通 《授权须知》 重要通知 ｜ 深大新闻 ｜ 学术讲座 2026年5月21日 星期四 本学期第11周 (查看校历) 教师事务 学生事务 荔园生活 网上服务 · 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多…… · UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多…… · 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多…… · 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e5]:
+          - table [ref=e6]:
+            - rowgroup [ref=e7]:
+              - row "深大主页 English" [ref=e8]:
+                - cell [ref=e9]
+                - cell "深大主页 English" [ref=e10]:
+                  - generic [ref=e11]:
+                    - link "深大主页" [ref=e12] [cursor=pointer]:
+                      - /url: http://www.szu.edu.cn
+                    - link "English" [ref=e13] [cursor=pointer]:
+                      - /url: http://en.szu.edu.cn
+              - row [ref=e14]:
+                - cell [ref=e15]:
+                  - img [ref=e16]
+                - cell [ref=e17]
+              - row "曹韵涵 个人中心｜注销 ｜说明 校园公文通 《授权须知》 重要通知 ｜ 深大新闻 ｜ 学术讲座 2026年5月21日 星期四 本学期第11周 (查看校历) 教师事务 学生事务 荔园生活 网上服务 · 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多…… · UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多…… · 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多…… · 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e18]:
+                - cell "曹韵涵 个人中心｜注销 ｜说明 校园公文通 《授权须知》 重要通知 ｜ 深大新闻 ｜ 学术讲座 2026年5月21日 星期四 本学期第11周 (查看校历)" [ref=e19]:
+                  - table [ref=e20]:
+                    - rowgroup [ref=e21]:
+                      - row "曹韵涵 个人中心｜注销 ｜说明" [ref=e22]:
+                        - cell "曹韵涵 个人中心｜注销 ｜说明" [ref=e23]:
+                          - img [ref=e24]
+                          - link "曹韵涵 个人中心｜" [ref=e25] [cursor=pointer]:
+                            - /url: https://authserver.szu.edu.cn/personalInfo
+                          - link "注销" [ref=e26] [cursor=pointer]:
+                            - /url: /manage/caslogout.asp
+                          - text: ｜
+                          - link "说明" [ref=e27] [cursor=pointer]:
+                            - /url: v.asp?id=191
+                      - row "校园公文通 《授权须知》" [ref=e28]:
+                        - cell "校园公文通 《授权须知》" [ref=e29]:
+                          - table [ref=e30]:
+                            - rowgroup [ref=e31]:
+                              - row "校园公文通 《授权须知》" [ref=e32]:
+                                - cell "校园公文通 《授权须知》" [ref=e33]:
+                                  - group "校园公文通 《授权须知》" [ref=e34]:
+                                    - generic [ref=e35]:
+                                      - text: 校园公文通
+                                      - link "《授权须知》" [ref=e36] [cursor=pointer]:
+                                        - /url: /nc/view.asp?id=649
+                                    - table [ref=e37]:
+                                      - rowgroup [ref=e38]:
+                                        - row "阅览用户 进入公文通" [ref=e39]:
+                                          - cell "阅览用户" [ref=e40]:
+                                            - combobox [ref=e41]:
+                                              - option "阅览用户" [selected]
+                                              - option "0.授权用户"
+                                              - option "1.党政办公室"
+                                              - option "2.组织部"
+                                              - option "3.统战部"
+                                              - option "4.宣传部"
+                                              - option "5.纪检（监察）室"
+                                              - option "6.校工会"
+                                              - option "7.妇女委员会"
+                                              - option "8.校团委"
+                                              - option "9.校团委学生组织"
+                                              - option "10.教务部"
+                                              - option "11.招生办公室"
+                                              - option "12.创新创业教育中心"
+                                              - option "13.继续教育管理办公室"
+                                              - option "14.研究生院"
+                                              - option "15.发展规划部"
+                                              - option "16.社会科学部"
+                                              - option "17.学报社科版"
+                                              - option "18.科学技术发展研究院"
+                                              - option "19.学报理工版"
+                                              - option "20.学生部"
+                                              - option "21.党委学工部"
+                                              - option "22.沧海学生社区管理委员会"
+                                              - option "23.时光学生社区管理委员会"
+                                              - option "24.文山湖学生社区管理委员会"
+                                              - option "25.惟品学生社区管理委员会"
+                                              - option "26.洗星学生社区管理委员会"
+                                              - option "27.国际交流与合作部"
+                                              - option "28.人力资源部"
+                                              - option "29.党委教师工作部"
+                                              - option "30.计划财务部"
+                                              - option "31.招投标管理中心"
+                                              - option "32.实验室与国有资产管理部"
+                                              - option "33.审计室"
+                                              - option "34.后勤保障部"
+                                              - option "35.后勤保障部党委"
+                                              - option "36.安全保卫部"
+                                              - option "37.离退休办公室"
+                                              - option "38.校友联络部（教育发展基金会）"
+                                              - option "39.机关党委"
+                                              - option "40.丽湖校区管理办公室"
+                                              - option "41.合规建设领导小组办公室"
+                                              - option "42.教育学部"
+                                              - option "43.艺术学部"
+                                              - option "44.医学部"
+                                              - option "45.马克思主义学院"
+                                              - option "46.经济学院"
+                                              - option "47.法学院"
+                                              - option "48.心理学院"
+                                              - option "49.体育学院"
+                                              - option "50.人文学院"
+                                              - option "51.外国语学院"
+                                              - option "52.传播学院"
+                                              - option "53.数学科学学院"
+                                              - option "54.物理与光电工程学院"
+                                              - option "55.化学与环境工程学院"
+                                              - option "56.生命与海洋科学学院"
+                                              - option "57.机电与控制工程学院"
+                                              - option "58.材料学院"
+                                              - option "59.电子与信息工程学院"
+                                              - option "60.计算机与软件学院"
+                                              - option "61.人工智能学院"
+                                              - option "62.建筑与城市规划学院"
+                                              - option "63.土木与交通工程学院"
+                                              - option "64.管理学院"
+                                              - option "65.政府管理学院"
+                                              - option "66.高等研究院"
+                                              - option "67.金融科技学院"
+                                              - option "68.国际交流学院"
+                                              - option "69.继续教育学院"
+                                              - option "70.图书馆"
+                                              - option "71.图书馆党总支"
+                                              - option "72.档案馆"
+                                              - option "73.信息中心"
+                                              - option "74.信息中心党总支"
+                                              - option "75.资产经营公司"
+                                              - option "76.技术转化中心"
+                                              - option "77.深大总医院"
+                                              - option "78.深大附属华南医院"
+                                              - option "79.深大直属口腔医院筹建办公室"
+                                              - option "80.校医院"
+                                              - option "81.附属教育集团"
+                                              - option "82.深大附属中学"
+                                              - option "83.深大附属实验中学"
+                                              - option "84.射频异质异构集成全国重点实验室"
+                                              - option "85.人工智能与数字经济广东省实验室（深圳）"
+                                              - option "86.深圳香蜜湖国际金融科技研究院"
+                                              - option "87.大数据系统计算技术国家工程实验室"
+                                              - option "88.微纳光电子学研究院"
+                                              - option "89.中国经济特区研究中心"
+                                              - option "90.港澳基本法研究中心"
+                                              - option "91.文化产业研究院"
+                                              - option "92.美学与文艺批评研究院"
+                                              - option "93.饶宗颐文化研究院"
+                                              - option "94.区域国别与国际传播研究院"
+                                              - option "95.创新技术研究院"
+                                              - option "96.心理健康教育与咨询中心"
+                                              - option "97.明德书院"
+                                              - option "98.深圳大学医院管理委员会"
+                                          - cell "进入公文通" [ref=e42]:
+                                            - button "进入公文通" [ref=e44]
+                      - row "重要通知 ｜ 深大新闻 ｜ 学术讲座" [ref=e45]:
+                        - cell "重要通知 ｜ 深大新闻 ｜ 学术讲座" [ref=e46]:
+                          - table [ref=e47]:
+                            - rowgroup [ref=e48]:
+                              - row "重要通知 ｜ 深大新闻 ｜ 学术讲座" [ref=e49]:
+                                - cell "重要通知 ｜ 深大新闻 ｜ 学术讲座" [ref=e50]:
+                                  - text: 重要通知 ｜
+                                  - link "深大新闻" [ref=e51] [cursor=pointer]:
+                                    - /url: https://news.szu.edu.cn/sdyw.htm
+                                  - text: ｜
+                                  - link "学术讲座" [ref=e52] [cursor=pointer]:
+                                    - /url: board/infolist.asp?infotype=讲座
+                              - row [ref=e53]:
+                                - cell [ref=e54]:
+                                  - iframe [ref=e55]:
+                                    - table [ref=f1e2]:
+                                      - rowgroup [ref=f1e3]:
+                                        - row "·[专栏] 学习贯彻党的二十届四中全会精神 ·[专栏] 树立和践行正确政绩观学习教育" [ref=f1e4]:
+                                          - cell "·[专栏] 学习贯彻党的二十届四中全会精神 ·[专栏] 树立和践行正确政绩观学习教育" [ref=f1e5]:
+                                            - paragraph [ref=f1e6]:
+                                              - generic [ref=f1e7]: ·[专栏]
+                                              - link "学习贯彻党的二十届四中全会精神" [ref=f1e8] [cursor=pointer]:
+                                                - /url: https://news.szu.edu.cn/zttj/xxgcddesjszqhjs1/xxzd.htm
+                                                - strong [ref=f1e10]: 学习贯彻党的二十届四中全会精神
+                                              - generic [ref=f1e11]: ·
+                                              - generic [ref=f1e12]: "[专栏]"
+                                              - link "树立和践行正确政绩观学习教育" [ref=f1e13] [cursor=pointer]:
+                                                - /url: https://news.szu.edu.cn/zttj/slhjxzqzjgxxjy/xxzl.htm
+                                                - generic [ref=f1e14]: 树立和践行正确政绩观学习教育
+                                        - row "·[行政]关于召开深圳大学第九届教职工代表大会第三次…" [ref=f1e15]:
+                                          - cell "·[行政]关于召开深圳大学第九届教职工代表大会第三次…" [ref=f1e16]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e17] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "关于召开深圳大学第九届教职工代表大会第三次…" [ref=f1e18] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574650
+                                        - row "·[行政]关于召开2026年5月份基层党委 （总支）…" [ref=f1e19]:
+                                          - cell "·[行政]关于召开2026年5月份基层党委 （总支）…" [ref=f1e20]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e21] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "关于召开2026年5月份基层党委 （总支）…" [ref=f1e22] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574669
+                                        - row "·[行政]关于编报2027年部门预算的通知（内容有更…" [ref=f1e23]:
+                                          - cell "·[行政]关于编报2027年部门预算的通知（内容有更…" [ref=f1e24]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e25] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "关于编报2027年部门预算的通知（内容有更…" [ref=f1e26] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574091
+                                        - row "·[教务]关于2026年上半年全国大学英语四、六级口…" [ref=f1e27]:
+                                          - cell "·[教务]关于2026年上半年全国大学英语四、六级口…" [ref=f1e28]:
+                                            - text: ·
+                                            - link "[教务]" [ref=f1e29] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=教务
+                                            - link "关于2026年上半年全国大学英语四、六级口…" [ref=f1e30] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=573800
+                                        - row "·[行政]关于报送《深圳大学年鉴（2025）》资料的…" [ref=f1e31]:
+                                          - cell "·[行政]关于报送《深圳大学年鉴（2025）》资料的…" [ref=f1e32]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e33] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "关于报送《深圳大学年鉴（2025）》资料的…" [ref=f1e34] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574596
+                                        - row "·[行政]关于转发广东省教育厅开展2026年全国优秀…" [ref=f1e35]:
+                                          - cell "·[行政]关于转发广东省教育厅开展2026年全国优秀…" [ref=f1e36]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e37] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "关于转发广东省教育厅开展2026年全国优秀…" [ref=f1e38] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574761
+                                        - row "·[行政]信息中心关于汇研楼节点汇聚设备升级的通知" [ref=f1e39]:
+                                          - cell "·[行政]信息中心关于汇研楼节点汇聚设备升级的通知" [ref=f1e40]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e41] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "信息中心关于汇研楼节点汇聚设备升级的通知" [ref=f1e42] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574760
+                                        - row "·[行政]深圳大学法学院学生党支部集中开展树立和践行…" [ref=f1e43]:
+                                          - cell "·[行政]深圳大学法学院学生党支部集中开展树立和践行…" [ref=f1e44]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e45] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "深圳大学法学院学生党支部集中开展树立和践行…" [ref=f1e46] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574601
+                                        - row "·[行政]关于开展“荔园党建工作坊”第十四期的通知" [ref=f1e47]:
+                                          - cell "·[行政]关于开展“荔园党建工作坊”第十四期的通知" [ref=f1e48]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e49] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "关于开展“荔园党建工作坊”第十四期的通知" [ref=f1e50] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574440
+                                        - row "·[行政]会议通知" [ref=f1e51]:
+                                          - cell "·[行政]会议通知" [ref=f1e52]:
+                                            - text: ·
+                                            - link "[行政]" [ref=f1e53] [cursor=pointer]:
+                                              - /url: /board/infolist.asp?infotype=行政
+                                            - link "会议通知" [ref=f1e54] [cursor=pointer]:
+                                              - /url: /board/view.asp?id=574138
+                      - row "2026年5月21日 星期四 本学期第11周 (查看校历)" [ref=e56]:
+                        - cell "2026年5月21日 星期四 本学期第11周 (查看校历)" [ref=e57] [cursor=pointer]
+                      - row [ref=e58]:
+                        - cell [ref=e59]
+                - cell "教师事务 学生事务 荔园生活 网上服务 · 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多…… · UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多…… · 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多…… · 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e60]:
+                  - table [ref=e61]:
+                    - rowgroup [ref=e62]:
+                      - row "教师事务 学生事务 荔园生活 网上服务" [ref=e63]:
+                        - cell "教师事务" [ref=e64] [cursor=pointer]
+                        - cell "学生事务" [ref=e65] [cursor=pointer]
+                        - cell "荔园生活" [ref=e66] [cursor=pointer]
+                        - cell "网上服务" [ref=e67] [cursor=pointer]
+                      - row "· 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多…… · UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多…… · 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多…… · 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e68]:
+                        - cell "· 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多……" [ref=e69]:
+                          - table [ref=e70]:
+                            - rowgroup [ref=e71]:
+                              - row "· 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多……" [ref=e72]:
+                                - cell "· 办事大厅 · 教师邮箱@ · 畅课平台 · OA系统 · 教务部 · 研究生院 · 科学技术 · 社会科学 · 人力资源 · 实验设备 · 财务服务 · 招标采购 显示更多……" [ref=e73]:
+                                  - text: ·
+                                  - link "办事大厅" [ref=e74] [cursor=pointer]:
+                                    - /url: http://ehall.szu.edu.cn
+                                  - text: ·
+                                  - link "教师邮箱@" [ref=e75] [cursor=pointer]:
+                                    - /url: /go/?title=教师邮箱&url=https://mail.szu.edu.cn
+                                  - text: ·
+                                  - link "畅课平台" [ref=e76] [cursor=pointer]:
+                                    - /url: https://lms.szu.edu.cn
+                                  - text: ·
+                                  - link "OA系统" [ref=e77] [cursor=pointer]:
+                                    - /url: /go/?title=OA系统&url=http://210.39.3.155:9090/goLogin.do
+                                  - text: ·
+                                  - link "教务部" [ref=e78] [cursor=pointer]:
+                                    - /url: /go/?title=教务部&url=https://jwb.szu.edu.cn/
+                                  - text: ·
+                                  - link "研究生院" [ref=e79] [cursor=pointer]:
+                                    - /url: /go/?title=研究生院&url=http://gra.szu.edu.cn
+                                  - text: ·
+                                  - link "科学技术" [ref=e80] [cursor=pointer]:
+                                    - /url: /go/?title=科学技术部&url=http://kjb.szu.edu.cn
+                                  - text: ·
+                                  - link "社会科学" [ref=e81] [cursor=pointer]:
+                                    - /url: /go/?title=社会科学部&url=http://skb.szu.edu.cn
+                                  - text: ·
+                                  - link "人力资源" [ref=e82] [cursor=pointer]:
+                                    - /url: /go/?title=人力资源部&url=http://hr.szu.edu.cn
+                                  - text: ·
+                                  - link "实验设备" [ref=e83] [cursor=pointer]:
+                                    - /url: /go/?title=实验设备&url=http://sbc.szu.edu.cn
+                                  - text: ·
+                                  - link "财务服务" [ref=e84] [cursor=pointer]:
+                                    - /url: /go/?title=财务服务&url=http://cwpt.szu.edu.cn:6090/api/logcas/checkTicket
+                                  - text: ·
+                                  - link "招标采购" [ref=e85] [cursor=pointer]:
+                                    - /url: /go/?title=招标采购&url=http://bidding.szu.edu.cn
+                                  - link "显示更多……" [ref=e86] [cursor=pointer]:
+                                    - /url: view.asp?id=12
+                                    - img "显示更多……" [ref=e87]
+                        - cell "· UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多……" [ref=e88]:
+                          - table [ref=e89]:
+                            - rowgroup [ref=e90]:
+                              - row "· UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多……" [ref=e91]:
+                                - cell "· UOOC课程 · 学生邮箱@ · 本科生选课 · 研究生选课 · 学生工作 · 事务中心 · 心理咨询 · 缴学杂费 · 考研考博 · 就业指导 · 本科生成绩 · 研究生成绩 显示更多……" [ref=e92]:
+                                  - text: ·
+                                  - link "UOOC课程" [ref=e93] [cursor=pointer]:
+                                    - /url: /go/?title=UOOC课程&url=http://www.uooc.net.cn/
+                                  - text: ·
+                                  - link "学生邮箱@" [ref=e94] [cursor=pointer]:
+                                    - /url: /go/?title=学生邮箱&url=/nc/view.asp?id=633
+                                  - text: ·
+                                  - link "本科生选课" [ref=e95] [cursor=pointer]:
+                                    - /url: /go/?title=本科生选课&url=http://bkxk.szu.edu.cn/xsxkapp/sys/xsxkapp/*default/index.do
+                                  - text: ·
+                                  - link "研究生选课" [ref=e96] [cursor=pointer]:
+                                    - /url: /go/?title=研究生选课&url=http://ehall.szu.edu.cn/yjsxkapp/sys/xsxkapp/*default/index.do
+                                  - text: ·
+                                  - link "学生工作" [ref=e97] [cursor=pointer]:
+                                    - /url: /go/?title=学生工作&url=http://xsb.szu.edu.cn
+                                  - text: ·
+                                  - link "事务中心" [ref=e98] [cursor=pointer]:
+                                    - /url: /go/?title=事务中心&url=http://swzx.szu.edu.cn
+                                  - text: ·
+                                  - link "心理咨询" [ref=e99] [cursor=pointer]:
+                                    - /url: /go/?title=心理咨询&url=http://xinli.szu.edu.cn
+                                  - text: ·
+                                  - link "缴学杂费" [ref=e100] [cursor=pointer]:
+                                    - /url: /go/?title=缴学杂费&url=http://cwxssf.szu.edu.cn/wsyh/casLogin_zf.aspx
+                                  - text: ·
+                                  - link "考研考博" [ref=e101] [cursor=pointer]:
+                                    - /url: /go/?title=考研考博&url=http://yz.szu.edu.cn
+                                  - text: ·
+                                  - link "就业指导" [ref=e102] [cursor=pointer]:
+                                    - /url: /go/?title=就业指导&url=https://jobszu.jysd.com
+                                  - text: ·
+                                  - link "本科生成绩" [ref=e103] [cursor=pointer]:
+                                    - /url: /go/?title=自助打印&url=https%3A%2F%2Fcjzm.szu.edu.cn%2FgztcyCmsCAS%2F
+                                  - text: ·
+                                  - link "研究生成绩" [ref=e104] [cursor=pointer]:
+                                    - /url: /go/?title=自助打印&url=https%3A%2F%2Fjwzzfw.szu.edu.cn%2Fwec-self-print-app-console%2Fapp%2Flogin%2FIDS%3Ftype%3D2%26returnUrl%3D%252Fmobile%252FitemList
+                                  - link "显示更多……" [ref=e105] [cursor=pointer]:
+                                    - /url: view.asp?id=13
+                                    - img "显示更多……" [ref=e106]
+                        - cell "· 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多……" [ref=e107]:
+                          - table [ref=e108]:
+                            - rowgroup [ref=e109]:
+                              - row "· 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多……" [ref=e110]:
+                                - cell "· 一网通办 · 创新创业 · 团学表彰 · 工会活动 · 学生活动 · 缤纷荔园 · 校园融媒 · 体育场馆 · 勤工助学 · 国际交流 · 总 医 院 · 华南医院 显示更多……" [ref=e111]:
+                                  - text: ·
+                                  - link "一网通办" [ref=e112] [cursor=pointer]:
+                                    - /url: https://mk.szu.edu.cn/web/#/1j4jgb14ewnwbc6w2s7sg63en18qp3sqjvw0/sys-portal/1j4ro8gt9wnwobmw1uv6l8b198s5n068gow0
+                                  - text: ·
+                                  - link "创新创业" [ref=e113] [cursor=pointer]:
+                                    - /url: /go/?title=创新创业&url=https://cxcy.szu.edu.cn/
+                                  - text: ·
+                                  - link "团学表彰" [ref=e114] [cursor=pointer]:
+                                    - /url: http://txbz.szu.edu.cn:8082/
+                                  - text: ·
+                                  - link "工会活动" [ref=e115] [cursor=pointer]:
+                                    - /url: /go/?title=工会活动&url=https://sdgh.szu.edu.cn/
+                                  - text: ·
+                                  - link "学生活动" [ref=e116] [cursor=pointer]:
+                                    - /url: /go/?title=学生活动&url=http://www.szu.edu.cn/xysh1/xshd.htm
+                                  - text: ·
+                                  - link "缤纷荔园" [ref=e117] [cursor=pointer]:
+                                    - /url: /go/?title=缤纷荔园&url=https://news.szu.edu.cn/bfly.htm
+                                  - text: ·
+                                  - link "校园融媒" [ref=e118] [cursor=pointer]:
+                                    - /url: /go/?title=校级融媒&url=https://news.szu.edu.cn/xyrm/rmtjz.htm
+                                  - text: ·
+                                  - link "体育场馆" [ref=e119] [cursor=pointer]:
+                                    - /url: /go/?title=体育场馆&url=/v.asp?id=185
+                                  - text: ·
+                                  - link "勤工助学" [ref=e120] [cursor=pointer]:
+                                    - /url: /go/?title=勤工助学&url=https://xsfw.szu.edu.cn/xgfw/sys/qgzxapp/*default/index.do
+                                  - text: ·
+                                  - link "国际交流" [ref=e121] [cursor=pointer]:
+                                    - /url: http://io.szu.edu.cn
+                                  - text: ·
+                                  - link "总 医 院" [ref=e122] [cursor=pointer]:
+                                    - /url: /go/?title=总医院&url=http://sugh.szu.edu.cn
+                                  - text: ·
+                                  - link "华南医院" [ref=e123] [cursor=pointer]:
+                                    - /url: /go/?title=华南医院&url=http://sch.szu.edu.cn
+                                  - link "显示更多……" [ref=e124] [cursor=pointer]:
+                                    - /url: tv
+                                    - img "显示更多……" [ref=e125]
+                        - cell "· 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e126]:
+                          - table [ref=e127]:
+                            - rowgroup [ref=e128]:
+                              - row "· 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e129]:
+                                - cell "· 图 书 馆 · 信息服务 · 校务速办 · 会议室申请 · 校史馆预约 · 校 园 卡 · 故障报修 · 失物招领 · 后勤保障 · 正版软件 · 基 金 会 · 中行网银 显示更多……" [ref=e130]:
+                                  - text: ·
+                                  - link "图 书 馆" [ref=e131] [cursor=pointer]:
+                                    - /url: /go/?title=图书馆&url=http://www.lib.szu.edu.cn
+                                  - text: ·
+                                  - link "信息服务" [ref=e132] [cursor=pointer]:
+                                    - /url: /go/?title=校园网络&url=/nc
+                                  - text: ·
+                                  - link "校务速办" [ref=e133] [cursor=pointer]:
+                                    - /url: /go/?title=校务速办&url=http://xw.szu.edu.cn
+                                  - text: ·
+                                  - link "会议室申请" [ref=e134] [cursor=pointer]:
+                                    - /url: /go/?title=会议室申请&url=/meeting
+                                  - text: ·
+                                  - link "校史馆预约" [ref=e135] [cursor=pointer]:
+                                    - /url: /go/?title=校史馆预约&url=%2Fmeeting%2F%3F%23xsg
+                                  - text: ·
+                                  - link "校 园 卡" [ref=e136] [cursor=pointer]:
+                                    - /url: /go/?title=校园卡&url=http://card.szu.edu.cn
+                                  - text: ·
+                                  - link "故障报修" [ref=e137] [cursor=pointer]:
+                                    - /url: /go/?title=故障报修&url=/view.asp?id=9
+                                  - text: ·
+                                  - link "失物招领" [ref=e138] [cursor=pointer]:
+                                    - /url: /go/?title=失物招领&url=/lostfound
+                                  - text: ·
+                                  - link "后勤保障" [ref=e139] [cursor=pointer]:
+                                    - /url: /go/?title=后勤服务&url=http://hqb.szu.edu.cn
+                                  - text: ·
+                                  - link "正版软件" [ref=e140] [cursor=pointer]:
+                                    - /url: /go/?title=正版软件&url=http://ms.szu.edu.cn
+                                  - text: ·
+                                  - link "基 金 会" [ref=e141] [cursor=pointer]:
+                                    - /url: /go/?title=基金会&url=http://edf.szu.edu.cn/
+                                  - text: ·
+                                  - link "中行网银" [ref=e142] [cursor=pointer]:
+                                    - /url: /go/?title=中行网银&url=http://www.boc.cn/
+                                  - link "显示更多……" [ref=e143] [cursor=pointer]:
+                                    - /url: nc
+                                    - img "显示更多……" [ref=e144]
+                      - row [ref=e145]:
+                        - cell [ref=e146]
+                        - cell [ref=e147]
+                        - cell [ref=e148]
+                        - cell [ref=e149]
+      - row [ref=e150]:
+        - cell [ref=e151]
+      - row "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e152]:
+        - cell "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e153]:
+          - generic [ref=e154]:
+            - link "深大新闻网" [ref=e155] [cursor=pointer]:
+              - /url: http://news.szu.edu.cn
+            - text: ｜
+            - link "公文通" [ref=e156] [cursor=pointer]:
+              - /url: /board/
+            - text: ｜
+            - link "OA系统" [ref=e157] [cursor=pointer]:
+              - /url: http://210.39.3.155:9090/goLogin.do
+            - text: ｜
+            - link "畅课平台" [ref=e158] [cursor=pointer]:
+              - /url: https://lms.szu.edu.cn
+            - text: ｜
+            - link "院系设置" [ref=e159] [cursor=pointer]:
+              - /url: http://www.szu.edu.cn/yxjg/xbxy.htm
+            - text: ｜
+            - link "职能部门" [ref=e160] [cursor=pointer]:
+              - /url: http://www.szu.edu.cn/yxjg/znbm.htm
+            - text: ｜
+            - link "教师事务" [ref=e161] [cursor=pointer]:
+              - /url: /view.asp?id=12
+            - text: ｜
+            - link "学生事务" [ref=e162] [cursor=pointer]:
+              - /url: /view.asp?id=13
+            - text: ｜
+            - link "网上服务" [ref=e163] [cursor=pointer]:
+              - /url: /nc
+            - text: ｜
+            - link "教工区上网" [ref=e164] [cursor=pointer]:
+              - /url: https://net.szu.edu.cn/
+            - text: ｜
+            - link "合同管理" [ref=e165] [cursor=pointer]:
+              - /url: https://cmp.szu.edu.cn
+            - text: ｜
+            - link "一网通办" [ref=e166] [cursor=pointer]:
+              - /url: https://mk.szu.edu.cn/web/#/1j4jgb14ewnwbc6w2s7sg63en18qp3sqjvw0/sys-portal/1j4ro8gt9wnwobmw1uv6l8b198s5n068gow0
+          - text: 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时)
+          - text: 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188
+          - text: 版权所有©深圳大学信息中心
+          - link "返回顶部" [ref=e168] [cursor=pointer]:
+            - /url: "#top"
+            - img "返回顶部" [ref=e169]
+  - table [ref=e171]:
+    - rowgroup [ref=e172]:
+      - row "移动应用平台(企微) 深大企微平台 UOOC优课联盟 UOOC课程平台 校务速办 校务速办" [ref=e173]:
+        - cell "移动应用平台(企微) 深大企微平台" [ref=e174]:
+          - link "移动应用平台(企微) 深大企微平台" [ref=e175] [cursor=pointer]:
+            - /url: /go/?title=深大企微&url=/nc/view.asp?id=624
+            - img "移动应用平台(企微)" [ref=e176]
+            - text: 深大企微平台
+        - cell "UOOC优课联盟 UOOC课程平台" [ref=e177]:
+          - link "UOOC优课联盟 UOOC课程平台" [ref=e178] [cursor=pointer]:
+            - /url: /go/?title=UOOC课程&url=http://www.uooc.net.cn/
+            - img "UOOC优课联盟" [ref=e179]
+            - text: UOOC课程平台
+        - cell "校务速办 校务速办" [ref=e180]:
+          - link "校务速办 校务速办" [ref=e181] [cursor=pointer]:
+            - /url: /go/?title=校务速办&url=http://xw.szu.edu.cn
+            - img "校务速办" [ref=e182]
+            - text: 校务速办

@@ -1,0 +1,290 @@
+- table [ref=e2]:
+  - rowgroup [ref=e3]:
+    - row "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e4]:
+      - cell "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e5]:
+        - table [ref=e6]:
+          - rowgroup [ref=e7]:
+            - row "深大主页 English 返回首页" [ref=e8]:
+              - cell "深大主页 English 返回首页" [ref=e9]:
+                - table [ref=e10]:
+                  - rowgroup [ref=e11]:
+                    - row "深大主页 English" [ref=e12]:
+                      - cell [ref=e13]
+                      - cell "深大主页 English" [ref=e14]:
+                        - generic [ref=e15]:
+                          - link "深大主页" [ref=e16] [cursor=pointer]:
+                            - /url: http://www.szu.edu.cn
+                          - link "English" [ref=e17] [cursor=pointer]:
+                            - /url: http://en.szu.edu.cn
+                    - row "返回首页" [ref=e18]:
+                      - cell "返回首页" [ref=e19]:
+                        - link "返回首页" [ref=e20] [cursor=pointer]:
+                          - /url: /
+                          - img [ref=e21]
+                      - cell [ref=e22]
+            - row [ref=e23]:
+              - cell [ref=e24]
+            - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e25]:
+              - cell "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e26]:
+                - table [ref=e27]:
+                  - rowgroup [ref=e28]:
+                    - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e29]:
+                      - cell "曹韵涵 个人中心｜注销 ｜说明" [ref=e30]:
+                        - img [ref=e31]
+                        - link "曹韵涵 个人中心｜" [ref=e32] [cursor=pointer]:
+                          - /url: https://authserver.szu.edu.cn/personalInfo
+                        - link "注销" [ref=e33] [cursor=pointer]:
+                          - /url: /manage/caslogout.asp
+                        - link "｜说明" [ref=e34] [cursor=pointer]:
+                          - /url: /v.asp?id=191
+                      - cell "首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e35]:
+                        - generic [ref=e36]:
+                          - link "首 页" [ref=e37] [cursor=pointer]:
+                            - /url: /
+                          - text: ｜
+                          - link "公文通" [ref=e38] [cursor=pointer]:
+                            - /url: /board
+                          - text: ｜
+                          - link "教师事务" [ref=e39] [cursor=pointer]:
+                            - /url: /view.asp?id=12
+                          - text: ｜
+                          - link "学生事务" [ref=e40] [cursor=pointer]:
+                            - /url: /view.asp?id=13
+                          - text: ｜
+                          - link "荔园生活" [ref=e41] [cursor=pointer]:
+                            - /url: /tv
+                          - text: ｜
+                          - link "网上服务" [ref=e42] [cursor=pointer]:
+                            - /url: /nc
+                      - cell [ref=e43]
+            - row [ref=e44]:
+              - cell [ref=e45]
+    - row "校园公文通 首页＞校园公文通 分类视图 1周内 全部发文单位 标题 (关键字) 搜索 10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部 ——请重新选择或搜索——" [ref=e46]:
+      - cell "校园公文通 首页＞校园公文通 分类视图 1周内 全部发文单位 标题 (关键字) 搜索 10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部 ——请重新选择或搜索——" [ref=e47]:
+        - table [ref=e48]:
+          - rowgroup [ref=e49]:
+            - row "校园公文通 首页＞校园公文通" [ref=e50]:
+              - cell "校园公文通" [ref=e51]
+              - cell "首页＞校园公文通" [ref=e52]:
+                - link "首页" [ref=e53] [cursor=pointer]:
+                  - /url: /
+                - text: ＞校园公文通
+            - row [ref=e54]:
+              - cell [ref=e55]
+              - cell [ref=e56]
+            - row "分类视图 1周内 全部发文单位 标题 (关键字) 搜索 10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部 ——请重新选择或搜索——" [ref=e57]:
+              - cell "分类视图 1周内 全部发文单位 标题 (关键字) 搜索 10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部 ——请重新选择或搜索——" [ref=e58]:
+                - table [ref=e59]:
+                  - rowgroup [ref=e60]:
+                    - row "分类视图 1周内 全部发文单位 标题 (关键字) 搜索" [ref=e61]:
+                      - cell "分类视图 1周内 全部发文单位 标题 (关键字) 搜索" [ref=e62]:
+                        - table [ref=e63]:
+                          - rowgroup [ref=e64]:
+                            - row "分类视图 1周内 全部发文单位 标题 (关键字) 搜索" [ref=e65]:
+                              - cell [ref=e66]
+                              - cell "分类视图" [ref=e67]:
+                                - link "分类视图" [ref=e68] [cursor=pointer]:
+                                  - /url: ./
+                                  - img "分类视图" [ref=e69]
+                              - cell "1周内 全部发文单位 标题 (关键字) 搜索" [ref=e70]:
+                                - combobox [ref=e71]:
+                                  - option "24小时内"
+                                  - option "1周内" [selected]
+                                  - option "1个月内"
+                                  - option "6个月内"
+                                  - option "2026年"
+                                  - option "2025年"
+                                  - option "2024年"
+                                  - option "2023年"
+                                  - option "2022年"
+                                - combobox [ref=e72]:
+                                  - option "全部发文单位" [selected]
+                                  - option "1.党政办公室"
+                                  - option "2.组织部"
+                                  - option "3.统战部"
+                                  - option "4.宣传部"
+                                  - option "5.纪检（监察）室"
+                                  - option "6.校工会"
+                                  - option "7.妇女委员会"
+                                  - option "8.校团委"
+                                  - option "9.教务部"
+                                  - option "10.招生办公室"
+                                  - option "11.创新创业教育中心"
+                                  - option "12.继续教育管理办公室"
+                                  - option "13.研究生院"
+                                  - option "14.发展规划部"
+                                  - option "15.社会科学部"
+                                  - option "16.学报社科版"
+                                  - option "17.科学技术发展研究院"
+                                  - option "18.学报理工版"
+                                  - option "19.学生部"
+                                  - option "20.党委学工部"
+                                  - option "21.沧海学生社区管理委员会"
+                                  - option "22.时光学生社区管理委员会"
+                                  - option "23.文山湖学生社区管理委员会"
+                                  - option "24.惟品学生社区管理委员会"
+                                  - option "25.洗星学生社区管理委员会"
+                                  - option "26.国际交流与合作部"
+                                  - option "27.人力资源部"
+                                  - option "28.党委教师工作部"
+                                  - option "29.计划财务部"
+                                  - option "30.招投标管理中心"
+                                  - option "31.实验室与国有资产管理部"
+                                  - option "32.审计室"
+                                  - option "33.后勤保障部"
+                                  - option "34.后勤保障部党委"
+                                  - option "35.安全保卫部"
+                                  - option "36.离退休办公室"
+                                  - option "37.校友联络部（教育发展基金会）"
+                                  - option "38.机关党委"
+                                  - option "39.丽湖校区管理办公室"
+                                  - option "40.合规建设领导小组办公室"
+                                  - option "41.教育学部"
+                                  - option "42.艺术学部"
+                                  - option "43.医学部"
+                                  - option "44.马克思主义学院"
+                                  - option "45.经济学院"
+                                  - option "46.法学院"
+                                  - option "47.心理学院"
+                                  - option "48.体育学院"
+                                  - option "49.人文学院"
+                                  - option "50.外国语学院"
+                                  - option "51.传播学院"
+                                  - option "52.数学科学学院"
+                                  - option "53.物理与光电工程学院"
+                                  - option "54.化学与环境工程学院"
+                                  - option "55.生命与海洋科学学院"
+                                  - option "56.机电与控制工程学院"
+                                  - option "57.材料学院"
+                                  - option "58.电子与信息工程学院"
+                                  - option "59.计算机与软件学院"
+                                  - option "60.人工智能学院"
+                                  - option "61.建筑与城市规划学院"
+                                  - option "62.土木与交通工程学院"
+                                  - option "63.管理学院"
+                                  - option "64.政府管理学院"
+                                  - option "65.高等研究院"
+                                  - option "66.金融科技学院"
+                                  - option "67.国际交流学院"
+                                  - option "68.继续教育学院"
+                                  - option "69.图书馆"
+                                  - option "70.图书馆党总支"
+                                  - option "71.档案馆"
+                                  - option "72.信息中心"
+                                  - option "73.信息中心党总支"
+                                  - option "74.资产经营公司"
+                                  - option "75.技术转化中心"
+                                  - option "76.深大总医院"
+                                  - option "77.深大附属华南医院"
+                                  - option "78.深大直属口腔医院筹建办公室"
+                                  - option "79.校医院"
+                                  - option "80.附属教育集团"
+                                  - option "81.深大附属中学"
+                                  - option "82.深大附属实验中学"
+                                  - option "83.射频异质异构集成全国重点实验室"
+                                  - option "84.人工智能与数字经济广东省实验室（深圳）"
+                                  - option "85.深圳香蜜湖国际金融科技研究院"
+                                  - option "86.大数据系统计算技术国家工程实验室"
+                                  - option "87.微纳光电子学研究院"
+                                  - option "88.中国经济特区研究中心"
+                                  - option "89.港澳基本法研究中心"
+                                  - option "90.文化产业研究院"
+                                  - option "91.美学与文艺批评研究院"
+                                  - option "92.饶宗颐文化研究院"
+                                  - option "93.区域国别与国际传播研究院"
+                                  - option "94.创新技术研究院"
+                                  - option "95.心理健康教育与咨询中心"
+                                  - option "96.明德书院"
+                                  - option "97.深圳大学医院管理委员会"
+                                - combobox [ref=e73]:
+                                  - option "标题" [selected]
+                                  - option "正文"
+                                  - option "全文"
+                                - textbox [ref=e74]: (关键字)
+                                - textbox [disabled] [ref=e75]
+                                - button "搜索" [ref=e76]
+                              - cell [ref=e77]
+                    - row "10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部" [ref=e78]:
+                      - cell "10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部" [ref=e79]:
+                        - table [ref=e80]:
+                          - rowgroup [ref=e81]:
+                            - row "10天内｜璁插｜共0条 置顶 教务 科研 行政 学工 会议 讲座 生活 全部" [ref=e82]:
+                              - cell "10天内｜璁插｜共0条" [ref=e83]
+                              - cell [ref=e84]
+                              - cell "置顶" [ref=e85]:
+                                - link "置顶" [ref=e86] [cursor=pointer]:
+                                  - /url: "?infotype=置顶"
+                              - cell "教务" [ref=e87]:
+                                - link "教务" [ref=e88] [cursor=pointer]:
+                                  - /url: "?infotype=教务"
+                              - cell "科研" [ref=e89]:
+                                - link "科研" [ref=e90] [cursor=pointer]:
+                                  - /url: "?infotype=科研"
+                              - cell "行政" [ref=e91]:
+                                - link "行政" [ref=e92] [cursor=pointer]:
+                                  - /url: "?infotype=行政"
+                              - cell "学工" [ref=e93]:
+                                - link "学工" [ref=e94] [cursor=pointer]:
+                                  - /url: "?infotype=学工"
+                              - cell "会议" [ref=e95]:
+                                - link "会议" [ref=e96] [cursor=pointer]:
+                                  - /url: "?infotype=会议"
+                              - cell "讲座" [ref=e97]:
+                                - link "讲座" [ref=e98] [cursor=pointer]:
+                                  - /url: "?infotype=讲座"
+                              - cell "生活" [ref=e99]:
+                                - link "生活" [ref=e100] [cursor=pointer]:
+                                  - /url: "?infotype=生活"
+                              - cell "全部" [ref=e101]:
+                                - link "全部" [ref=e102] [cursor=pointer]:
+                                  - /url: "?"
+                    - row "——请重新选择或搜索——" [ref=e103]:
+                      - cell "——请重新选择或搜索——" [ref=e104]:
+                        - paragraph
+                        - paragraph [ref=e105]: ——请重新选择或搜索——
+                    - row [ref=e106]:
+                      - cell [ref=e107]
+    - row "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e108]:
+      - cell "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e109]:
+        - generic [ref=e110]:
+          - link "深大新闻网" [ref=e111] [cursor=pointer]:
+            - /url: http://news.szu.edu.cn
+          - text: ｜
+          - link "公文通" [ref=e112] [cursor=pointer]:
+            - /url: /board/
+          - text: ｜
+          - link "OA系统" [ref=e113] [cursor=pointer]:
+            - /url: http://210.39.3.155:9090/goLogin.do
+          - text: ｜
+          - link "畅课平台" [ref=e114] [cursor=pointer]:
+            - /url: https://lms.szu.edu.cn
+          - text: ｜
+          - link "院系设置" [ref=e115] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/xbxy.htm
+          - text: ｜
+          - link "职能部门" [ref=e116] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/znbm.htm
+          - text: ｜
+          - link "教师事务" [ref=e117] [cursor=pointer]:
+            - /url: /view.asp?id=12
+          - text: ｜
+          - link "学生事务" [ref=e118] [cursor=pointer]:
+            - /url: /view.asp?id=13
+          - text: ｜
+          - link "网上服务" [ref=e119] [cursor=pointer]:
+            - /url: /nc
+          - text: ｜
+          - link "教工区上网" [ref=e120] [cursor=pointer]:
+            - /url: https://net.szu.edu.cn/
+          - text: ｜
+          - link "合同管理" [ref=e121] [cursor=pointer]:
+            - /url: https://cmp.szu.edu.cn
+          - text: ｜
+          - link "一网通办" [ref=e122] [cursor=pointer]:
+            - /url: https://mk.szu.edu.cn/web/#/1j4jgb14ewnwbc6w2s7sg63en18qp3sqjvw0/sys-portal/1j4ro8gt9wnwobmw1uv6l8b198s5n068gow0
+        - text: 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时)
+        - text: 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188
+        - text: 版权所有©深圳大学信息中心
+        - link "返回顶部" [ref=e124] [cursor=pointer]:
+          - /url: "#top"
+          - img "返回顶部" [ref=e125]

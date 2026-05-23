@@ -1,0 +1,151 @@
+- table [ref=e2]:
+  - rowgroup [ref=e3]:
+    - 'row "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务 校园公文通 首页＞校园公文通 关闭窗口｜打印张贴版 外国语学院2025-2026学年第二学期西班牙语专业公开课 外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054） 课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 ! 撰稿：外院教务室 审核：外院教务室" [ref=e4]':
+      - 'cell "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务 校园公文通 首页＞校园公文通 关闭窗口｜打印张贴版 外国语学院2025-2026学年第二学期西班牙语专业公开课 外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054） 课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 ! 撰稿：外院教务室 审核：外院教务室" [ref=e5]':
+        - table [ref=e6]:
+          - rowgroup [ref=e7]:
+            - row "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e8]:
+              - cell "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e9]:
+                - table [ref=e10]:
+                  - rowgroup [ref=e11]:
+                    - row "深大主页 English 返回首页" [ref=e12]:
+                      - cell "深大主页 English 返回首页" [ref=e13]:
+                        - table [ref=e14]:
+                          - rowgroup [ref=e15]:
+                            - row "深大主页 English" [ref=e16]:
+                              - cell [ref=e17]
+                              - cell "深大主页 English" [ref=e18]:
+                                - generic [ref=e19]:
+                                  - link "深大主页" [ref=e20] [cursor=pointer]:
+                                    - /url: http://www.szu.edu.cn
+                                  - link "English" [ref=e21] [cursor=pointer]:
+                                    - /url: http://en.szu.edu.cn
+                            - row "返回首页" [ref=e22]:
+                              - cell "返回首页" [ref=e23]:
+                                - link "返回首页" [ref=e24] [cursor=pointer]:
+                                  - /url: /
+                                  - img [ref=e25]
+                              - cell [ref=e26]
+                    - row [ref=e27]:
+                      - cell [ref=e28]
+                    - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e29]:
+                      - cell "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e30]:
+                        - table [ref=e31]:
+                          - rowgroup [ref=e32]:
+                            - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e33]:
+                              - cell "曹韵涵 个人中心｜注销 ｜说明" [ref=e34]:
+                                - img [ref=e35]
+                                - link "曹韵涵 个人中心｜" [ref=e36] [cursor=pointer]:
+                                  - /url: https://authserver.szu.edu.cn/personalInfo
+                                - link "注销" [ref=e37] [cursor=pointer]:
+                                  - /url: /manage/caslogout.asp
+                                - link "｜说明" [ref=e38] [cursor=pointer]:
+                                  - /url: /v.asp?id=136
+                              - cell "首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e39]:
+                                - generic [ref=e40]:
+                                  - link "首 页" [ref=e41] [cursor=pointer]:
+                                    - /url: /
+                                  - text: ｜
+                                  - link "公文通" [ref=e42] [cursor=pointer]:
+                                    - /url: /board
+                                  - text: ｜
+                                  - link "教师事务" [ref=e43] [cursor=pointer]:
+                                    - /url: /view.asp?id=12
+                                  - text: ｜
+                                  - link "学生事务" [ref=e44] [cursor=pointer]:
+                                    - /url: /view.asp?id=13
+                                  - text: ｜
+                                  - link "荔园生活" [ref=e45] [cursor=pointer]:
+                                    - /url: /tv
+                                  - text: ｜
+                                  - link "网上服务" [ref=e46] [cursor=pointer]:
+                                    - /url: /nc
+                              - cell [ref=e47]
+                    - row [ref=e48]:
+                      - cell [ref=e49]
+            - row "校园公文通 首页＞校园公文通" [ref=e50]:
+              - cell "校园公文通" [ref=e51]
+              - cell "首页＞校园公文通" [ref=e52]:
+                - link "首页" [ref=e53] [cursor=pointer]:
+                  - /url: /
+                - text: ＞校园公文通
+            - row [ref=e54]:
+              - cell [ref=e55]
+              - cell [ref=e56]
+            - 'row "关闭窗口｜打印张贴版 外国语学院2025-2026学年第二学期西班牙语专业公开课 外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054） 课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 ! 撰稿：外院教务室 审核：外院教务室" [ref=e57]':
+              - 'cell "关闭窗口｜打印张贴版 外国语学院2025-2026学年第二学期西班牙语专业公开课 外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054） 课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 ! 撰稿：外院教务室 审核：外院教务室" [ref=e58]':
+                - table [ref=e59]:
+                  - rowgroup [ref=e60]:
+                    - row "关闭窗口｜打印张贴版" [ref=e61]:
+                      - cell "关闭窗口｜打印张贴版" [ref=e62]:
+                        - link "关闭窗口" [ref=e63] [cursor=pointer]:
+                          - /url: javascript:window.close()
+                        - text: ｜
+                        - link "打印张贴版" [ref=e64] [cursor=pointer]:
+                          - /url: print.asp?id=574782
+                    - 'row "外国语学院2025-2026学年第二学期西班牙语专业公开课 外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054） 课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 ! 撰稿：外院教务室 审核：外院教务室" [ref=e65]':
+                      - 'cell "外国语学院2025-2026学年第二学期西班牙语专业公开课 外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054） 课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 ! 撰稿：外院教务室 审核：外院教务室" [ref=e66]':
+                        - table [ref=e67]:
+                          - rowgroup [ref=e68]:
+                            - row "外国语学院2025-2026学年第二学期西班牙语专业公开课" [ref=e69]:
+                              - cell "外国语学院2025-2026学年第二学期西班牙语专业公开课" [ref=e70]
+                            - row "外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054）" [ref=e71]:
+                              - cell "外国语学院 2026/5/21 18:57:00 （曹韵涵 2024363054）" [ref=e72]:
+                                - text: 外国语学院 2026/5/21 18:57:00
+                                - text: （曹韵涵 2024363054）
+                            - 'row "课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 !" [ref=e73]':
+                              - 'cell "课程名称：AI辅助西班牙语理论与实践 授课教师：李静 授课时间: 5月22日（星期五）1-2节 授课地点：汇文楼H5-305 授课内容：外交口译交替传译训练 欢迎各位老师前往观摩指导 !" [ref=e74]':
+                                - paragraph [ref=e75]: 课程名称：AI辅助西班牙语理论与实践
+                                - paragraph [ref=e76]: 授课教师：李静
+                                - paragraph [ref=e77]: "授课时间: 5月22日（星期五）1-2节"
+                                - paragraph [ref=e78]: 授课地点：汇文楼H5-305
+                                - paragraph [ref=e79]: 授课内容：外交口译交替传译训练
+                                - paragraph [ref=e80]: 欢迎各位老师前往观摩指导 !
+                            - row [ref=e81]:
+                              - cell [ref=e82]
+                            - row "撰稿：外院教务室 审核：外院教务室" [ref=e83]:
+                              - cell "撰稿：外院教务室 审核：外院教务室" [ref=e84]: 撰稿：外院教务室 审核：外院教务室
+    - row "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e85]:
+      - cell "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e86]:
+        - generic [ref=e87]:
+          - link "深大新闻网" [ref=e88] [cursor=pointer]:
+            - /url: http://news.szu.edu.cn
+          - text: ｜
+          - link "公文通" [ref=e89] [cursor=pointer]:
+            - /url: /board/
+          - text: ｜
+          - link "OA系统" [ref=e90] [cursor=pointer]:
+            - /url: http://210.39.3.155:9090/goLogin.do
+          - text: ｜
+          - link "畅课平台" [ref=e91] [cursor=pointer]:
+            - /url: https://lms.szu.edu.cn
+          - text: ｜
+          - link "院系设置" [ref=e92] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/xbxy.htm
+          - text: ｜
+          - link "职能部门" [ref=e93] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/znbm.htm
+          - text: ｜
+          - link "教师事务" [ref=e94] [cursor=pointer]:
+            - /url: /view.asp?id=12
+          - text: ｜
+          - link "学生事务" [ref=e95] [cursor=pointer]:
+            - /url: /view.asp?id=13
+          - text: ｜
+          - link "网上服务" [ref=e96] [cursor=pointer]:
+            - /url: /nc
+          - text: ｜
+          - link "教工区上网" [ref=e97] [cursor=pointer]:
+            - /url: https://net.szu.edu.cn/
+          - text: ｜
+          - link "合同管理" [ref=e98] [cursor=pointer]:
+            - /url: https://cmp.szu.edu.cn
+          - text: ｜
+          - link "一网通办" [ref=e99] [cursor=pointer]:
+            - /url: https://mk.szu.edu.cn/web/#/1j4jgb14ewnwbc6w2s7sg63en18qp3sqjvw0/sys-portal/1j4ro8gt9wnwobmw1uv6l8b198s5n068gow0
+        - text: 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时)
+        - text: 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188
+        - text: 版权所有©深圳大学信息中心
+        - link "返回顶部" [ref=e101] [cursor=pointer]:
+          - /url: "#top"
+          - img "返回顶部" [ref=e102]

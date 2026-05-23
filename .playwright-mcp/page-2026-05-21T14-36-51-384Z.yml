@@ -1,0 +1,719 @@
+- table [ref=e2]:
+  - rowgroup [ref=e3]:
+    - row "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e4]:
+      - cell "深大主页 English 返回首页 曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e5]:
+        - table [ref=e6]:
+          - rowgroup [ref=e7]:
+            - row "深大主页 English 返回首页" [ref=e8]:
+              - cell "深大主页 English 返回首页" [ref=e9]:
+                - table [ref=e10]:
+                  - rowgroup [ref=e11]:
+                    - row "深大主页 English" [ref=e12]:
+                      - cell [ref=e13]
+                      - cell "深大主页 English" [ref=e14]:
+                        - generic [ref=e15]:
+                          - link "深大主页" [ref=e16] [cursor=pointer]:
+                            - /url: http://www.szu.edu.cn
+                          - link "English" [ref=e17] [cursor=pointer]:
+                            - /url: http://en.szu.edu.cn
+                    - row "返回首页" [ref=e18]:
+                      - cell "返回首页" [ref=e19]:
+                        - link "返回首页" [ref=e20] [cursor=pointer]:
+                          - /url: /
+                          - img [ref=e21]
+                      - cell [ref=e22]
+            - row [ref=e23]:
+              - cell [ref=e24]
+            - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e25]:
+              - cell "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e26]:
+                - table [ref=e27]:
+                  - rowgroup [ref=e28]:
+                    - row "曹韵涵 个人中心｜注销 ｜说明 首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e29]:
+                      - cell "曹韵涵 个人中心｜注销 ｜说明" [ref=e30]:
+                        - img [ref=e31]
+                        - link "曹韵涵 个人中心｜" [ref=e32] [cursor=pointer]:
+                          - /url: https://authserver.szu.edu.cn/personalInfo
+                        - link "注销" [ref=e33] [cursor=pointer]:
+                          - /url: /manage/caslogout.asp
+                        - link "｜说明" [ref=e34] [cursor=pointer]:
+                          - /url: /v.asp?id=191
+                      - cell "首 页 ｜ 公文通 ｜ 教师事务 ｜ 学生事务 ｜ 荔园生活 ｜ 网上服务" [ref=e35]:
+                        - generic [ref=e36]:
+                          - link "首 页" [ref=e37] [cursor=pointer]:
+                            - /url: /
+                          - text: ｜
+                          - link "公文通" [ref=e38] [cursor=pointer]:
+                            - /url: /board
+                          - text: ｜
+                          - link "教师事务" [ref=e39] [cursor=pointer]:
+                            - /url: /view.asp?id=12
+                          - text: ｜
+                          - link "学生事务" [ref=e40] [cursor=pointer]:
+                            - /url: /view.asp?id=13
+                          - text: ｜
+                          - link "荔园生活" [ref=e41] [cursor=pointer]:
+                            - /url: /tv
+                          - text: ｜
+                          - link "网上服务" [ref=e42] [cursor=pointer]:
+                            - /url: /nc
+                      - cell [ref=e43]
+            - row [ref=e44]:
+              - cell [ref=e45]
+    - row "校园公文通 首页＞校园公文通 置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索 公文通移动版在深大企微工作台上线啦！手机快速查阅和订阅，最新信息及时推送 教务教学 科研动态 党务行政 学生工作 学术讲座 校园生活" [ref=e46]:
+      - cell "校园公文通 首页＞校园公文通 置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索 公文通移动版在深大企微工作台上线啦！手机快速查阅和订阅，最新信息及时推送 教务教学 科研动态 党务行政 学生工作 学术讲座 校园生活" [ref=e47]:
+        - table [ref=e48]:
+          - rowgroup [ref=e49]:
+            - row "校园公文通 首页＞校园公文通" [ref=e50]:
+              - cell "校园公文通" [ref=e51]
+              - cell "首页＞校园公文通" [ref=e52]:
+                - link "首页" [ref=e53] [cursor=pointer]:
+                  - /url: /
+                - text: ＞校园公文通
+            - row [ref=e54]:
+              - cell [ref=e55]
+              - cell [ref=e56]
+            - row "置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索 公文通移动版在深大企微工作台上线啦！手机快速查阅和订阅，最新信息及时推送 教务教学 科研动态 党务行政 学生工作 学术讲座 校园生活" [ref=e57]:
+              - cell "置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索 公文通移动版在深大企微工作台上线啦！手机快速查阅和订阅，最新信息及时推送 教务教学 科研动态 党务行政 学生工作 学术讲座 校园生活" [ref=e58]:
+                - table [ref=e59]:
+                  - rowgroup [ref=e60]:
+                    - row [ref=e61]:
+                      - cell [ref=e62]
+                    - row "置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索" [ref=e63]:
+                      - cell "置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索" [ref=e64]:
+                        - table [ref=e65]:
+                          - rowgroup [ref=e66]:
+                            - row "置顶 教务 科研 行政 学工 会议 讲座 生活 全部 1周内 全部发文单位 标题 (关键字) 搜索" [ref=e67]:
+                              - cell [ref=e68]
+                              - cell "置顶" [ref=e69] [cursor=pointer]
+                              - cell "教务" [ref=e70] [cursor=pointer]
+                              - cell "科研" [ref=e71] [cursor=pointer]
+                              - cell "行政" [ref=e72] [cursor=pointer]
+                              - cell "学工" [ref=e73] [cursor=pointer]
+                              - cell "会议" [ref=e74] [cursor=pointer]
+                              - cell "讲座" [ref=e75] [cursor=pointer]
+                              - cell "生活" [ref=e76] [cursor=pointer]
+                              - cell "全部" [ref=e77] [cursor=pointer]
+                              - cell [ref=e78]
+                              - cell "1周内 全部发文单位 标题 (关键字) 搜索" [ref=e79]:
+                                - combobox [ref=e80]:
+                                  - option "24小时内"
+                                  - option "1周内" [selected]
+                                  - option "1个月内"
+                                  - option "6个月内"
+                                  - option "2026年"
+                                  - option "2025年"
+                                  - option "2024年"
+                                  - option "2023年"
+                                  - option "2022年"
+                                - combobox [ref=e81]:
+                                  - option "全部发文单位" [selected]
+                                  - option "1.党政办公室"
+                                  - option "2.组织部"
+                                  - option "3.统战部"
+                                  - option "4.宣传部"
+                                  - option "5.纪检（监察）室"
+                                  - option "6.校工会"
+                                  - option "7.妇女委员会"
+                                  - option "8.校团委"
+                                  - option "9.教务部"
+                                  - option "10.招生办公室"
+                                  - option "11.创新创业教育中心"
+                                  - option "12.继续教育管理办公室"
+                                  - option "13.研究生院"
+                                  - option "14.发展规划部"
+                                  - option "15.社会科学部"
+                                  - option "16.学报社科版"
+                                  - option "17.科学技术发展研究院"
+                                  - option "18.学报理工版"
+                                  - option "19.学生部"
+                                  - option "20.党委学工部"
+                                  - option "21.沧海学生社区管理委员会"
+                                  - option "22.时光学生社区管理委员会"
+                                  - option "23.文山湖学生社区管理委员会"
+                                  - option "24.惟品学生社区管理委员会"
+                                  - option "25.洗星学生社区管理委员会"
+                                  - option "26.国际交流与合作部"
+                                  - option "27.人力资源部"
+                                  - option "28.党委教师工作部"
+                                  - option "29.计划财务部"
+                                  - option "30.招投标管理中心"
+                                  - option "31.实验室与国有资产管理部"
+                                  - option "32.审计室"
+                                  - option "33.后勤保障部"
+                                  - option "34.后勤保障部党委"
+                                  - option "35.安全保卫部"
+                                  - option "36.离退休办公室"
+                                  - option "37.校友联络部（教育发展基金会）"
+                                  - option "38.机关党委"
+                                  - option "39.丽湖校区管理办公室"
+                                  - option "40.合规建设领导小组办公室"
+                                  - option "41.教育学部"
+                                  - option "42.艺术学部"
+                                  - option "43.医学部"
+                                  - option "44.马克思主义学院"
+                                  - option "45.经济学院"
+                                  - option "46.法学院"
+                                  - option "47.心理学院"
+                                  - option "48.体育学院"
+                                  - option "49.人文学院"
+                                  - option "50.外国语学院"
+                                  - option "51.传播学院"
+                                  - option "52.数学科学学院"
+                                  - option "53.物理与光电工程学院"
+                                  - option "54.化学与环境工程学院"
+                                  - option "55.生命与海洋科学学院"
+                                  - option "56.机电与控制工程学院"
+                                  - option "57.材料学院"
+                                  - option "58.电子与信息工程学院"
+                                  - option "59.计算机与软件学院"
+                                  - option "60.人工智能学院"
+                                  - option "61.建筑与城市规划学院"
+                                  - option "62.土木与交通工程学院"
+                                  - option "63.管理学院"
+                                  - option "64.政府管理学院"
+                                  - option "65.高等研究院"
+                                  - option "66.金融科技学院"
+                                  - option "67.国际交流学院"
+                                  - option "68.继续教育学院"
+                                  - option "69.图书馆"
+                                  - option "70.图书馆党总支"
+                                  - option "71.档案馆"
+                                  - option "72.信息中心"
+                                  - option "73.信息中心党总支"
+                                  - option "74.资产经营公司"
+                                  - option "75.技术转化中心"
+                                  - option "76.深大总医院"
+                                  - option "77.深大附属华南医院"
+                                  - option "78.深大直属口腔医院筹建办公室"
+                                  - option "79.校医院"
+                                  - option "80.附属教育集团"
+                                  - option "81.深大附属中学"
+                                  - option "82.深大附属实验中学"
+                                  - option "83.射频异质异构集成全国重点实验室"
+                                  - option "84.人工智能与数字经济广东省实验室（深圳）"
+                                  - option "85.深圳香蜜湖国际金融科技研究院"
+                                  - option "86.大数据系统计算技术国家工程实验室"
+                                  - option "87.微纳光电子学研究院"
+                                  - option "88.中国经济特区研究中心"
+                                  - option "89.港澳基本法研究中心"
+                                  - option "90.文化产业研究院"
+                                  - option "91.美学与文艺批评研究院"
+                                  - option "92.饶宗颐文化研究院"
+                                  - option "93.区域国别与国际传播研究院"
+                                  - option "94.创新技术研究院"
+                                  - option "95.心理健康教育与咨询中心"
+                                  - option "96.明德书院"
+                                  - option "97.深圳大学医院管理委员会"
+                                - combobox [ref=e82]:
+                                  - option "标题" [selected]
+                                  - option "正文"
+                                  - option "全文"
+                                - textbox [ref=e83]: (关键字)
+                                - textbox [disabled] [ref=e84]
+                                - button "搜索" [ref=e85]
+                              - cell [ref=e86]
+                    - row "公文通移动版在深大企微工作台上线啦！手机快速查阅和订阅，最新信息及时推送" [ref=e87]:
+                      - cell "公文通移动版在深大企微工作台上线啦！手机快速查阅和订阅，最新信息及时推送" [ref=e88]
+                    - row "教务教学 科研动态 党务行政 学生工作 学术讲座 校园生活" [ref=e89]:
+                      - cell "教务教学 科研动态 党务行政 学生工作 学术讲座 校园生活" [ref=e90]:
+                        - table [ref=e91]:
+                          - rowgroup [ref=e92]:
+                            - row "教务教学 科研动态" [ref=e93]:
+                              - cell "教务教学" [ref=e94]:
+                                - group "教务教学" [ref=e95]:
+                                  - generic [ref=e96]:
+                                    - img [ref=e97]
+                                    - link "教务教学" [ref=e98] [cursor=pointer]:
+                                      - /url: ./infolist.asp?infotype=教务
+                                      - strong [ref=e99]: 教务教学
+                                  - table [ref=e101]:
+                                    - rowgroup [ref=e102]:
+                                      - row "外国语学院2025-2026学年第二学期西班牙语专… 5/21" [ref=e103]:
+                                        - cell "外国语学院2025-2026学年第二学期西班牙语专…" [ref=e104]:
+                                          - img [ref=e105]
+                                          - link "外国语学院2025-2026学年第二学期西班牙语专…" [ref=e106] [cursor=pointer]:
+                                            - /url: view.asp?id=574782
+                                        - cell "5/21" [ref=e107]
+                                      - row "人工智能学院周年学术报告三 ：《昇腾CANN算子智… 5/21" [ref=e108]:
+                                        - cell "人工智能学院周年学术报告三 ：《昇腾CANN算子智…" [ref=e109]:
+                                          - img [ref=e110]
+                                          - link "人工智能学院周年学术报告三 ：《昇腾CANN算子智…" [ref=e111] [cursor=pointer]:
+                                            - /url: view.asp?id=574777
+                                        - cell "5/21" [ref=e112]
+                                      - row "马克思主义学院成功举办“新时代马克思主义学院高质量… 5/21" [ref=e113]:
+                                        - cell "马克思主义学院成功举办“新时代马克思主义学院高质量…" [ref=e114]:
+                                          - img [ref=e115]
+                                          - link "马克思主义学院成功举办“新时代马克思主义学院高质量…" [ref=e116] [cursor=pointer]:
+                                            - /url: view.asp?id=574775
+                                        - cell "5/21" [ref=e117]
+                                      - row "管理学院2026届优秀毕业研究生评选结果公示 5/21" [ref=e118]:
+                                        - cell "管理学院2026届优秀毕业研究生评选结果公示" [ref=e119]:
+                                          - img [ref=e120]
+                                          - link "管理学院2026届优秀毕业研究生评选结果公示" [ref=e121] [cursor=pointer]:
+                                            - /url: view.asp?id=574774
+                                        - cell "5/21" [ref=e122]
+                                      - row "关于领取国家级普通话证书的通知(2026年4月) 5/21" [ref=e123]:
+                                        - cell "关于领取国家级普通话证书的通知(2026年4月)" [ref=e124]:
+                                          - img [ref=e125]
+                                          - link "关于领取国家级普通话证书的通知(2026年4月)" [ref=e126] [cursor=pointer]:
+                                            - /url: view.asp?id=488272
+                                        - cell "5/21" [ref=e127]
+                                      - row "医学部2026届荣誉学士学位评审结果的公示 5/21" [ref=e128]:
+                                        - cell "医学部2026届荣誉学士学位评审结果的公示" [ref=e129]:
+                                          - img [ref=e130]
+                                          - link "医学部2026届荣誉学士学位评审结果的公示" [ref=e131] [cursor=pointer]:
+                                            - /url: view.asp?id=574667
+                                        - cell "5/21" [ref=e132]
+                                      - row "《高等数学》期中考试缓考通知 5/21" [ref=e133]:
+                                        - cell "《高等数学》期中考试缓考通知" [ref=e134]:
+                                          - img [ref=e135]
+                                          - link "《高等数学》期中考试缓考通知" [ref=e136] [cursor=pointer]:
+                                            - /url: view.asp?id=574691
+                                        - cell "5/21" [ref=e137]
+                                      - row "【本招宣传】建筑与城市规划学院赴天津开展入校招生宣… 5/21" [ref=e138]:
+                                        - cell "【本招宣传】建筑与城市规划学院赴天津开展入校招生宣…" [ref=e139]:
+                                          - img [ref=e140]
+                                          - link "【本招宣传】建筑与城市规划学院赴天津开展入校招生宣…" [ref=e141] [cursor=pointer]:
+                                            - /url: view.asp?id=574689
+                                        - cell "5/21" [ref=e142]
+                                      - row "【本招宣传】体育学院接待布吉高级中学体育专项师生来… 5/21" [ref=e143]:
+                                        - cell "【本招宣传】体育学院接待布吉高级中学体育专项师生来…" [ref=e144]:
+                                          - img [ref=e145]
+                                          - link "【本招宣传】体育学院接待布吉高级中学体育专项师生来…" [ref=e146] [cursor=pointer]:
+                                            - /url: view.asp?id=574666
+                                        - cell "5/21" [ref=e147]
+                                      - row "【本招宣传】体育学院、招生办公室联合学生部、经济学… 5/21" [ref=e148]:
+                                        - cell "【本招宣传】体育学院、招生办公室联合学生部、经济学…" [ref=e149]:
+                                          - img [ref=e150]
+                                          - link "【本招宣传】体育学院、招生办公室联合学生部、经济学…" [ref=e151] [cursor=pointer]:
+                                            - /url: view.asp?id=574661
+                                        - cell "5/21" [ref=e152]
+                                      - row "显示更多……" [ref=e153]:
+                                        - cell "显示更多……" [ref=e154]:
+                                          - link "显示更多……" [ref=e155] [cursor=pointer]:
+                                            - /url: ./infolist.asp?infotype=教务
+                                            - img "显示更多……" [ref=e156]
+                                        - cell [ref=e157]
+                              - cell "科研动态" [ref=e158]:
+                                - group "科研动态" [ref=e159]:
+                                  - generic [ref=e160]:
+                                    - img [ref=e161]
+                                    - link "科研动态" [ref=e162] [cursor=pointer]:
+                                      - /url: ./infolist.asp?infotype=科研
+                                      - strong [ref=e163]: 科研动态
+                                  - table [ref=e165]:
+                                    - rowgroup [ref=e166]:
+                                      - row "何传新教授课题组在自然指数期刊Science Ad… 5/21" [ref=e167]:
+                                        - cell "何传新教授课题组在自然指数期刊Science Ad…" [ref=e168]:
+                                          - img [ref=e169]
+                                          - link "何传新教授课题组在自然指数期刊Science Ad…" [ref=e170] [cursor=pointer]:
+                                            - /url: view.asp?id=574764
+                                        - cell "5/21" [ref=e171]
+                                      - row "关于开展存量未转化专利摸底盘查工作的通知 5/21" [ref=e172]:
+                                        - cell "关于开展存量未转化专利摸底盘查工作的通知" [ref=e173]:
+                                          - img [ref=e174]
+                                          - link "关于开展存量未转化专利摸底盘查工作的通知" [ref=e175] [cursor=pointer]:
+                                            - /url: view.asp?id=574602
+                                        - cell "5/21" [ref=e176]
+                                      - row "关于征集2027年度广东省量子科学战略专项指南建议… 5/20" [ref=e177]:
+                                        - cell "关于征集2027年度广东省量子科学战略专项指南建议…" [ref=e178]:
+                                          - img [ref=e179]
+                                          - link "关于征集2027年度广东省量子科学战略专项指南建议…" [ref=e180] [cursor=pointer]:
+                                            - /url: view.asp?id=574599
+                                        - cell "5/20" [ref=e181]
+                                      - row "关于“经颅聚焦多阵元超声换能器及其激励电路”专有技… 5/20" [ref=e182]:
+                                        - cell "关于“经颅聚焦多阵元超声换能器及其激励电路”专有技…" [ref=e183]:
+                                          - img [ref=e184]
+                                          - link "关于“经颅聚焦多阵元超声换能器及其激励电路”专有技…" [ref=e185] [cursor=pointer]:
+                                            - /url: view.asp?id=574597
+                                        - cell "5/20" [ref=e186]
+                                      - row "关于组织申报深圳市哲学社会科学规划2026年度课题… 5/20" [ref=e187]:
+                                        - cell "关于组织申报深圳市哲学社会科学规划2026年度课题…" [ref=e188]:
+                                          - img [ref=e189]
+                                          - link "关于组织申报深圳市哲学社会科学规划2026年度课题…" [ref=e190] [cursor=pointer]:
+                                            - /url: view.asp?id=574589
+                                        - cell "5/20" [ref=e191]
+                                      - row "学术报告五十：研途有AI，创新无界—AI大模型赋能… 5/20" [ref=e192]:
+                                        - cell "学术报告五十：研途有AI，创新无界—AI大模型赋能…" [ref=e193]:
+                                          - img [ref=e194]
+                                          - link "学术报告五十：研途有AI，创新无界—AI大模型赋能…" [ref=e195] [cursor=pointer]:
+                                            - /url: view.asp?id=574588
+                                        - cell "5/20" [ref=e196]
+                                      - row "2026年4月认真负责的鉴定专家 5/20" [ref=e197]:
+                                        - cell "2026年4月认真负责的鉴定专家" [ref=e198]:
+                                          - img [ref=e199]
+                                          - link "2026年4月认真负责的鉴定专家" [ref=e200] [cursor=pointer]:
+                                            - /url: view.asp?id=574539
+                                        - cell "5/20" [ref=e201]
+                                      - row "2026年4月国家社科基金项目结项名单 5/20" [ref=e202]:
+                                        - cell "2026年4月国家社科基金项目结项名单" [ref=e203]:
+                                          - img [ref=e204]
+                                          - link "2026年4月国家社科基金项目结项名单" [ref=e205] [cursor=pointer]:
+                                            - /url: view.asp?id=574535
+                                        - cell "5/20" [ref=e206]
+                                      - row "广东省习近平新时代中国特色社会主义思想研究中心深圳… 5/20" [ref=e207]:
+                                        - cell "广东省习近平新时代中国特色社会主义思想研究中心深圳…" [ref=e208]:
+                                          - img [ref=e209]
+                                          - link "广东省习近平新时代中国特色社会主义思想研究中心深圳…" [ref=e210] [cursor=pointer]:
+                                            - /url: view.asp?id=574538
+                                        - cell "5/20" [ref=e211]
+                                      - row "我院赵泽佳副教授联合深圳北理莫斯科大学王静威副教授… 5/20" [ref=e212]:
+                                        - cell "我院赵泽佳副教授联合深圳北理莫斯科大学王静威副教授…" [ref=e213]:
+                                          - img [ref=e214]
+                                          - link "我院赵泽佳副教授联合深圳北理莫斯科大学王静威副教授…" [ref=e215] [cursor=pointer]:
+                                            - /url: view.asp?id=574534
+                                        - cell "5/20" [ref=e216]
+                                      - row "显示更多……" [ref=e217]:
+                                        - cell "显示更多……" [ref=e218]:
+                                          - link "显示更多……" [ref=e219] [cursor=pointer]:
+                                            - /url: ./infolist.asp?infotype=科研
+                                            - img "显示更多……" [ref=e220]
+                                        - cell [ref=e221]
+                            - row "党务行政 学生工作" [ref=e222]:
+                              - cell "党务行政" [ref=e223]:
+                                - group "党务行政" [ref=e224]:
+                                  - generic [ref=e225]:
+                                    - img [ref=e226]
+                                    - link "党务行政" [ref=e227] [cursor=pointer]:
+                                      - /url: ./infolist.asp?infotype=行政
+                                      - strong [ref=e228]: 党务行政
+                                  - table [ref=e230]:
+                                    - rowgroup [ref=e231]:
+                                      - row "关于报送《深圳大学年鉴（2025）》资料的通知 5/21" [ref=e232]:
+                                        - cell "关于报送《深圳大学年鉴（2025）》资料的通知" [ref=e233]:
+                                          - img [ref=e234]
+                                          - link "关于报送《深圳大学年鉴（2025）》资料的通知" [ref=e235] [cursor=pointer]:
+                                            - /url: view.asp?id=574596
+                                        - cell "5/21" [ref=e236]
+                                      - row "关于召开深圳大学第九届教职工代表大会第三次会议的通知 5/21" [ref=e237]:
+                                        - cell "关于召开深圳大学第九届教职工代表大会第三次会议的通知" [ref=e238]:
+                                          - img [ref=e239]
+                                          - link "关于召开深圳大学第九届教职工代表大会第三次会议的通知" [ref=e240] [cursor=pointer]:
+                                            - /url: view.asp?id=574650
+                                        - cell "5/21" [ref=e241]
+                                      - row "关于转发广东省教育厅开展2026年全国优秀科普图书… 5/21" [ref=e242]:
+                                        - cell "关于转发广东省教育厅开展2026年全国优秀科普图书…" [ref=e243]:
+                                          - img [ref=e244]
+                                          - link "关于转发广东省教育厅开展2026年全国优秀科普图书…" [ref=e245] [cursor=pointer]:
+                                            - /url: view.asp?id=574761
+                                        - cell "5/21" [ref=e246]
+                                      - row "信息中心关于汇研楼节点汇聚设备升级的通知 5/21" [ref=e247]:
+                                        - cell "信息中心关于汇研楼节点汇聚设备升级的通知" [ref=e248]:
+                                          - img [ref=e249]
+                                          - link "信息中心关于汇研楼节点汇聚设备升级的通知" [ref=e250] [cursor=pointer]:
+                                            - /url: view.asp?id=574760
+                                        - cell "5/21" [ref=e251]
+                                      - row "关于召开2026年5月份基层党委 （总支）书记例会… 5/21" [ref=e252]:
+                                        - cell "关于召开2026年5月份基层党委 （总支）书记例会…" [ref=e253]:
+                                          - img [ref=e254]
+                                          - link "关于召开2026年5月份基层党委 （总支）书记例会…" [ref=e255] [cursor=pointer]:
+                                            - /url: view.asp?id=574669
+                                        - cell "5/21" [ref=e256]
+                                      - row "深圳大学法学院学生党支部集中开展树立和践行正确政绩… 5/20" [ref=e257]:
+                                        - cell "深圳大学法学院学生党支部集中开展树立和践行正确政绩…" [ref=e258]:
+                                          - img [ref=e259]
+                                          - link "深圳大学法学院学生党支部集中开展树立和践行正确政绩…" [ref=e260] [cursor=pointer]:
+                                            - /url: view.asp?id=574601
+                                        - cell "5/20" [ref=e261]
+                                      - row "关于开展“荔园党建工作坊”第十四期的通知 5/20" [ref=e262]:
+                                        - cell "关于开展“荔园党建工作坊”第十四期的通知" [ref=e263]:
+                                          - img [ref=e264]
+                                          - link "关于开展“荔园党建工作坊”第十四期的通知" [ref=e265] [cursor=pointer]:
+                                            - /url: view.asp?id=574440
+                                        - cell "5/20" [ref=e266]
+                                      - row "会议通知 5/19" [ref=e267]:
+                                        - cell "会议通知" [ref=e268]:
+                                          - img [ref=e269]
+                                          - link "会议通知" [ref=e270] [cursor=pointer]:
+                                            - /url: view.asp?id=574138
+                                        - cell "5/19" [ref=e271]
+                                      - row "马来西亚拉曼大学国际事务处来访深圳大学教育学部 5/19" [ref=e272]:
+                                        - cell "马来西亚拉曼大学国际事务处来访深圳大学教育学部" [ref=e273]:
+                                          - img [ref=e274]
+                                          - link "马来西亚拉曼大学国际事务处来访深圳大学教育学部" [ref=e275] [cursor=pointer]:
+                                            - /url: view.asp?id=574498
+                                        - cell "5/19" [ref=e276]
+                                      - row "肇庆市教育局、端州区政府一行来教育学部调研交流 5/19" [ref=e277]:
+                                        - cell "肇庆市教育局、端州区政府一行来教育学部调研交流" [ref=e278]:
+                                          - img [ref=e279]
+                                          - link "肇庆市教育局、端州区政府一行来教育学部调研交流" [ref=e280] [cursor=pointer]:
+                                            - /url: view.asp?id=574497
+                                        - cell "5/19" [ref=e281]
+                                      - row "显示更多……" [ref=e282]:
+                                        - cell "显示更多……" [ref=e283]:
+                                          - link "显示更多……" [ref=e284] [cursor=pointer]:
+                                            - /url: ./infolist.asp?infotype=行政
+                                            - img "显示更多……" [ref=e285]
+                                        - cell [ref=e286]
+                              - cell "学生工作" [ref=e287]:
+                                - group "学生工作" [ref=e288]:
+                                  - generic [ref=e289]:
+                                    - img [ref=e290]
+                                    - link "学生工作" [ref=e291] [cursor=pointer]:
+                                      - /url: ./infolist.asp?infotype=学工
+                                      - strong [ref=e292]: 学生工作
+                                  - table [ref=e294]:
+                                    - rowgroup [ref=e295]:
+                                      - row "外国语学院2026届优秀毕业研究生名单公示 5/21" [ref=e296]:
+                                        - cell "外国语学院2026届优秀毕业研究生名单公示" [ref=e297]:
+                                          - img [ref=e298]
+                                          - link "外国语学院2026届优秀毕业研究生名单公示" [ref=e299] [cursor=pointer]:
+                                            - /url: view.asp?id=574781
+                                        - cell "5/21" [ref=e300]
+                                      - row "化学与环境工程学院“扬帆”系列讲座（34）：就业升… 5/21" [ref=e301]:
+                                        - cell "化学与环境工程学院“扬帆”系列讲座（34）：就业升…" [ref=e302]:
+                                          - img [ref=e303]
+                                          - link "化学与环境工程学院“扬帆”系列讲座（34）：就业升…" [ref=e304] [cursor=pointer]:
+                                            - /url: view.asp?id=574776
+                                        - cell "5/21" [ref=e305]
+                                      - row "微纳光电子学研究院关于招聘“三助一辅”岗位研究生助… 5/21" [ref=e306]:
+                                        - cell "微纳光电子学研究院关于招聘“三助一辅”岗位研究生助…" [ref=e307]:
+                                          - img [ref=e308]
+                                          - link "微纳光电子学研究院关于招聘“三助一辅”岗位研究生助…" [ref=e309] [cursor=pointer]:
+                                            - /url: view.asp?id=568575
+                                        - cell "5/21" [ref=e310]
+                                      - row "关于深圳大学学生会第三十届委员会 委员候选人预备人… 5/21" [ref=e311]:
+                                        - cell "关于深圳大学学生会第三十届委员会 委员候选人预备人…" [ref=e312]:
+                                          - img [ref=e313]
+                                          - link "关于深圳大学学生会第三十届委员会 委员候选人预备人…" [ref=e314] [cursor=pointer]:
+                                            - /url: view.asp?id=574768
+                                        - cell "5/21" [ref=e315]
+                                      - row "政府管理学院2026届优秀毕业研究生拟推荐名单公示 5/21" [ref=e316]:
+                                        - cell "政府管理学院2026届优秀毕业研究生拟推荐名单公示" [ref=e317]:
+                                          - img [ref=e318]
+                                          - link "政府管理学院2026届优秀毕业研究生拟推荐名单公示" [ref=e319] [cursor=pointer]:
+                                            - /url: view.asp?id=574767
+                                        - cell "5/21" [ref=e320]
+                                      - row "物理与光电工程学院2026届本科优秀毕业生拟推荐名… 5/21" [ref=e321]:
+                                        - cell "物理与光电工程学院2026届本科优秀毕业生拟推荐名…" [ref=e322]:
+                                          - img [ref=e323]
+                                          - link "物理与光电工程学院2026届本科优秀毕业生拟推荐名…" [ref=e324] [cursor=pointer]:
+                                            - /url: view.asp?id=574766
+                                        - cell "5/21" [ref=e325]
+                                      - row "物理与光电工程学院2026届优秀毕业研究生名单公示 5/21" [ref=e326]:
+                                        - cell "物理与光电工程学院2026届优秀毕业研究生名单公示" [ref=e327]:
+                                          - img [ref=e328]
+                                          - link "物理与光电工程学院2026届优秀毕业研究生名单公示" [ref=e329] [cursor=pointer]:
+                                            - /url: view.asp?id=574759
+                                        - cell "5/21" [ref=e330]
+                                      - row "教育学部2026届拟授予荣誉学士学位学生名单公示 5/21" [ref=e331]:
+                                        - cell "教育学部2026届拟授予荣誉学士学位学生名单公示" [ref=e332]:
+                                          - img [ref=e333]
+                                          - link "教育学部2026届拟授予荣誉学士学位学生名单公示" [ref=e334] [cursor=pointer]:
+                                            - /url: view.asp?id=574758
+                                        - cell "5/21" [ref=e335]
+                                      - row "五四薪火传山海，母亲节里践初心——管科电商本科生党… 5/21" [ref=e336]:
+                                        - cell "五四薪火传山海，母亲节里践初心——管科电商本科生党…" [ref=e337]:
+                                          - img [ref=e338]
+                                          - link "五四薪火传山海，母亲节里践初心——管科电商本科生党…" [ref=e339] [cursor=pointer]:
+                                            - /url: view.asp?id=574647
+                                        - cell "5/21" [ref=e340]
+                                      - row "党建引领促就业 精准服务助前行——管科电商本科生党… 5/21" [ref=e341]:
+                                        - cell "党建引领促就业 精准服务助前行——管科电商本科生党…" [ref=e342]:
+                                          - img [ref=e343]
+                                          - link "党建引领促就业 精准服务助前行——管科电商本科生党…" [ref=e344] [cursor=pointer]:
+                                            - /url: view.asp?id=574659
+                                        - cell "5/21" [ref=e345]
+                                      - row "显示更多……" [ref=e346]:
+                                        - cell "显示更多……" [ref=e347]:
+                                          - link "显示更多……" [ref=e348] [cursor=pointer]:
+                                            - /url: ./infolist.asp?infotype=学工
+                                            - img "显示更多……" [ref=e349]
+                                        - cell [ref=e350]
+                            - row "学术讲座 校园生活" [ref=e351]:
+                              - cell "学术讲座" [ref=e352]:
+                                - group "学术讲座" [ref=e353]:
+                                  - generic [ref=e354]:
+                                    - img [ref=e355]
+                                    - link "学术讲座" [ref=e356] [cursor=pointer]:
+                                      - /url: ./infolist.asp?infotype=讲座
+                                      - strong [ref=e357]: 学术讲座
+                                  - table [ref=e359]:
+                                    - rowgroup [ref=e360]:
+                                      - row "丽湖｜明理楼｜深圳大学电子商务·启智论坛（第4... 5/22 9:00" [ref=e361]:
+                                        - cell "丽湖｜明理楼｜深圳大学电子商务·启智论坛（第4..." [ref=e362]:
+                                          - img [ref=e363]
+                                          - link "丽湖｜明理楼｜深圳大学电子商务·启智论坛（第4..." [ref=e364] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574389
+                                        - cell "5/22 9:00" [ref=e365]
+                                      - row "粤海｜汇文楼｜【预告】深圳大学理论经济学博士沙... 5/22 10:00" [ref=e366]:
+                                        - cell "粤海｜汇文楼｜【预告】深圳大学理论经济学博士沙..." [ref=e367]:
+                                          - img [ref=e368]
+                                          - link "粤海｜汇文楼｜【预告】深圳大学理论经济学博士沙..." [ref=e369] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=573980
+                                        - cell "5/22 10:00" [ref=e370]
+                                      - row "丽湖｜其他｜【深医讲坛第一百七十六讲】系统性研... 5/22 10:30" [ref=e371]:
+                                        - cell "丽湖｜其他｜【深医讲坛第一百七十六讲】系统性研..." [ref=e372]:
+                                          - img [ref=e373]
+                                          - link "丽湖｜其他｜【深医讲坛第一百七十六讲】系统性研..." [ref=e374] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574460
+                                        - cell "5/22 10:30" [ref=e375]
+                                      - row "粤海｜致理楼｜【2026南山讲坛】 第19场：... 5/22 10:30" [ref=e376]:
+                                        - cell "粤海｜致理楼｜【2026南山讲坛】 第19场：..." [ref=e377]:
+                                          - img [ref=e378]
+                                          - link "粤海｜致理楼｜【2026南山讲坛】 第19场：..." [ref=e379] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574643
+                                        - cell "5/22 10:30" [ref=e380]
+                                      - row "丽湖｜明理楼｜深圳大学管理学院管理科学前沿论坛... 5/22 14:30" [ref=e381]:
+                                        - cell "丽湖｜明理楼｜深圳大学管理学院管理科学前沿论坛..." [ref=e382]:
+                                          - img [ref=e383]
+                                          - link "丽湖｜明理楼｜深圳大学管理学院管理科学前沿论坛..." [ref=e384] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574386
+                                        - cell "5/22 14:30" [ref=e385]
+                                      - row "粤海｜汇星楼｜【深大微众冠名讲座】杰出学者 第... 5/22 14:30" [ref=e386]:
+                                        - cell "粤海｜汇星楼｜【深大微众冠名讲座】杰出学者 第..." [ref=e387]:
+                                          - img [ref=e388]
+                                          - link "粤海｜汇星楼｜【深大微众冠名讲座】杰出学者 第..." [ref=e389] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574577
+                                        - cell "5/22 14:30" [ref=e390]
+                                      - row "粤海｜其他｜“饶宗颐讲坛”第三十六讲： 语言魔... 5/22 15:00" [ref=e391]:
+                                        - cell "粤海｜其他｜“饶宗颐讲坛”第三十六讲： 语言魔..." [ref=e392]:
+                                          - img [ref=e393]
+                                          - link "粤海｜其他｜“饶宗颐讲坛”第三十六讲： 语言魔..." [ref=e394] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574020
+                                        - cell "5/22 15:00" [ref=e395]
+                                      - row "丽湖｜守正楼｜讲座预告 | 魏建：好文章的写作... 5/22 15:30" [ref=e396]:
+                                        - cell "丽湖｜守正楼｜讲座预告 | 魏建：好文章的写作..." [ref=e397]:
+                                          - img [ref=e398]
+                                          - link "丽湖｜守正楼｜讲座预告 | 魏建：好文章的写作..." [ref=e399] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574645
+                                        - cell "5/22 15:30" [ref=e400]
+                                      - row "丽湖｜明德楼｜“证券市场前沿与实务”系列讲座：... 5/22 16:00" [ref=e401]:
+                                        - cell "丽湖｜明德楼｜“证券市场前沿与实务”系列讲座：..." [ref=e402]:
+                                          - img [ref=e403]
+                                          - link "丽湖｜明德楼｜“证券市场前沿与实务”系列讲座：..." [ref=e404] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=574624
+                                        - cell "5/22 16:00" [ref=e405]
+                                      - row "粤海｜汇文楼｜学术讲座：为何机器人也是人文议题？ 5/22 16:00" [ref=e406]:
+                                        - cell "粤海｜汇文楼｜学术讲座：为何机器人也是人文议题？" [ref=e407]:
+                                          - img [ref=e408]
+                                          - link "粤海｜汇文楼｜学术讲座：为何机器人也是人文议题？" [ref=e409] [cursor=pointer]:
+                                            - /url: /board/view.asp?id=573854
+                                        - cell "5/22 16:00" [ref=e410]
+                                      - row "显示更多……" [ref=e411]:
+                                        - cell "显示更多……" [ref=e412]:
+                                          - link "显示更多……" [ref=e413] [cursor=pointer]:
+                                            - /url: ./infolist.asp?infotype=讲座
+                                            - img "显示更多……" [ref=e414]
+                                        - cell [ref=e415]
+                              - cell "校园生活" [ref=e416]:
+                                - group "校园生活" [ref=e417]:
+                                  - generic [ref=e418]:
+                                    - img [ref=e419]
+                                    - link "校园生活" [ref=e420] [cursor=pointer]:
+                                      - /url: ./infolist.asp?infotype=生活
+                                      - strong [ref=e421]: 校园生活
+                                  - table [ref=e423]:
+                                    - rowgroup [ref=e424]:
+                                      - row "【525心理月】关于2026年荔园心理绘画比赛获奖… 5/21" [ref=e425]:
+                                        - cell "【525心理月】关于2026年荔园心理绘画比赛获奖…" [ref=e426]:
+                                          - img [ref=e427]
+                                          - link "【525心理月】关于2026年荔园心理绘画比赛获奖…" [ref=e428] [cursor=pointer]:
+                                            - /url: view.asp?id=574452
+                                        - cell "5/21" [ref=e429]
+                                      - row "【525心理月】关于第二届荔园心理情景剧比赛获奖名… 5/21" [ref=e430]:
+                                        - cell "【525心理月】关于第二届荔园心理情景剧比赛获奖名…" [ref=e431]:
+                                          - img [ref=e432]
+                                          - link "【525心理月】关于第二届荔园心理情景剧比赛获奖名…" [ref=e433] [cursor=pointer]:
+                                            - /url: view.asp?id=574779
+                                        - cell "5/21" [ref=e434]
+                                      - row "【525心理月】关于2026年荔园心理微课征集比赛… 5/21" [ref=e435]:
+                                        - cell "【525心理月】关于2026年荔园心理微课征集比赛…" [ref=e436]:
+                                          - img [ref=e437]
+                                          - link "【525心理月】关于2026年荔园心理微课征集比赛…" [ref=e438] [cursor=pointer]:
+                                            - /url: view.asp?id=574769
+                                        - cell "5/21" [ref=e439]
+                                      - row "【525心理月】关于2026年荔园心理科普短视频征… 5/21" [ref=e440]:
+                                        - cell "【525心理月】关于2026年荔园心理科普短视频征…" [ref=e441]:
+                                          - img [ref=e442]
+                                          - link "【525心理月】关于2026年荔园心理科普短视频征…" [ref=e443] [cursor=pointer]:
+                                            - /url: view.asp?id=574455
+                                        - cell "5/21" [ref=e444]
+                                      - row "【525心理月】关于2026年荔园心理健康主题演讲… 5/21" [ref=e445]:
+                                        - cell "【525心理月】关于2026年荔园心理健康主题演讲…" [ref=e446]:
+                                          - img [ref=e447]
+                                          - link "【525心理月】关于2026年荔园心理健康主题演讲…" [ref=e448] [cursor=pointer]:
+                                            - /url: view.asp?id=574770
+                                        - cell "5/21" [ref=e449]
+                                      - row "经济学院金融硕士（MF）系列讲座--第一百、一百零… 5/21" [ref=e450]:
+                                        - cell "经济学院金融硕士（MF）系列讲座--第一百、一百零…" [ref=e451]:
+                                          - img [ref=e452]
+                                          - link "经济学院金融硕士（MF）系列讲座--第一百、一百零…" [ref=e453] [cursor=pointer]:
+                                            - /url: view.asp?id=574437
+                                        - cell "5/21" [ref=e454]
+                                      - row "关于对学生社团违规问题责令限期整改的通报 5/20" [ref=e455]:
+                                        - cell "关于对学生社团违规问题责令限期整改的通报" [ref=e456]:
+                                          - img [ref=e457]
+                                          - link "关于对学生社团违规问题责令限期整改的通报" [ref=e458] [cursor=pointer]:
+                                            - /url: view.asp?id=574620
+                                        - cell "5/20" [ref=e459]
+                                      - row "体育学院开展“活力深大·匹克新风”师生浸润匹克球活… 5/20" [ref=e460]:
+                                        - cell "体育学院开展“活力深大·匹克新风”师生浸润匹克球活…" [ref=e461]:
+                                          - img [ref=e462]
+                                          - link "体育学院开展“活力深大·匹克新风”师生浸润匹克球活…" [ref=e463] [cursor=pointer]:
+                                            - /url: view.asp?id=574607
+                                        - cell "5/20" [ref=e464]
+                                      - row "关于接送丽湖考生前往粤海校区南区参加2026年上半… 5/20" [ref=e465]:
+                                        - cell "关于接送丽湖考生前往粤海校区南区参加2026年上半…" [ref=e466]:
+                                          - img [ref=e467]
+                                          - link "关于接送丽湖考生前往粤海校区南区参加2026年上半…" [ref=e468] [cursor=pointer]:
+                                            - /url: view.asp?id=574603
+                                        - cell "5/20" [ref=e469]
+                                      - row "关于召集我校同学参加Friday Global M… 5/20" [ref=e470]:
+                                        - cell "关于召集我校同学参加Friday Global M…" [ref=e471]:
+                                          - img [ref=e472]
+                                          - link "关于召集我校同学参加Friday Global M…" [ref=e473] [cursor=pointer]:
+                                            - /url: view.asp?id=574575
+                                        - cell "5/20" [ref=e474]
+                                      - row "显示更多……" [ref=e475]:
+                                        - cell "显示更多……" [ref=e476]:
+                                          - link "显示更多……" [ref=e477] [cursor=pointer]:
+                                            - /url: ./infolist.asp?infotype=生活
+                                            - img "显示更多……" [ref=e478]
+                                        - cell [ref=e479]
+                    - row [ref=e480]:
+                      - cell [ref=e481]
+    - row "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e482]:
+      - cell "深大新闻网 ｜ 公文通 ｜ OA系统 ｜ 畅课平台 ｜ 院系设置 ｜ 职能部门 ｜ 教师事务 ｜ 学生事务 ｜ 网上服务 ｜ 教工区上网 ｜ 合同管理 ｜ 一网通办 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时) 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188 版权所有©深圳大学信息中心 返回顶部" [ref=e483]:
+        - generic [ref=e484]:
+          - link "深大新闻网" [ref=e485] [cursor=pointer]:
+            - /url: http://news.szu.edu.cn
+          - text: ｜
+          - link "公文通" [ref=e486] [cursor=pointer]:
+            - /url: /board/
+          - text: ｜
+          - link "OA系统" [ref=e487] [cursor=pointer]:
+            - /url: http://210.39.3.155:9090/goLogin.do
+          - text: ｜
+          - link "畅课平台" [ref=e488] [cursor=pointer]:
+            - /url: https://lms.szu.edu.cn
+          - text: ｜
+          - link "院系设置" [ref=e489] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/xbxy.htm
+          - text: ｜
+          - link "职能部门" [ref=e490] [cursor=pointer]:
+            - /url: http://www.szu.edu.cn/yxjg/znbm.htm
+          - text: ｜
+          - link "教师事务" [ref=e491] [cursor=pointer]:
+            - /url: /view.asp?id=12
+          - text: ｜
+          - link "学生事务" [ref=e492] [cursor=pointer]:
+            - /url: /view.asp?id=13
+          - text: ｜
+          - link "网上服务" [ref=e493] [cursor=pointer]:
+            - /url: /nc
+          - text: ｜
+          - link "教工区上网" [ref=e494] [cursor=pointer]:
+            - /url: https://net.szu.edu.cn/
+          - text: ｜
+          - link "合同管理" [ref=e495] [cursor=pointer]:
+            - /url: https://cmp.szu.edu.cn
+          - text: ｜
+          - link "一网通办" [ref=e496] [cursor=pointer]:
+            - /url: https://mk.szu.edu.cn/web/#/1j4jgb14ewnwbc6w2s7sg63en18qp3sqjvw0/sys-portal/1j4ro8gt9wnwobmw1uv6l8b198s5n068gow0
+        - text: 咨询电话：26536114、26536190 校内报警：26537119 物业服务：26732006 心理咨询：400-098-2525(24小时)
+        - text: 学生区网络：26913311(电信)、18476328678(移动) 教学办公区网络：26536188
+        - text: 版权所有©深圳大学信息中心
+        - link "返回顶部" [ref=e498] [cursor=pointer]:
+          - /url: "#top"
+          - img "返回顶部" [ref=e499]
