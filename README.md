@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SZU 公文通助手
 
-## Getting Started
+深圳大学公文通（Board）分类浏览浏览器扩展，支持 **Chrome** / **Edge**。
 
-First, run the development server:
+每天上百条公文通知混在一起 —— 讲座、活动、比赛、教务通知……很难快速找到自己关心的内容。这个扩展会自动抓取公文、智能分类，还能根据你的学院和课程个性化排序，让真正重要的内容一眼可见。
+
+---
+
+## 痛点
+
+| 问题 | 说明 |
+|------|------|
+| 信息过载 | 公文通每天发布大量通知，所有类型混排在一起，无法按类别筛选 |
+| 缺少关键信息 | 列表只显示标题，需要逐条点进去才能看到正文内容 |
+| 无法个性化 | 不能只看自己学院的通知，也无法屏蔽不相关学院的消息 |
+
+---
+
+## 功能
+
+### 1. 自动抓取 & 智能分类
+
+点击"获取最新"一键抓取公文通首页和各分类列表，自动将公文归类到以下标签：
+
+- **讲座** — 学术讲座、报告会、研讨会
+- **活动** — 晚会、展览、招新、志愿者招募
+- **比赛** — 竞赛、选拔赛、答辩通知（精确匹配 4600+ 国家级/省级竞赛）
+- **教务** — 选课、考试、毕业、奖学金、四六级
+- **新闻** — 活动回顾、总结报道
+- **生活** — 天气提醒、防虫消杀、荔枝派发等校园生活通知
+- **待分类** — 未命中关键词的公文（可手动重新分类）
+
+可选的 **AI 增强分类**：配置 DeepSeek 或兼容 API 后，"待分类"的公文会自动调用大模型判断类别。
+
+### 2. 个性化过滤
+
+在设置中填写你的学院和课程名称后：
+
+- **相关（黄色高亮置顶）**：与你的学院或课程直接相关的公文
+- **无关（折叠）**：明显属于其他学院的公文自动折叠
+- **中性（正常显示）**：无法判断的公文保持原样
+
+学院匹配支持全称和简称别名（如"计算机与软件学院"也能匹配"计软学院"）。
+
+### 3. 内容预览 & 交互
+
+- **单击**展开/收起公文详情（标题、发布时间、地点、发布单位、摘要前 300 字）
+- **长按** 或 **右键**弹出操作菜单（删除 / 重新分类）
+- **点击"查看原文"** 在新标签页打开公文通原始页面
+
+### 4. 收藏 & 管理
+
+- 点击星标按钮收藏重要公文
+- "收藏"标签页快速查看所有已收藏公文
+- 删除的公文会被加入黑名单，下次抓取不会重新出现
+- 可配置存储时间（1-7 天），超期的非收藏公文自动清理
+
+### 5. SSO 登录检测
+
+扩展会检测你的校园网登录状态。如果 SSO 会话过期，会提示你在浏览器中重新登录 `www1.szu.edu.cn`，无需在扩展内处理密码。
+
+---
+
+## 开发 & 运行
+
+### 环境要求
+
+- Node.js >= 18
+- pnpm（推荐）或 npm
+
+### 安装依赖
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 开发模式
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+开发模式下会自动 watch 文件变化并热更新：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 默认浏览器
+pnpm dev
 
-## Learn More
+# 指定 Chrome
+pnpm dev:chrome
 
-To learn more about Next.js, take a look at the following resources:
+# 指定 Edge
+pnpm dev:edge
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 构建
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# 默认浏览器
+pnpm build
 
-## Deploy on Vercel
+# 指定浏览器
+pnpm build:chrome
+pnpm build:edge
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+构建产物在 `dist/` 目录下。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 加载扩展
+
+1. 打开 Chrome/Edge，地址栏输入 `chrome://extensions`（Edge 为 `edge://extensions`）
+2. 打开右上角 **"开发者模式"** 开关
+3. 点击 **"加载已解压的扩展"**（或 **"加载解压缩的扩展"**）
+4. 选择项目中的 `dist/chrome-mv3`（或 `dist/edge-mv3`）目录
+5. 扩展图标会出现在浏览器工具栏
+
+### 开发时直接加载
+
+你也可以直接将 `dist/chrome-mv3` 目录拖拽到 `chrome://extensions` 页面来加载。
+
+---
+
+## 使用说明
+
+### 首次使用
+
+1. **登录校园网**：在浏览器中打开 [www1.szu.edu.cn](https://www1.szu.edu.cn) 并完成统一身份认证登录
+2. **打开扩展 Popup**：点击浏览器工具栏的扩展图标
+3. **获取公文**：点击"获取最新"按钮开始抓取
+4. **浏览分类**：通过顶部分类标签切换查看不同类别的公文
+
+### 个性化设置
+
+点击右上角齿轮图标进入设置：
+
+- **我的学院**：从 28 个学院中选择你的学院
+- **我的课表**：输入课程名称，每行一个（支持换行、逗号、中文逗号分隔）
+- **增强识别**：配置大模型 API 地址和 Key（留空则仅使用关键词分类）
+- **存储时间**：1-7 天，超期的非收藏公文会被自动清理
+
+### 操作技巧
+
+- **搜索**：搜索框支持按标题、摘要、发布单位搜索
+- **收藏**：点击卡片右侧的 ☆/★ 按钮
+- **删除**：长按卡片（移动端）或右键（桌面端）弹出菜单 → 选择"删除"
+- **重新分类**：长按/右键 → 选择"重新分类" → 在弹窗中选择正确的类别
+- **查看原文**：展开卡片后点击"查看原文 →"
+
+---
+
+## FAQ
+
+### Q: 点击"获取最新"后没有任何公文？
+
+检查是否已在浏览器中登录 `www1.szu.edu.cn`。扩展依赖你的校园网 SSO 会话，如果过期会提示重新登录。
+
+### Q: 新闻/生活分类为什么没有命中？
+
+分类依赖关键词匹配。如果你发现某条公文分类错误，可以长按卡片 → "重新分类"来手动纠正。手动重新分类后，下次爬取不会被覆盖。
+
+### Q: AI 分类怎么配置？
+
+在设置页中填写 API URL 和 Key。任何兼容 OpenAI Chat Completions 格式的 API 都可以使用（DeepSeek、OpenAI、本地模型等）。只有"待分类"的公文才会调用模型，已命中关键词的公文不会触发 API 调用。
+
+### Q: 如何更新已爬取公文的分类？
+
+点击"获取最新"会自动对所有现有公文重新运行关键词匹配（手动标记的 LLM 分类除外）。如果你修改了分类关键词，下次爬取即可生效。
+
+---
+
+## License
+
+MIT
