@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import type { Article, CategoryDef, CrawlState, IndexEntry } from "../../modules/types";
+import type { Article } from "../../modules/types";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import CategoryTabs from "./components/CategoryTabs";
@@ -38,6 +38,7 @@ export default function App() {
   }, []);
 
   const filteredArticles = articles.filter((a) => {
+    if (activeCategory === "favorites") return a.favorite;
     if (activeCategory !== "all" && a.category !== activeCategory) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -56,6 +57,7 @@ export default function App() {
   }, {});
 
   const totalCount = articles.length;
+  const favoriteCount = articles.filter((a) => a.favorite).length;
 
   const handleRefresh = async () => {
     const valid = await checkSSO();
@@ -80,6 +82,7 @@ export default function App() {
         categories={categories}
         counts={categoryCounts}
         totalCount={totalCount}
+        favoriteCount={favoriteCount}
         active={activeCategory}
         onSelect={setActiveCategory}
       />

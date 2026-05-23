@@ -1,5 +1,13 @@
 import type { CategoryDef } from "../types";
 
+const NEWS_KEYWORDS = ["成功举办", "顺利开展", "落幕", "收官", "圆满举行", "顺利召开", "回顾", "发表论文", "发表文章", "发表成果"];
+
+export function matchNewsKeywords(title: string, summary: string): string[] | null {
+  const text = `${title} ${summary}`;
+  const matched = NEWS_KEYWORDS.filter((kw) => text.includes(kw));
+  return matched.length > 0 ? matched : null;
+}
+
 export function matchByKeywords(
   title: string,
   summary: string,

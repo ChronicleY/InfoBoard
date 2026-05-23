@@ -20,8 +20,11 @@ export default function NoticeList({ articles, expandedIds, onToggleExpand, onRe
     );
   }
 
-  // Sort by date descending
-  const sorted = [...articles].sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+  // Favorited first, then by publishDate descending
+  const sorted = [...articles].sort((a, b) => {
+    if (a.favorite !== b.favorite) return a.favorite ? -1 : 1;
+    return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
+  });
 
   return (
     <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2">

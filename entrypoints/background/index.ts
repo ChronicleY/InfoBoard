@@ -6,15 +6,15 @@ import type {
   MessageResponse,
 } from "../../modules/types";
 
-import { getArticles, saveArticles, updateArticle, getArticleIds } from "../../modules/storage/notices";
+import { getArticles, saveArticles, updateArticle, getArticleIds, deleteArticles } from "../../modules/storage/notices";
 import { getCategories, saveCustomCategories, saveBuiltinKeywords } from "../../modules/storage/categories";
 import { getSettings, saveSettings } from "../../modules/storage/settings";
 import { getCrawlState, saveCrawlState } from "../../modules/storage/crawlState";
 import { cleanupExpired } from "../../modules/storage/cleanup";
 import { fetchBoardPage, SSOExpiredError, checkSSO } from "../../modules/crawler/fetcher";
 import { parseBoardList, parseBoardDetail, parseInfolistPage, gbkEncodeUrl } from "../../modules/crawler/boardParser";
-import { filterNewUrls, getArticleId } from "../../modules/crawler/deduplicator";
-import { matchByKeywords } from "../../modules/classifier/keywordMatcher";
+import { filterNewUrls, getArticleId, addToDeletedIds } from "../../modules/crawler/deduplicator";
+import { matchByKeywords, matchNewsKeywords } from "../../modules/classifier/keywordMatcher";
 import { classifyWithLLM } from "../../modules/classifier/llmClassifier";
 import { matchCompetition } from "../../modules/classifier/competitionMatcher";
 
@@ -115,6 +115,15 @@ export default defineBackground(() => {
         await saveSettings(message.settings);
         return { success: true, data: undefined };
       }
+      case "notice:delete": {
+        await deleteArticles([message.id]);
+        await addToDeletedIds(message.id);
+        return { success: true, data: undefined };
+      }
+      case "notice:read": {
+        await updateArticle(message.id, { isRead: message.isRead });
+        return { success: true, data: undefined };
+      }
       case "check:sso": {
         const ok = await checkSSO();
         return { success: true, data: ok };
@@ -200,15 +209,24 @@ export default defineBackground(() => {
           let matchedKeywords: string[] = [];
           let llmClassified = false;
 
-          const keywordResult = matchByKeywords(
-            preview.title,
-            detail.summary,
-            categories,
-          );
-          if (keywordResult) {
-            category = keywordResult.category.name;
-            matchedKeywords = keywordResult.matchedKeywords;
-          } else if (settings.deepseekApiKey) {
+          // News filter runs first — highest priority
+          const newsMatches = matchNewsKeywords(preview.title, detail.summary);
+          if (newsMatches) {
+            category = "新闻";
+            matchedKeywords = newsMatches;
+          } else {
+            const keywordResult = matchByKeywords(
+              preview.title,
+              detail.summary,
+              categories,
+            );
+            if (keywordResult) {
+              category = keywordResult.category.name;
+              matchedKeywords = keywordResult.matchedKeywords;
+            }
+          }
+
+          if (category === "待分类" && settings.deepseekApiKey) {
             try {
               const tempArticle: Article = {
                 id,

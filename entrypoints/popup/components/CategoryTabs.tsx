@@ -4,13 +4,15 @@ interface CategoryTabsProps {
   categories: CategoryDef[];
   counts: Record<string, number>;
   totalCount: number;
+  favoriteCount: number;
   active: string;
   onSelect: (category: string) => void;
 }
 
-export default function CategoryTabs({ categories, counts, totalCount, active, onSelect }: CategoryTabsProps) {
+export default function CategoryTabs({ categories, counts, totalCount, favoriteCount, active, onSelect }: CategoryTabsProps) {
   return (
     <div className="px-4 pb-2 flex gap-1.5 overflow-x-auto shrink-0">
+      <Tab key="favorites" label="收藏" count={favoriteCount} active={active === "favorites"} onClick={() => onSelect("favorites")} />
       <Tab key="all" label="全部" count={totalCount} active={active === "all"} onClick={() => onSelect("all")} />
       {categories
         .filter((c) => c.id !== "uncategorized" || (counts[c.name] ?? 0) > 0)

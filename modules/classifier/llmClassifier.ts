@@ -8,15 +8,15 @@ interface DeepSeekResponse {
   }>;
 }
 
-const VALID_CATEGORIES = ["讲座", "活动", "比赛", "教务", "待分类"];
-
 export async function classifyWithLLM(
   article: Article,
   apiKey: string,
   model: string,
-  customCategories: CategoryDef[],
+  categories: CategoryDef[],
 ): Promise<string> {
-  const allCategories = [...VALID_CATEGORIES, ...customCategories.filter((c) => !c.isBuiltin).map((c) => c.name)];
+  const allCategories = categories
+    .filter((c) => c.id !== "uncategorized")
+    .map((c) => c.name);
 
   const response = await fetch("https://api.deepseek.com/chat/completions", {
     method: "POST",

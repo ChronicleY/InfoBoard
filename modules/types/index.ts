@@ -82,6 +82,20 @@ export const BUILTIN_CATEGORIES: CategoryDef[] = [
     sortOrder: 3,
   },
   {
+    id: "news",
+    name: "新闻",
+    keywords: ["成功举办", "顺利开展", "落幕", "收官", "圆满举行", "顺利召开", "回顾", "发表论文", "发表文章", "发表成果"],
+    isBuiltin: true,
+    sortOrder: 4,
+  },
+  {
+    id: "life",
+    name: "生活",
+    keywords: ["温馨提示", "天气", "荔枝", "防虫", "消杀"],
+    isBuiltin: true,
+    sortOrder: 5,
+  },
+  {
     id: "uncategorized",
     name: "待分类",
     keywords: [],
@@ -96,6 +110,8 @@ export type Message =
   | { type: "notices:list"; category?: string; search?: string }
   | { type: "notice:update"; id: string; changes: Partial<Article> }
   | { type: "notice:favorite"; id: string; favorite: boolean }
+  | { type: "notice:delete"; id: string }
+  | { type: "notice:read"; id: string; isRead: boolean }
   | { type: "notices:cleanup" }
   | { type: "categories:list" }
   | { type: "categories:save"; categories: CategoryDef[] }
