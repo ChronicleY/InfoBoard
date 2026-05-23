@@ -4,6 +4,11 @@ const DEFAULT_SETTINGS: Settings = {
   deepseekApiKey: "",
   deepseekModel: "deepseek-chat",
   subscriptions: [],
+  userCollege: "",
+  userCourses: [],
+  llmUrl: "",
+  llmApiKey: "",
+  storageDays: 7,
 };
 
 export async function getSettings(): Promise<Settings> {

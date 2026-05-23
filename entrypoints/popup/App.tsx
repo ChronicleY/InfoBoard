@@ -1,14 +1,18 @@
-import { useState, useEffect, useCallback } from "react";
-import type { Article } from "../../modules/types";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import type { Article, Settings } from "../../modules/types";
+import { SZU_COLLEGES, COLLEGE_ALIASES } from "../../modules/types";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import CategoryTabs from "./components/CategoryTabs";
 import NoticeList from "./components/NoticeList";
 import LoginPrompt from "./components/LoginPrompt";
 import ReclassifyModal from "./components/ReclassifyModal";
+import SettingsPage from "./components/SettingsPage";
 import { useNotices } from "./hooks/useNotices";
 import { useCategories } from "./hooks/useCategories";
 import { useCrawlStatus } from "./hooks/useCrawlStatus";
+
+type PersonalMatch = "relevant" | "irrelevant" | "neutral";
 
 export default function App() {
   const { articles, loading, refresh } = useNotices();
@@ -20,6 +24,8 @@ export default function App() {
   const [ssoValid, setSsoValid] = useState<boolean | null>(null);
   const [reclassifyArticle, setReclassifyArticle] = useState<Article | null>(null);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [showSettings, setShowSettings] = useState(false);
+  const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {
     checkSSO().then((valid) => {
@@ -27,6 +33,12 @@ export default function App() {
       if (valid) startCrawl();
     });
   }, []);
+
+  useEffect(() => {
+    chrome.runtime.sendMessage({ type: "settings:get" }).then((res) => {
+      if (res?.success) setSettings(res.data as Settings);
+    });
+  }, [showSettings]);
 
   const toggleExpand = useCallback((id: string) => {
     setExpandedIds((prev) => {
@@ -37,19 +49,73 @@ export default function App() {
     });
   }, []);
 
-  const filteredArticles = articles.filter((a) => {
-    if (activeCategory === "favorites") return a.favorite;
-    if (activeCategory !== "all" && a.category !== activeCategory) return false;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      return (
-        a.title.toLowerCase().includes(q) ||
-        a.summary.toLowerCase().includes(q) ||
-        a.publisher.toLowerCase().includes(q)
-      );
+  // Compute personal match for each article based on user college/courses
+  const personalMatches = useMemo(() => {
+    const map: Record<string, PersonalMatch> = {};
+    if (!settings) return map;
+
+    const userCollege = settings.userCollege;
+    const userCourses = settings.userCourses.filter(Boolean);
+
+    if (!userCollege && userCourses.length === 0) return map;
+
+    // Build keyword lists
+    const collegeKeywords = new Map<string, string[]>();
+    for (const c of SZU_COLLEGES) {
+      const aliases = COLLEGE_ALIASES[c] || [];
+      collegeKeywords.set(c, [c, ...aliases]);
     }
-    return true;
-  });
+
+    for (const article of articles) {
+      const text = `${article.title} ${article.summary} ${article.publisher}`;
+
+      // Check course match first
+      let courseMatch = false;
+      if (userCourses.length > 0) {
+        courseMatch = userCourses.some((course) => text.includes(course));
+      }
+
+      // Check college match
+      let collegeMatch: "user" | "other" | "none" = "none";
+
+      for (const [college, keywords] of collegeKeywords) {
+        const mentioned = keywords.some((kw) => text.includes(kw));
+        if (!mentioned) continue;
+
+        if (college === userCollege) {
+          collegeMatch = "user";
+        } else if (collegeMatch !== "user") {
+          collegeMatch = "other";
+        }
+      }
+
+      if (collegeMatch === "user" || courseMatch) {
+        map[article.id] = "relevant";
+      } else if (collegeMatch === "other") {
+        map[article.id] = "irrelevant";
+      } else {
+        map[article.id] = "neutral";
+      }
+    }
+
+    return map;
+  }, [articles, settings]);
+
+  const filteredArticles = useMemo(() => {
+    return articles.filter((a) => {
+      if (activeCategory === "favorites") return a.favorite;
+      if (activeCategory !== "all" && a.category !== activeCategory) return false;
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        return (
+          a.title.toLowerCase().includes(q) ||
+          a.summary.toLowerCase().includes(q) ||
+          a.publisher.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [articles, activeCategory, searchQuery]);
 
   const categoryCounts = categories.reduce<Record<string, number>>((acc, cat) => {
     acc[cat.name] = articles.filter((a) => a.category === cat.name).length;
@@ -71,11 +137,20 @@ export default function App() {
     return <LoginPrompt onRetry={() => checkSSO().then(setSsoValid)} />;
   }
 
+  if (showSettings) {
+    return (
+      <div className="flex flex-col h-full">
+        <SettingsPage onBack={() => setShowSettings(false)} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-full">
       <Header
         crawlState={crawlState}
         onRefresh={handleRefresh}
+        onSettings={() => setShowSettings(true)}
       />
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
       <CategoryTabs
@@ -94,6 +169,7 @@ export default function App() {
         <NoticeList
           articles={filteredArticles}
           expandedIds={expandedIds}
+          personalMatches={personalMatches}
           onToggleExpand={toggleExpand}
           onReclassify={setReclassifyArticle}
           onRefresh={refresh}

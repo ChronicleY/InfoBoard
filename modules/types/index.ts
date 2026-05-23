@@ -35,6 +35,11 @@ export interface Settings {
   deepseekApiKey: string;
   deepseekModel: string;
   subscriptions: string[];
+  userCollege: string;
+  userCourses: string[];
+  llmUrl: string;
+  llmApiKey: string;
+  storageDays: number;
 }
 
 export interface IndexEntry {
@@ -102,6 +107,54 @@ export const BUILTIN_CATEGORIES: CategoryDef[] = [
     sortOrder: 99,
   },
 ];
+
+export const SZU_COLLEGES = [
+  "教育学部",
+  "艺术学部",
+  "医学部",
+  "马克思主义学院",
+  "经济学院",
+  "法学院",
+  "心理学院",
+  "体育学院",
+  "人文学院",
+  "外国语学院",
+  "传播学院",
+  "数学科学学院",
+  "物理与光电工程学院",
+  "化学与环境工程学院",
+  "生命与海洋科学学院",
+  "机电与控制工程学院",
+  "材料学院",
+  "电子与信息工程学院",
+  "计算机与软件学院",
+  "人工智能学院",
+  "建筑与城市规划学院",
+  "土木与交通工程学院",
+  "管理学院",
+  "政府管理学院",
+  "高等研究院",
+  "金融科技学院",
+  "国际交流学院",
+  "东京学院",
+];
+
+// Short forms mapping — used to catch mentions like "计软学院" or "电信学院"
+export const COLLEGE_ALIASES: Record<string, string[]> = {
+  "马克思主义学院": ["马院"],
+  "外国语学院": ["外语学院", "外院"],
+  "数学科学学院": ["数科院", "数学院"],
+  "物理与光电工程学院": ["物光学院", "光电学院"],
+  "化学与环境工程学院": ["化环学院", "化工学院"],
+  "生命与海洋科学学院": ["生科院", "生海学院"],
+  "机电与控制工程学院": ["机电学院"],
+  "电子与信息工程学院": ["电信学院"],
+  "计算机与软件学院": ["计软学院", "计科学院"],
+  "建筑与城市规划学院": ["建规学院", "建筑学院"],
+  "土木与交通工程学院": ["土木学院", "交工学院"],
+  "政府管理学院": ["政管学院"],
+  "国际交流学院": ["国际学院"],
+};
 
 export type Message =
   | { type: "crawl:start" }

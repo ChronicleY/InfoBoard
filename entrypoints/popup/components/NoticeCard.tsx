@@ -2,15 +2,18 @@ import { useState, useRef } from "react";
 import type { Article } from "../../../modules/types";
 import ContextMenu from "./ContextMenu";
 
+type PersonalMatch = "relevant" | "irrelevant" | "neutral";
+
 interface NoticeCardProps {
   article: Article;
   expanded: boolean;
+  personalMatch?: PersonalMatch;
   onToggleExpand: (id: string) => void;
   onReclassify?: (article: Article) => void;
   onRefresh: () => void;
 }
 
-export default function NoticeCard({ article, expanded, onToggleExpand, onReclassify, onRefresh }: NoticeCardProps) {
+export default function NoticeCard({ article, expanded, personalMatch, onToggleExpand, onReclassify, onRefresh }: NoticeCardProps) {
   const [favorite, setFavorite] = useState(article.favorite);
   const [showMenu, setShowMenu] = useState(false);
   const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
@@ -81,10 +84,17 @@ export default function NoticeCard({ article, expanded, onToggleExpand, onReclas
     return `${d.getMonth() + 1}-${String(d.getDate()).padStart(2, "0")}`;
   };
 
+  const isRelevant = personalMatch === "relevant";
+
+  const cardClass = [
+    "border rounded-lg bg-white hover:shadow-sm transition-shadow cursor-pointer",
+    isRelevant ? "border-yellow-400 bg-yellow-50" : "border-card-border",
+  ].join(" ");
+
   return (
     <>
       <div
-        className="border border-card-border rounded-lg bg-white hover:shadow-sm transition-shadow cursor-pointer"
+        className={cardClass}
         onClick={handleCardClick}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
@@ -96,9 +106,14 @@ export default function NoticeCard({ article, expanded, onToggleExpand, onReclas
         <div className="px-3 py-2.5">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-medium text-gray-900 leading-snug line-clamp-2">
-                {article.title}
-              </h3>
+              <div className="flex items-center gap-1.5">
+                {isRelevant && (
+                  <span className="shrink-0 text-[10px] text-yellow-700 bg-yellow-200 px-1 py-0 rounded">相关</span>
+                )}
+                <h3 className="text-sm font-medium text-gray-900 leading-snug line-clamp-2">
+                  {article.title}
+                </h3>
+              </div>
               <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
                 {article.publishDate && (
                   <span className="inline-flex items-center gap-0.5 text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">

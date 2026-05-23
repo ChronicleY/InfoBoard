@@ -263,7 +263,8 @@ export default defineBackground(() => {
             }
           }
 
-          if (category === "待分类" && settings.deepseekApiKey) {
+          const llmKey = settings.llmApiKey || settings.deepseekApiKey;
+          if (category === "待分类" && llmKey) {
             try {
               const tempArticle: Article = {
                 id,
@@ -283,8 +284,9 @@ export default defineBackground(() => {
               };
               category = await classifyWithLLM(
                 tempArticle,
-                settings.deepseekApiKey,
+                llmKey,
                 settings.deepseekModel,
+                settings.llmUrl,
                 categories,
               );
               llmClassified = true;

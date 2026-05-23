@@ -1,10 +1,12 @@
 import { getArticles, deleteArticles } from "./notices";
+import { getSettings } from "./settings";
 
 export async function cleanupExpired(): Promise<number> {
+  const settings = await getSettings();
   const articles = await getArticles();
   const now = new Date();
   const cutoff = new Date(now);
-  cutoff.setDate(cutoff.getDate() - 7);
+  cutoff.setDate(cutoff.getDate() - (settings.storageDays || 7));
 
   const toDelete: string[] = [];
 

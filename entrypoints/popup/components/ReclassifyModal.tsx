@@ -15,7 +15,7 @@ export default function ReclassifyModal({ article, categories, onClose, onReclas
     await chrome.runtime.sendMessage({
       type: "notice:update",
       id: article.id,
-      changes: { category: selected, llmClassified: false, matchedKeywords: [] },
+      changes: { category: selected, matchedKeywords: [], llmClassified: true },
     });
     onReclassified();
     onClose();

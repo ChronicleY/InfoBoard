@@ -12,13 +12,16 @@ export async function classifyWithLLM(
   article: Article,
   apiKey: string,
   model: string,
+  apiUrl: string,
   categories: CategoryDef[],
 ): Promise<string> {
   const allCategories = categories
     .filter((c) => c.id !== "uncategorized")
     .map((c) => c.name);
 
-  const response = await fetch("https://api.deepseek.com/chat/completions", {
+  const url = apiUrl || "https://api.deepseek.com/chat/completions";
+
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${apiKey}`,
