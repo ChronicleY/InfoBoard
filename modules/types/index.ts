@@ -10,6 +10,7 @@ export interface Article {
   category: string;
   matchedKeywords: string[];
   llmClassified: boolean;
+  manuallyClassified?: boolean;
   competitionMatch: string | null;
   favorite: boolean;
   crawledAt: number;
@@ -60,7 +61,7 @@ export const BUILTIN_CATEGORIES: CategoryDef[] = [
   {
     id: "lecture",
     name: "讲座",
-    keywords: ["讲座", "报告会", "学术报告", "研讨会", "讲堂", "演说", "沙龙", "论坛"],
+    keywords: ["讲座", "报告会", "学术报告", "研讨会", "讲堂", "演说", "沙龙", "论坛", "公开课"],
     isBuiltin: true,
     sortOrder: 0,
   },
@@ -95,7 +96,7 @@ export const BUILTIN_CATEGORIES: CategoryDef[] = [
   {
     id: "life",
     name: "生活",
-    keywords: ["温馨提示", "天气", "荔枝", "防虫", "消杀"],
+    keywords: ["温馨提示", "天气", "荔枝", "防虫", "消杀", "后勤", "信息中心", "宽带", "图书馆", "校园卡", "减脂", "跑步"],
     isBuiltin: true,
     sortOrder: 5,
   },

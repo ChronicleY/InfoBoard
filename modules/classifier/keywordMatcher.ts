@@ -32,7 +32,7 @@ const NEWS_BODY_SIGNALS: RegExp[] = [
   /此次.{1,10}(活动|讲座|比赛|会议)/,
 ];
 
-export function matchNewsKeywords(title: string, summary: string): string[] | null {
+export function matchNewsKeywords(title: string, summary: string, publishDate?: string): string[] | null {
   const text = `${title} ${summary}`;
 
   // Title keyword match — strong signal
@@ -48,7 +48,59 @@ export function matchNewsKeywords(title: string, summary: string): string[] | nu
     }
   }
 
+  // Date signal — body mentions a date earlier than publish date → retrospective
+  if (publishDate && matchNewsByDate(text, publishDate)) {
+    return ["日期信号匹配"];
+  }
+
   return null;
+}
+
+/**
+ * Detect retrospective articles by checking if the body mentions dates
+ * earlier than the publish date.
+ */
+export function matchNewsByDate(bodyText: string, publishDate: string): boolean {
+  const pub = parseDateString(publishDate);
+  if (!pub) return false;
+
+  // Extract M月D日 / M月D号 patterns
+  const mdRegex = /(\d{1,2})\s*月\s*(\d{1,2})\s*[日号]/g;
+  let match: RegExpExecArray | null;
+  while ((match = mdRegex.exec(bodyText)) !== null) {
+    const month = parseInt(match[1], 10);
+    const day = parseInt(match[2], 10);
+    if (month < 1 || month > 12 || day < 1 || day > 31) continue;
+
+    // Try same year as publish date
+    const candidate = new Date(pub.getFullYear(), month - 1, day);
+    if (!isNaN(candidate.getTime()) && candidate < pub) return true;
+
+    // Also try previous year (e.g., published Jan 2026, reviewing Dec 2025)
+    const prevYear = new Date(pub.getFullYear() - 1, month - 1, day);
+    if (!isNaN(prevYear.getTime()) && prevYear < pub) return true;
+  }
+
+  // Extract YYYY-MM-DD / YYYY/MM/DD patterns
+  const ymdRegex = /(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/g;
+  while ((match = ymdRegex.exec(bodyText)) !== null) {
+    const year = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10);
+    const day = parseInt(match[3], 10);
+    if (month < 1 || month > 12 || day < 1 || day > 31) continue;
+
+    const candidate = new Date(year, month - 1, day);
+    if (!isNaN(candidate.getTime()) && candidate < pub) return true;
+  }
+
+  return false;
+}
+
+function parseDateString(dateStr: string): Date | null {
+  if (!dateStr) return null;
+  // Already ISO format from crawler
+  const d = new Date(dateStr);
+  return isNaN(d.getTime()) ? null : d;
 }
 
 export function matchByKeywords(

@@ -131,7 +131,7 @@ export default function NoticeCard({ article, expanded, personalMatch, onToggleE
                     {article.competitionMatch}
                   </span>
                 )}
-                {article.llmClassified && (
+                {article.llmClassified && !article.manuallyClassified && (
                   <span className="text-[10px] text-accent-blue bg-blue-50 px-1 py-0.5 rounded">AI分类</span>
                 )}
               </div>

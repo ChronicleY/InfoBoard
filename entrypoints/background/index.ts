@@ -137,10 +137,10 @@ export default defineBackground(() => {
 
     let changed = 0;
     for (const article of articles) {
-      // Skip LLM-classified articles — only re-classify keyword-based ones
-      if (article.llmClassified) continue;
+      // Skip LLM-classified and manually reclassified articles
+      if (article.llmClassified || article.manuallyClassified) continue;
 
-      const newsMatches = matchNewsKeywords(article.title, article.summary);
+      const newsMatches = matchNewsKeywords(article.title, article.summary, article.publishDate);
       if (newsMatches) {
         if (article.category !== "新闻") {
           article.category = "新闻";
@@ -247,7 +247,7 @@ export default defineBackground(() => {
           let llmClassified = false;
 
           // News filter runs first — highest priority
-          const newsMatches = matchNewsKeywords(preview.title, detail.summary);
+          const newsMatches = matchNewsKeywords(preview.title, detail.summary, detail.publishDate);
           if (newsMatches) {
             category = "新闻";
             matchedKeywords = newsMatches;

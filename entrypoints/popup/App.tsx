@@ -7,7 +7,6 @@ import CategoryTabs from "./components/CategoryTabs";
 import NoticeList from "./components/NoticeList";
 import LoginPrompt from "./components/LoginPrompt";
 import ReclassifyModal from "./components/ReclassifyModal";
-import SettingsPage from "./components/SettingsPage";
 import { useNotices } from "./hooks/useNotices";
 import { useCategories } from "./hooks/useCategories";
 import { useCrawlStatus } from "./hooks/useCrawlStatus";
@@ -24,7 +23,6 @@ export default function App() {
   const [ssoValid, setSsoValid] = useState<boolean | null>(null);
   const [reclassifyArticle, setReclassifyArticle] = useState<Article | null>(null);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
-  const [showSettings, setShowSettings] = useState(false);
   const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export default function App() {
     chrome.runtime.sendMessage({ type: "settings:get" }).then((res) => {
       if (res?.success) setSettings(res.data as Settings);
     });
-  }, [showSettings]);
+  }, []);
 
   const toggleExpand = useCallback((id: string) => {
     setExpandedIds((prev) => {
@@ -137,20 +135,12 @@ export default function App() {
     return <LoginPrompt onRetry={() => checkSSO().then(setSsoValid)} />;
   }
 
-  if (showSettings) {
-    return (
-      <div className="flex flex-col h-full">
-        <SettingsPage onBack={() => setShowSettings(false)} />
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col h-full">
       <Header
         crawlState={crawlState}
         onRefresh={handleRefresh}
-        onSettings={() => setShowSettings(true)}
+        onSettings={() => chrome.runtime.openOptionsPage()}
       />
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
       <CategoryTabs
