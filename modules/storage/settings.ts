@@ -7,7 +7,6 @@ const DEFAULT_SETTINGS: Settings = {
   userCollege: "",
   userCourses: [],
   llmUrl: "",
-  llmApiKey: "",
   storageDays: 7,
 };
 

@@ -39,7 +39,6 @@ export interface Settings {
   userCollege: string;
   userCourses: string[];
   llmUrl: string;
-  llmApiKey: string;
   storageDays: number;
 }
 

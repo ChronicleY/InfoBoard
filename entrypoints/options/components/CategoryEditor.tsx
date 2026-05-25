@@ -55,9 +55,9 @@ export default function CategoryEditor({ categories, onSave }: CategoryEditorPro
           保存
         </button>
       </div>
-      <p className="text-xs text-gray-500 mb-4">内置分类可编辑关键词但不可删除。"待分类"无需设置关键词。</p>
+      <p className="text-xs text-gray-500 mb-4">内置分类可编辑关键词但不可删除。</p>
       <div className="space-y-3">
-        {items.map((cat) => (
+        {items.filter((cat) => cat.id !== "uncategorized").map((cat) => (
           <div key={cat.id} className="border border-gray-100 rounded-lg p-3">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-800">

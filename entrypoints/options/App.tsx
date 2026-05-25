@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import type { CategoryDef, Settings } from "../../modules/types";
 import { SZU_COLLEGES } from "../../modules/types";
 import ApiKeySection from "./components/ApiKeySection";
 import CategoryEditor from "./components/CategoryEditor";
 import SubscriptionSelector from "./components/SubscriptionSelector";
-import CompetitionList from "./components/CompetitionList";
 
 export default function App() {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [categories, setCategories] = useState<CategoryDef[]>([]);
   const [saved, setSaved] = useState(false);
+  const [coursesText, setCoursesText] = useState("");
 
   useEffect(() => {
     loadData();
@@ -20,7 +20,11 @@ export default function App() {
       chrome.runtime.sendMessage({ type: "settings:get" }),
       chrome.runtime.sendMessage({ type: "categories:list" }),
     ]);
-    if (settingsRes?.success) setSettings(settingsRes.data as Settings);
+    if (settingsRes?.success) {
+      const s = settingsRes.data as Settings;
+      setSettings(s);
+      setCoursesText(s.userCourses.join("\n"));
+    }
     if (categoriesRes?.success) setCategories(categoriesRes.data as CategoryDef[]);
   };
 
@@ -67,6 +71,7 @@ export default function App() {
         <ApiKeySection
           apiKey={settings.deepseekApiKey}
           model={settings.deepseekModel}
+          apiUrl={settings.llmUrl}
           onSave={handleSaveSettings}
         />
         <SubscriptionSelector
@@ -99,11 +104,12 @@ export default function App() {
             <label className="text-sm font-medium text-gray-700">我的课表</label>
             <p className="text-xs text-gray-400 mt-0.5 mb-1.5">输入你的课程名称，每行一个。与课程相关的公文将置顶高亮</p>
             <textarea
-              value={settings.userCourses.join("\n")}
-              onChange={(e) =>
+              value={coursesText}
+              onChange={(e) => setCoursesText(e.target.value)}
+              onBlur={() =>
                 handleSaveSettings({
-                  userCourses: e.target.value
-                    .split(/[\n,，]+/)
+                  userCourses: coursesText
+                    .split(/[\n]+/)
                     .map((s) => s.trim())
                     .filter(Boolean),
                 })
@@ -112,34 +118,6 @@ export default function App() {
               rows={4}
               className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md resize-none focus:outline-none focus:border-szu-red"
             />
-          </div>
-
-          {/* 增强识别 */}
-          <div className="space-y-3">
-            <div>
-              <label className="text-sm font-medium text-gray-700">增强识别</label>
-              <p className="text-xs text-gray-400 mt-0.5">配置大模型 API，"待分类"的公文将自动调用模型识别分类</p>
-            </div>
-            <div>
-              <label className="text-xs text-gray-500">API URL</label>
-              <input
-                type="text"
-                value={settings.llmUrl}
-                onChange={(e) => handleSaveSettings({ llmUrl: e.target.value })}
-                placeholder="https://api.deepseek.com/chat/completions"
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-szu-red"
-              />
-            </div>
-            <div>
-              <label className="text-xs text-gray-500">API Key</label>
-              <input
-                type="password"
-                value={settings.llmApiKey}
-                onChange={(e) => handleSaveSettings({ llmApiKey: e.target.value })}
-                placeholder="sk-..."
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-szu-red"
-              />
-            </div>
           </div>
 
           {/* 存储时间 */}
@@ -162,7 +140,6 @@ export default function App() {
           categories={categories}
           onSave={handleSaveCategories}
         />
-        <CompetitionList />
       </div>
     </div>
   );

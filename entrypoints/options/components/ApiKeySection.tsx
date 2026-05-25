@@ -3,18 +3,20 @@ import { useState } from "react";
 interface ApiKeySectionProps {
   apiKey: string;
   model: string;
-  onSave: (partial: { deepseekApiKey?: string; deepseekModel?: string }) => void;
+  apiUrl: string;
+  onSave: (partial: { deepseekApiKey?: string; deepseekModel?: string; llmUrl?: string }) => void;
 }
 
-export default function ApiKeySection({ apiKey, model, onSave }: ApiKeySectionProps) {
+export default function ApiKeySection({ apiKey, model, apiUrl, onSave }: ApiKeySectionProps) {
   const [key, setKey] = useState(apiKey);
   const [mdl, setMdl] = useState(model);
+  const [url, setUrl] = useState(apiUrl);
   const [showKey, setShowKey] = useState(false);
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
 
   const handleSave = () => {
-    onSave({ deepseekApiKey: key, deepseekModel: mdl });
+    onSave({ deepseekApiKey: key, deepseekModel: mdl, llmUrl: url });
   };
 
   const handleTest = async () => {
@@ -25,7 +27,8 @@ export default function ApiKeySection({ apiKey, model, onSave }: ApiKeySectionPr
     setTesting(true);
     setTestResult(null);
     try {
-      const res = await fetch("https://api.deepseek.com/chat/completions", {
+      const testUrl = url || "https://api.deepseek.com/chat/completions";
+      const res = await fetch(testUrl, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${key}`,
@@ -57,6 +60,16 @@ export default function ApiKeySection({ apiKey, model, onSave }: ApiKeySectionPr
         用于智能分类无法通过关键词匹配的公文。API Key 存储在本地浏览器中，不会上传到任何服务器。
       </p>
       <div className="space-y-3">
+        <div>
+          <label className="text-xs font-medium text-gray-600">API URL</label>
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://api.deepseek.com/chat/completions"
+            className="w-full mt-1 px-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-accent-blue"
+          />
+        </div>
         <div>
           <label className="text-xs font-medium text-gray-600">API Key</label>
           <div className="flex gap-2 mt-1">

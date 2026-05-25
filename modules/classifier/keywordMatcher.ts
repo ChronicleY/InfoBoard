@@ -64,7 +64,7 @@ export function matchNewsByDate(bodyText: string, publishDate: string): boolean 
   const pub = parseDateString(publishDate);
   if (!pub) return false;
 
-  // Extract M月D日 / M月D号 patterns
+  // M月D日 / M月D号 patterns (no year — only check same year)
   const mdRegex = /(\d{1,2})\s*月\s*(\d{1,2})\s*[日号]/g;
   let match: RegExpExecArray | null;
   while ((match = mdRegex.exec(bodyText)) !== null) {
@@ -72,16 +72,11 @@ export function matchNewsByDate(bodyText: string, publishDate: string): boolean 
     const day = parseInt(match[2], 10);
     if (month < 1 || month > 12 || day < 1 || day > 31) continue;
 
-    // Try same year as publish date
     const candidate = new Date(pub.getFullYear(), month - 1, day);
     if (!isNaN(candidate.getTime()) && candidate < pub) return true;
-
-    // Also try previous year (e.g., published Jan 2026, reviewing Dec 2025)
-    const prevYear = new Date(pub.getFullYear() - 1, month - 1, day);
-    if (!isNaN(prevYear.getTime()) && prevYear < pub) return true;
   }
 
-  // Extract YYYY-MM-DD / YYYY/MM/DD patterns
+  // YYYY-MM-DD / YYYY/MM/DD patterns (year is explicit)
   const ymdRegex = /(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/g;
   while ((match = ymdRegex.exec(bodyText)) !== null) {
     const year = parseInt(match[1], 10);

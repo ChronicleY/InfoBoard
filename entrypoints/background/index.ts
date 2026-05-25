@@ -16,7 +16,6 @@ import { parseBoardList, parseBoardDetail, parseInfolistPage, gbkEncodeUrl } fro
 import { filterNewUrls, getArticleId, addToDeletedIds } from "../../modules/crawler/deduplicator";
 import { matchByKeywords, matchNewsKeywords } from "../../modules/classifier/keywordMatcher";
 import { classifyWithLLM } from "../../modules/classifier/llmClassifier";
-import { matchCompetition } from "../../modules/classifier/competitionMatcher";
 
 export default defineBackground(() => {
   const BOARD_CATEGORIES = [
@@ -134,17 +133,19 @@ export default defineBackground(() => {
   async function reclassifyExisting(): Promise<void> {
     const articles = await getArticles();
     const categories = await getCategories();
+    const settings = await getSettings();
 
     let changed = 0;
     for (const article of articles) {
-      // Skip LLM-classified and manually reclassified articles
-      if (article.llmClassified || article.manuallyClassified) continue;
+      // Skip manually reclassified articles
+      if (article.manuallyClassified) continue;
 
       const newsMatches = matchNewsKeywords(article.title, article.summary, article.publishDate);
       if (newsMatches) {
         if (article.category !== "新闻") {
           article.category = "新闻";
           article.matchedKeywords = newsMatches;
+          article.llmClassified = false;
           changed++;
         }
         continue;
@@ -156,7 +157,33 @@ export default defineBackground(() => {
         if (article.category !== newCategory) {
           article.category = newCategory;
           article.matchedKeywords = keywordResult.matchedKeywords;
+          article.llmClassified = false;
           changed++;
+        }
+        continue;
+      }
+
+      // Try LLM classification for still-uncategorized articles
+      if (article.category === "待分类") {
+        const llmKey = settings.deepseekApiKey;
+        if (llmKey) {
+          try {
+            const llmCategory = await classifyWithLLM(
+              article,
+              llmKey,
+              settings.deepseekModel,
+              settings.llmUrl,
+              categories,
+            );
+            if (llmCategory !== "待分类") {
+              article.category = llmCategory;
+              article.matchedKeywords = [];
+              article.llmClassified = true;
+              changed++;
+            }
+          } catch {
+            // LLM failed, keep as 待分类
+          }
         }
       }
     }
@@ -263,7 +290,7 @@ export default defineBackground(() => {
             }
           }
 
-          const llmKey = settings.llmApiKey || settings.deepseekApiKey;
+          const llmKey = settings.deepseekApiKey;
           if (category === "待分类" && llmKey) {
             try {
               const tempArticle: Article = {
@@ -295,14 +322,6 @@ export default defineBackground(() => {
             }
           }
 
-          let competitionMatch: string | null = null;
-          if (category === "比赛") {
-            competitionMatch = matchCompetition(
-              preview.title,
-              detail.summary,
-            );
-          }
-
           const article: Article = {
             id,
             title: preview.title,
@@ -315,7 +334,7 @@ export default defineBackground(() => {
             category,
             matchedKeywords,
             llmClassified,
-            competitionMatch,
+            competitionMatch: null,
             favorite: false,
             crawledAt: Date.now(),
           };
