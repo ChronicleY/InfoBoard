@@ -11,6 +11,7 @@ export interface Article {
   matchedKeywords: string[];
   llmClassified: boolean;
   manuallyClassified?: boolean;
+  llmAttempted?: boolean;
   competitionMatch: string | null;
   favorite: boolean;
   crawledAt: number;
@@ -81,23 +82,37 @@ export const BUILTIN_CATEGORIES: CategoryDef[] = [
   {
     id: "academic",
     name: "教务",
-    keywords: ["选课", "考试", "成绩", "学籍", "毕业", "学位", "论文", "答辩通知", "注册", "缴费", "奖学金", "助学金", "评优", "四六级", "普通话", "重修", "补考"],
+    keywords: ["选课", "考试", "成绩", "学籍", "毕业", "学位", "论文", "答辩", "答辩通知", "注册", "缴费", "奖学金", "助学金", "评优", "四六级", "普通话", "重修", "补考"],
     isBuiltin: true,
     sortOrder: 3,
+  },
+  {
+    id: "announcement",
+    name: "公示",
+    keywords: ["公示期", "拟推荐"],
+    isBuiltin: true,
+    sortOrder: 4,
   },
   {
     id: "news",
     name: "新闻",
     keywords: ["成功举办", "顺利开展", "落幕", "收官", "圆满举行", "顺利召开", "回顾", "发表论文", "发表文章", "发表成果"],
     isBuiltin: true,
-    sortOrder: 4,
+    sortOrder: 5,
+  },
+  {
+    id: "research",
+    name: "科研",
+    keywords: ["研究生", "课题", "项目申报", "专项资金", "基金", "科研", "自然科学基金", "社科基金", "立项", "结题", "项目指南", "学术成果", "博士后", "研究项目", "科研项目", "成果奖", "实验室", "重点实验室", "横向项目", "纵向项目"],
+    isBuiltin: true,
+    sortOrder: 6,
   },
   {
     id: "life",
     name: "生活",
     keywords: ["温馨提示", "天气", "荔枝", "防虫", "消杀", "后勤", "信息中心", "宽带", "图书馆", "校园卡", "减脂", "跑步"],
     isBuiltin: true,
-    sortOrder: 5,
+    sortOrder: 7,
   },
   {
     id: "uncategorized",

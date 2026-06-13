@@ -39,12 +39,14 @@ export function matchNewsKeywords(title: string, summary: string, publishDate?: 
   const titleMatches = NEWS_TITLE_KW.filter((kw) => text.includes(kw));
   if (titleMatches.length > 0) return titleMatches;
 
-  // Body signal match — need >= 2 signals from the body text patterns
-  let bodyHits = 0;
-  for (const re of NEWS_BODY_SIGNALS) {
-    if (re.test(text)) {
-      bodyHits++;
-      if (bodyHits >= 2) return ["正文信号匹配"];
+  if (!isForwardLookingNotice(text)) {
+    // Body signal match — need >= 2 signals from the body text patterns
+    let bodyHits = 0;
+    for (const re of NEWS_BODY_SIGNALS) {
+      if (re.test(text)) {
+        bodyHits++;
+        if (bodyHits >= 2) return ["正文信号匹配"];
+      }
     }
   }
 
@@ -56,6 +58,10 @@ export function matchNewsKeywords(title: string, summary: string, publishDate?: 
   return null;
 }
 
+function isForwardLookingNotice(text: string): boolean {
+  return /通知|安排|报名|评审会议|会议时间|考试安排|见面课|将于|请于|参会|参赛|按时参加|准时参加/.test(text);
+}
+
 /**
  * Detect retrospective articles by checking if the body mentions dates
  * earlier than the publish date.
@@ -64,10 +70,14 @@ export function matchNewsByDate(bodyText: string, publishDate: string): boolean 
   const pub = parseDateString(publishDate);
   if (!pub) return false;
 
+  if (isForwardLookingNotice(bodyText)) return false;
+
+  const content = stripFooterDates(bodyText);
+
   // M月D日 / M月D号 patterns (no year — only check same year)
   const mdRegex = /(\d{1,2})\s*月\s*(\d{1,2})\s*[日号]/g;
   let match: RegExpExecArray | null;
-  while ((match = mdRegex.exec(bodyText)) !== null) {
+  while ((match = mdRegex.exec(content)) !== null) {
     const month = parseInt(match[1], 10);
     const day = parseInt(match[2], 10);
     if (month < 1 || month > 12 || day < 1 || day > 31) continue;
@@ -78,7 +88,7 @@ export function matchNewsByDate(bodyText: string, publishDate: string): boolean 
 
   // YYYY-MM-DD / YYYY/MM/DD patterns (year is explicit)
   const ymdRegex = /(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/g;
-  while ((match = ymdRegex.exec(bodyText)) !== null) {
+  while ((match = ymdRegex.exec(content)) !== null) {
     const year = parseInt(match[1], 10);
     const month = parseInt(match[2], 10);
     const day = parseInt(match[3], 10);
@@ -89,6 +99,10 @@ export function matchNewsByDate(bodyText: string, publishDate: string): boolean 
   }
 
   return false;
+}
+
+function stripFooterDates(text: string): string {
+  return text.replace(/[\s\S]{0,40}\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*$/g, "");
 }
 
 function parseDateString(dateStr: string): Date | null {

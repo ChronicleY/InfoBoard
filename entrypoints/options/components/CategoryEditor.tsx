@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CategoryDef } from "../../../modules/types";
 
 interface CategoryEditorProps {
@@ -10,6 +10,10 @@ export default function CategoryEditor({ categories, onSave }: CategoryEditorPro
   const [items, setItems] = useState(structuredClone(categories));
   const [newName, setNewName] = useState("");
   const [newKeywords, setNewKeywords] = useState("");
+
+  useEffect(() => {
+    setItems(structuredClone(categories));
+  }, [categories]);
 
   const updateKeywords = (id: string, kwStr: string) => {
     setItems((prev) =>
@@ -29,7 +33,7 @@ export default function CategoryEditor({ categories, onSave }: CategoryEditorPro
         name: newName.trim(),
         keywords: newKeywords.split(/[,，]/).map((k) => k.trim()).filter(Boolean),
         isBuiltin: false,
-        sortOrder: prev.length,
+        sortOrder: Math.max(...prev.map((c) => c.sortOrder), 0) + 1,
       },
     ]);
     setNewName("");

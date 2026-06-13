@@ -15,7 +15,7 @@ export default function ReclassifyModal({ article, categories, onClose, onReclas
     await chrome.runtime.sendMessage({
       type: "notice:update",
       id: article.id,
-      changes: { category: selected, matchedKeywords: [], manuallyClassified: true },
+      changes: { category: selected, matchedKeywords: [], manuallyClassified: true, llmClassified: false },
     });
     onReclassified();
     onClose();
@@ -24,12 +24,14 @@ export default function ReclassifyModal({ article, categories, onClose, onReclas
   return (
     <div className="fixed inset-0 bg-black/30 flex items-end justify-center z-20" onClick={onClose}>
       <div
-        className="bg-white rounded-t-xl w-full max-h-[60%] overflow-y-auto p-4"
+        className="bg-white rounded-t-xl w-full max-h-[75%] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-sm font-semibold text-gray-900 mb-1">重新分类</h3>
-        <p className="text-xs text-gray-500 mb-3 truncate">{article.title}</p>
-        <div className="space-y-1">
+        <div className="p-4 pb-2">
+          <h3 className="text-sm font-semibold text-gray-900 mb-1">重新分类</h3>
+          <p className="text-xs text-gray-500 truncate">{article.title}</p>
+        </div>
+        <div className="space-y-1 px-4 pb-2">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -44,7 +46,7 @@ export default function ReclassifyModal({ article, categories, onClose, onReclas
             </button>
           ))}
         </div>
-        <div className="flex gap-2 mt-4">
+        <div className="sticky bottom-0 bg-white border-t border-gray-100 flex gap-2 p-4">
           <button onClick={onClose} className="flex-1 py-2 text-xs rounded-md border border-gray-200 text-gray-600">
             取消
           </button>

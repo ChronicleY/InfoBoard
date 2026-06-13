@@ -1,13 +1,14 @@
 import { defineBackground } from "wxt/utils/define-background";
 import type {
   Article,
+  CategoryDef,
   CrawlState,
   Message,
   MessageResponse,
 } from "../../modules/types";
 
 import { getArticles, saveArticles, updateArticle, getArticleIds, deleteArticles } from "../../modules/storage/notices";
-import { getCategories, saveCustomCategories, saveBuiltinKeywords } from "../../modules/storage/categories";
+import { addCustomCategory, getCategories, saveCustomCategories, saveBuiltinKeywords } from "../../modules/storage/categories";
 import { getSettings, saveSettings } from "../../modules/storage/settings";
 import { getCrawlState, saveCrawlState } from "../../modules/storage/crawlState";
 import { cleanupExpired } from "../../modules/storage/cleanup";
@@ -15,7 +16,8 @@ import { fetchBoardPage, SSOExpiredError, checkSSO } from "../../modules/crawler
 import { parseBoardList, parseBoardDetail, parseInfolistPage, gbkEncodeUrl } from "../../modules/crawler/boardParser";
 import { filterNewUrls, getArticleId, addToDeletedIds } from "../../modules/crawler/deduplicator";
 import { matchByKeywords, matchNewsKeywords } from "../../modules/classifier/keywordMatcher";
-import { classifyWithLLM } from "../../modules/classifier/llmClassifier";
+import { classifyWithLLM, type LLMClassificationResult } from "../../modules/classifier/llmClassifier";
+import { matchCompetition } from "../../modules/classifier/competitionMatcher";
 
 export default defineBackground(() => {
   const BOARD_CATEGORIES = [
@@ -132,13 +134,24 @@ export default defineBackground(() => {
 
   async function reclassifyExisting(): Promise<void> {
     const articles = await getArticles();
-    const categories = await getCategories();
+    let categories = await getCategories();
     const settings = await getSettings();
 
     let changed = 0;
     for (const article of articles) {
-      // Skip manually reclassified articles
-      if (article.manuallyClassified) continue;
+      // Keep human/AI decisions stable; only auto-refresh rule-owned or uncategorized articles.
+      if (article.manuallyClassified || article.llmClassified) continue;
+
+      const publicNoticeResult = matchNamedCategory(article.title, article.summary, categories, "公示");
+      if (publicNoticeResult) {
+        if (article.category !== publicNoticeResult.category.name) {
+          article.category = publicNoticeResult.category.name;
+          article.matchedKeywords = publicNoticeResult.matchedKeywords;
+          article.llmClassified = false;
+          changed++;
+        }
+        continue;
+      }
 
       const newsMatches = matchNewsKeywords(article.title, article.summary, article.publishDate);
       if (newsMatches) {
@@ -160,29 +173,31 @@ export default defineBackground(() => {
           article.llmClassified = false;
           changed++;
         }
+        if (newCategory === "比赛" && !article.competitionMatch) {
+          article.competitionMatch = matchCompetition(article.title, article.summary);
+          if (article.competitionMatch) changed++;
+        }
         continue;
       }
 
-      // Try LLM classification for still-uncategorized articles
-      if (article.category === "待分类") {
+      // Try LLM classification once for still-uncategorized articles
+      if (article.category === "待分类" && !article.llmAttempted) {
         const llmKey = settings.deepseekApiKey;
         if (llmKey) {
           try {
-            const llmCategory = await classifyWithLLM(
+            const llmResult = await classifyWithLLM(
               article,
               llmKey,
               settings.deepseekModel,
               settings.llmUrl,
               categories,
             );
-            if (llmCategory !== "待分类") {
-              article.category = llmCategory;
-              article.matchedKeywords = [];
-              article.llmClassified = true;
-              changed++;
-            }
+            const result = await applyLLMResult(article, llmResult, categories);
+            categories = result.categories;
+            if (result.changed) changed++;
           } catch {
-            // LLM failed, keep as 待分类
+            article.llmAttempted = true;
+            changed++;
           }
         }
       }
@@ -209,7 +224,7 @@ export default defineBackground(() => {
       await reclassifyExisting();
 
       const settings = await getSettings();
-      const categories = await getCategories();
+      let categories = await getCategories();
       const subscriptions =
         settings.subscriptions.length > 0
           ? settings.subscriptions
@@ -272,21 +287,28 @@ export default defineBackground(() => {
           let category = "待分类";
           let matchedKeywords: string[] = [];
           let llmClassified = false;
+          let llmAttempted = false;
 
-          // News filter runs first — highest priority
-          const newsMatches = matchNewsKeywords(preview.title, detail.summary, detail.publishDate);
-          if (newsMatches) {
+          // 公示 runs before 新闻; public notices can contain retrospective-looking wording.
+          const publicNoticeResult = matchNamedCategory(preview.title, detail.summary, categories, "公示");
+          if (publicNoticeResult) {
+            category = publicNoticeResult.category.name;
+            matchedKeywords = publicNoticeResult.matchedKeywords;
+          } else {
+            const newsMatches = matchNewsKeywords(preview.title, detail.summary, detail.publishDate);
+            if (newsMatches) {
             category = "新闻";
             matchedKeywords = newsMatches;
-          } else {
-            const keywordResult = matchByKeywords(
-              preview.title,
-              detail.summary,
-              categories,
-            );
-            if (keywordResult) {
-              category = keywordResult.category.name;
-              matchedKeywords = keywordResult.matchedKeywords;
+            } else {
+              const keywordResult = matchByKeywords(
+                preview.title,
+                detail.summary,
+                categories,
+              );
+              if (keywordResult) {
+                category = keywordResult.category.name;
+                matchedKeywords = keywordResult.matchedKeywords;
+              }
             }
           }
 
@@ -305,22 +327,31 @@ export default defineBackground(() => {
                 category: "待分类",
                 matchedKeywords: [],
                 llmClassified: false,
+                llmAttempted: false,
                 competitionMatch: null,
                 favorite: false,
                 crawledAt: Date.now(),
               };
-              category = await classifyWithLLM(
+              const llmResult = await classifyWithLLM(
                 tempArticle,
                 llmKey,
                 settings.deepseekModel,
                 settings.llmUrl,
                 categories,
               );
-              llmClassified = true;
+              const result = await applyLLMResult(tempArticle, llmResult, categories);
+              categories = result.categories;
+              category = tempArticle.category;
+              llmClassified = tempArticle.llmClassified;
+              llmAttempted = true;
             } catch {
-              // LLM failed, stay "待分类"
+              llmAttempted = true;
             }
           }
+
+          const competitionMatch = category === "比赛"
+            ? matchCompetition(preview.title, detail.summary)
+            : null;
 
           const article: Article = {
             id,
@@ -334,7 +365,8 @@ export default defineBackground(() => {
             category,
             matchedKeywords,
             llmClassified,
-            competitionMatch: null,
+            llmAttempted,
+            competitionMatch,
             favorite: false,
             crawledAt: Date.now(),
           };
@@ -412,6 +444,68 @@ export default defineBackground(() => {
   async function crawlStatus(): Promise<MessageResponse<CrawlState>> {
     const state = await getCrawlState();
     return { success: true, data: state };
+  }
+
+  async function applyLLMResult(
+    article: Article,
+    llmResult: LLMClassificationResult,
+    categories: CategoryDef[],
+  ): Promise<{ changed: boolean; categories: CategoryDef[] }> {
+    article.llmAttempted = true;
+
+    if (llmResult.category === "待分类") {
+      return { changed: true, categories };
+    }
+
+    const existing = categories.find((c) => c.name === llmResult.category);
+    if (existing) {
+      article.category = existing.name;
+      article.matchedKeywords = [];
+      article.llmClassified = true;
+      return { changed: true, categories };
+    }
+
+    if (!llmResult.shouldCreateCategory || !isValidNewCategoryName(llmResult.category, categories)) {
+      article.category = "待分类";
+      article.matchedKeywords = [];
+      article.llmClassified = false;
+      return { changed: true, categories };
+    }
+
+    const newCategory: CategoryDef = {
+      id: `ai_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      name: llmResult.category,
+      keywords: llmResult.keywords,
+      isBuiltin: false,
+      sortOrder: Math.max(...categories.map((c) => c.sortOrder), 0) + 1,
+    };
+    await addCustomCategory(newCategory);
+
+    article.category = newCategory.name;
+    article.matchedKeywords = llmResult.keywords;
+    article.llmClassified = true;
+    return { changed: true, categories: [...categories, newCategory] };
+  }
+
+  function isValidNewCategoryName(name: string, categories: CategoryDef[]): boolean {
+    const trimmed = name.trim();
+    if (!trimmed) return false;
+    if (trimmed.length > 8) return false;
+    if (["其他", "杂项", "通知", "待分类"].includes(trimmed)) return false;
+    return !categories.some((c) => c.name === trimmed);
+  }
+
+  function matchNamedCategory(
+    title: string,
+    summary: string,
+    categories: CategoryDef[],
+    name: string,
+  ): { category: CategoryDef; matchedKeywords: string[] } | null {
+    const category = categories.find((c) => c.name === name);
+    if (!category) return null;
+    const text = `${title} ${summary}`.toLowerCase();
+    const matched = category.keywords.filter((kw) => text.includes(kw.toLowerCase()));
+    return matched.length > 0 ? { category, matchedKeywords: matched } : null;
   }
 
   // === Cleanup Alarm ===

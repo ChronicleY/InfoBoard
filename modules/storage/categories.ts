@@ -25,3 +25,9 @@ export async function saveCustomCategories(categories: CategoryDef[]): Promise<v
 export async function saveBuiltinKeywords(builtinKeywords: Record<string, string[]>): Promise<void> {
   await chrome.storage.local.set({ "categories:builtin": builtinKeywords });
 }
+
+export async function addCustomCategory(category: CategoryDef): Promise<void> {
+  const result = await chrome.storage.local.get("categories:custom");
+  const custom = (result["categories:custom"] || []) as CategoryDef[];
+  await saveCustomCategories([...custom, category]);
+}
