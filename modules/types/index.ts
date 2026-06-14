@@ -35,11 +35,8 @@ export interface CrawlState {
 
 export interface Settings {
   deepseekApiKey: string;
-  deepseekModel: string;
-  subscriptions: string[];
   userCollege: string;
   userCourses: string[];
-  llmUrl: string;
   storageDays: number;
 }
 
@@ -180,7 +177,6 @@ export type Message =
   | { type: "notice:delete"; id: string }
   | { type: "notices:cleanup" }
   | { type: "categories:list" }
-  | { type: "categories:save"; categories: CategoryDef[] }
   | { type: "settings:get" }
   | { type: "settings:save"; settings: Partial<Settings> }
   | { type: "check:sso" };

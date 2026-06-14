@@ -2,11 +2,8 @@ import type { Settings } from "../types";
 
 const DEFAULT_SETTINGS: Settings = {
   deepseekApiKey: "",
-  deepseekModel: "deepseek-chat",
-  subscriptions: [],
   userCollege: "",
   userCourses: [],
-  llmUrl: "",
   storageDays: 7,
 };
 

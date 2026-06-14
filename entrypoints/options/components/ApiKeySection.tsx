@@ -2,21 +2,17 @@ import { useState } from "react";
 
 interface ApiKeySectionProps {
   apiKey: string;
-  model: string;
-  apiUrl: string;
-  onSave: (partial: { deepseekApiKey?: string; deepseekModel?: string; llmUrl?: string }) => void;
+  onSave: (partial: { deepseekApiKey: string }) => void;
 }
 
-export default function ApiKeySection({ apiKey, model, apiUrl, onSave }: ApiKeySectionProps) {
+export default function ApiKeySection({ apiKey, onSave }: ApiKeySectionProps) {
   const [key, setKey] = useState(apiKey);
-  const [mdl, setMdl] = useState(model);
-  const [url, setUrl] = useState(apiUrl);
   const [showKey, setShowKey] = useState(false);
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
 
   const handleSave = () => {
-    onSave({ deepseekApiKey: key, deepseekModel: mdl, llmUrl: url });
+    onSave({ deepseekApiKey: key });
   };
 
   const handleTest = async () => {
@@ -27,15 +23,14 @@ export default function ApiKeySection({ apiKey, model, apiUrl, onSave }: ApiKeyS
     setTesting(true);
     setTestResult(null);
     try {
-      const testUrl = url || "https://api.deepseek.com/chat/completions";
-      const res = await fetch(testUrl, {
+      const res = await fetch("https://api.deepseek.com/chat/completions", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${key}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: mdl,
+          model: "deepseek-chat",
           messages: [{ role: "user", content: "Hi" }],
           max_tokens: 5,
         }),
@@ -57,19 +52,9 @@ export default function ApiKeySection({ apiKey, model, apiUrl, onSave }: ApiKeyS
     <section className="bg-white rounded-xl border border-gray-200 p-5">
       <h2 className="text-sm font-semibold text-gray-900 mb-3">DeepSeek API 配置</h2>
       <p className="text-xs text-gray-500 mb-4">
-        用于智能分类无法通过关键词匹配的公文。API Key 存储在本地浏览器中，不会上传到任何服务器。
+        配置 DeepSeek API Key 后，关键词无法匹配的公文将自动调用 AI 识别分类。Key 仅存储在本地浏览器中。
       </p>
       <div className="space-y-3">
-        <div>
-          <label className="text-xs font-medium text-gray-600">API URL</label>
-          <input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://api.deepseek.com/chat/completions"
-            className="w-full mt-1 px-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-accent-blue"
-          />
-        </div>
         <div>
           <label className="text-xs font-medium text-gray-600">API Key</label>
           <div className="flex gap-2 mt-1">
@@ -87,16 +72,6 @@ export default function ApiKeySection({ apiKey, model, apiUrl, onSave }: ApiKeyS
               {showKey ? "隐藏" : "显示"}
             </button>
           </div>
-        </div>
-        <div>
-          <label className="text-xs font-medium text-gray-600">模型</label>
-          <input
-            type="text"
-            value={mdl}
-            onChange={(e) => setMdl(e.target.value)}
-            placeholder="deepseek-chat"
-            className="w-full mt-1 px-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-accent-blue"
-          />
         </div>
         <div className="flex gap-2">
           <button

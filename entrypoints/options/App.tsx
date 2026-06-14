@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
-import type { CategoryDef, Settings } from "../../modules/types";
+import type { Settings } from "../../modules/types";
 import { SZU_COLLEGES } from "../../modules/types";
 import ApiKeySection from "./components/ApiKeySection";
-import CategoryEditor from "./components/CategoryEditor";
-import SubscriptionSelector from "./components/SubscriptionSelector";
 
 export default function App() {
   const [settings, setSettings] = useState<Settings | null>(null);
-  const [categories, setCategories] = useState<CategoryDef[]>([]);
   const [saved, setSaved] = useState(false);
   const [coursesText, setCoursesText] = useState("");
 
@@ -16,28 +13,17 @@ export default function App() {
   }, []);
 
   const loadData = async () => {
-    const [settingsRes, categoriesRes] = await Promise.all([
-      chrome.runtime.sendMessage({ type: "settings:get" }),
-      chrome.runtime.sendMessage({ type: "categories:list" }),
-    ]);
-    if (settingsRes?.success) {
-      const s = settingsRes.data as Settings;
+    const res = await chrome.runtime.sendMessage({ type: "settings:get" });
+    if (res?.success) {
+      const s = res.data as Settings;
       setSettings(s);
       setCoursesText(s.userCourses.join("\n"));
     }
-    if (categoriesRes?.success) setCategories(categoriesRes.data as CategoryDef[]);
   };
 
   const handleSaveSettings = async (partial: Partial<Settings>) => {
     await chrome.runtime.sendMessage({ type: "settings:save", settings: partial });
     setSettings((prev) => prev ? { ...prev, ...partial } : prev);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
-
-  const handleSaveCategories = async (updated: CategoryDef[]) => {
-    await chrome.runtime.sendMessage({ type: "categories:save", categories: updated });
-    setCategories(updated);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -59,7 +45,7 @@ export default function App() {
           </div>
           <div>
             <h1 className="text-lg font-bold text-gray-900">公文通助手设置</h1>
-            <p className="text-xs text-gray-400">配置 API、分类规则和订阅板块</p>
+            <p className="text-xs text-gray-400">配置 API、个性化偏好和存储</p>
           </div>
         </div>
         {saved && (
@@ -70,13 +56,7 @@ export default function App() {
       <div className="space-y-6">
         <ApiKeySection
           apiKey={settings.deepseekApiKey}
-          model={settings.deepseekModel}
-          apiUrl={settings.llmUrl}
           onSave={handleSaveSettings}
-        />
-        <SubscriptionSelector
-          selected={settings.subscriptions}
-          onSave={(subs) => handleSaveSettings({ subscriptions: subs })}
         />
 
         {/* ===== 个性化设置 ===== */}
@@ -135,11 +115,6 @@ export default function App() {
             </select>
           </div>
         </section>
-
-        <CategoryEditor
-          categories={categories}
-          onSave={handleSaveCategories}
-        />
       </div>
     </div>
   );
