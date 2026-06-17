@@ -44,7 +44,7 @@ export async function fetchBoardPage(url: string): Promise<string> {
 export async function checkSSO(): Promise<boolean> {
   try {
     console.log("[fetcher] Checking SSO status...");
-    const response = await fetch("https://www1.szu.edu.cn/", {
+    const response = await fetch("https://www1.szu.edu.cn/board/", {
       credentials: "include",
       redirect: "manual",
     });
@@ -56,6 +56,15 @@ export async function checkSSO(): Promise<boolean> {
       const location = response.headers.get("location") || "";
       console.log(`[fetcher] SSO redirect to: ${location}`);
       if (location.includes("cas") || location.includes("login")) {
+        return false;
+      }
+    }
+
+    // Also check body content for login form (some SSO setups don't redirect)
+    if (response.status === 200) {
+      const text = await response.text();
+      if (text.includes("统一身份认证平台") || text.includes("casLoginForm")) {
+        console.log("[fetcher] SSO check: login form detected in body");
         return false;
       }
     }
