@@ -119,18 +119,26 @@ export function matchByKeywords(
 ): { category: CategoryDef; matchedKeywords: string[] } | null {
   const text = `${title} ${summary}`.toLowerCase();
 
-  // Sort by sortOrder so built-ins take priority over custom
+  // Prefer the category with the longest matched keyword so specific terms
+  // like "答辩通知" (教务) beat generic ones like "答辩" (比赛);
+  // ties fall back to sortOrder.
   const sorted = [...categories].sort((a, b) => a.sortOrder - b.sortOrder);
+
+  let best: { category: CategoryDef; matchedKeywords: string[]; score: number } | null = null;
 
   for (const category of sorted) {
     if (category.id === "uncategorized") continue;
     if (category.keywords.length === 0) continue;
 
     const matched = category.keywords.filter((kw) => text.includes(kw.toLowerCase()));
-    if (matched.length > 0) {
-      return { category, matchedKeywords: matched };
+    if (matched.length === 0) continue;
+
+    const longest = Math.max(...matched.map((kw) => kw.length));
+    const score = longest * 100 + matched.length;
+    if (!best || score > best.score) {
+      best = { category, matchedKeywords: matched, score };
     }
   }
 
-  return null;
+  return best ? { category: best.category, matchedKeywords: best.matchedKeywords } : null;
 }

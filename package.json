@@ -18,14 +18,15 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/chrome": "^0.2.7",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@wxt-dev/module-react": "^1.0.0",
     "eslint": "^9",
     "tailwindcss": "^4",
     "tsx": "^4",
     "typescript": "^5",
     "wxt": "^0.20",
-    "@wxt-dev/module-react": "^1.0.0",
     "xlsx": "^0.18.5"
   }
 }

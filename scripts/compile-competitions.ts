@@ -7,7 +7,7 @@ const sheet = workbook.Sheets[workbook.SheetNames[0]];
 // Parse as raw arrays; row 0 is title, row 1 is headers, rows 2+ are data
 const raw = XLSX.utils.sheet_to_json<(string | number)[][]>(sheet, { header: 1 });
 
-const headerRow = raw[1] as string[];
+const headerRow = raw[1] as unknown as string[];
 const nameCol = headerRow.indexOf("竞赛名称");
 const noteCol = headerRow.indexOf("备注");
 

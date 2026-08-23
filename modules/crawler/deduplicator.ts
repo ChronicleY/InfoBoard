@@ -13,7 +13,7 @@ function hashUrl(url: string): string {
   }
 }
 
-export async function filterNewUrls(urls: { url: string }[]): Promise<{ url: string }[]> {
+export async function filterNewUrls<T extends { url: string }>(urls: T[]): Promise<T[]> {
   const existingIds = new Set(await getArticleIds());
   const deletedIds = await getDeletedIds();
   return urls.filter((item) => {

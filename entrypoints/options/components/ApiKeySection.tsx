@@ -38,8 +38,8 @@ export default function ApiKeySection({ apiKey, onSave }: ApiKeySectionProps) {
       if (res.ok) {
         setTestResult("✓ 连接成功");
       } else {
-        const data = await res.json();
-        setTestResult(`✗ 错误: ${(data as Record<string, unknown>).error?.message || res.status}`);
+        const data = (await res.json()) as { error?: { message?: string } };
+        setTestResult(`✗ 错误: ${data.error?.message || res.status}`);
       }
     } catch {
       setTestResult("✗ 网络错误");

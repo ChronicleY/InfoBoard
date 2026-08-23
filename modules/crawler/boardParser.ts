@@ -19,13 +19,14 @@ export interface ArticlePreview {
 export function parseBoardList(html: string): ArticlePreview[] {
   const articles: ArticlePreview[] = [];
 
-  // Locate each <strong> section heading and its position
-  const strongRegex = /<strong[^>]*>([^<]+)<\/strong>/gi;
+  // Locate each <strong> section heading and its position.
+  // The site nests a <font> tag inside <strong>, so capture any inner markup.
+  const strongRegex = /<strong[^>]*>([\s\S]*?)<\/strong>/gi;
   const sections: { name: string; end: number }[] = [];
   let strongMatch: RegExpExecArray | null;
 
   while ((strongMatch = strongRegex.exec(html)) !== null) {
-    const name = strongMatch[1].trim();
+    const name = stripTags(strongMatch[1]).trim();
     if (isBoardSection(name)) {
       sections.push({ name, end: strongMatch.index + strongMatch[0].length });
     }
@@ -46,36 +47,77 @@ export function parseBoardList(html: string): ArticlePreview[] {
     while ((rowMatch = rowRegex.exec(sectionHtml)) !== null) {
       const rowContent = rowMatch[1];
 
-      // Only rows containing view.asp links
-      const linkMatch = /<a[^>]*href\s*=\s*["']?([^"'\s>]*view\.asp[^"'\s>]*)["']?[^>]*>([^<]*)<\/a>/i.exec(rowContent);
-      if (!linkMatch) continue;
-
-      const href = linkMatch[1];
-      const title = linkMatch[2].trim();
-      if (!title) continue;
-
-      const url = new URL(
-        href.startsWith("/") ? href : `./${href}`,
-        "https://www1.szu.edu.cn/board/",
-      ).href;
+      const anchor = extractViewAnchor(rowContent);
+      if (!anchor) continue;
 
       // Date is in the last <td> of the row
       const tdMatches = [...rowContent.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)];
       const lastTd = tdMatches.length > 0 ? tdMatches[tdMatches.length - 1][1] : "";
-      const dateStr = stripTags(lastTd).trim();
+      const dateStr = stripTags(lastTd).replace(/\s+/g, " ").trim();
 
-      // Lecture items have location prefix: "粤海｜汇文楼｜..."
+      // Lecture rows carry 地点 in the anchor title attribute, e.g.
+      // "时间：2026/8/24 10:00:00\n地点：粤海｜致知楼-706\n专题：..."
       let location: string | undefined;
-      const pipeParts = title.split("｜");
-      if (pipeParts.length >= 3 && /^(粤海|丽湖|沧海|罗湖)/.test(pipeParts[0])) {
-        location = `${pipeParts[0]}｜${pipeParts[1]}`;
+      const locAttr = anchor.attrTitle?.match(/地点：([^\n]+)/);
+      if (locAttr) {
+        const locMatch = locAttr[1].match(/^(粤海|丽湖|沧海|罗湖)｜[^-－]+/);
+        if (locMatch) location = locMatch[0];
+      }
+      // Fallback: visible text prefix like "粤海｜汇文楼｜..."
+      if (!location) {
+        const pipeParts = anchor.innerText.split("｜");
+        if (pipeParts.length >= 3 && /^(粤海|丽湖|沧海|罗湖)/.test(pipeParts[0])) {
+          location = `${pipeParts[0]}｜${pipeParts[1]}`;
+        }
       }
 
-      articles.push({ title, url, section: section.name, publisher: "", dateStr, location });
+      articles.push({
+        title: anchor.title,
+        url: anchor.url,
+        section: section.name,
+        publisher: "",
+        dateStr,
+        location,
+      });
     }
   }
 
   return articles;
+}
+
+/**
+ * Extract the first view.asp link from an HTML fragment.
+ * Prefers the full untruncated title from the anchor's title attribute
+ * (the board truncates visible link text with "…"); falls back to inner text.
+ */
+function extractViewAnchor(fragment: string): {
+  title: string;
+  url: string;
+  attrTitle: string | null;
+  innerText: string;
+} | null {
+  const linkMatch =
+    /<a[^>]*href\s*=\s*["']?([^"'\s>]*view\.asp[^"'\s>]*)["']?[^>]*>([\s\S]*?)<\/a>/i.exec(fragment);
+  if (!linkMatch) return null;
+
+  const href = linkMatch[1];
+  const innerText = stripTags(linkMatch[2]).replace(/\s+/g, " ").trim();
+  if (!innerText) return null;
+
+  const attrRaw = /\stitle\s*=\s*["']([^"']*)["']/i.exec(linkMatch[0]);
+  let attrTitle = attrRaw ? decodeEntities(attrRaw[1]).replace(/\s+/g, " ").trim() : "";
+  // Lecture anchors: "时间：… 地点：… 专题：<real title>"
+  const zhuanTi = attrTitle.lastIndexOf("专题：");
+  if (zhuanTi >= 0) attrTitle = attrTitle.substring(zhuanTi + "专题：".length).trim();
+
+  const title = attrTitle.length >= innerText.length ? attrTitle : innerText;
+
+  const url = new URL(
+    href.startsWith("/") ? href : `./${href}`,
+    "https://www1.szu.edu.cn/board/",
+  ).href;
+
+  return { title, url, attrTitle: attrRaw ? attrTitle : null, innerText };
 }
 
 function isBoardSection(name: string): boolean {
@@ -171,9 +213,10 @@ export function parseBoardDetail(html: string): {
 }
 
 /**
- * Parse an infolist.asp page (category list with pagination).
+ * Parse an infolist.asp page (category list).
  *
- * Structure: flat table rows with columns for index, category tag, title link, date.
+ * Row layout: index | location (title attr) | lecture time | title link | publisher | empty.
+ * Note the date cell precedes the title cell here (unlike the main board).
  */
 export function parseInfolistPage(html: string, section: string): ArticlePreview[] {
   const articles: ArticlePreview[] = [];
@@ -184,53 +227,33 @@ export function parseInfolistPage(html: string, section: string): ArticlePreview
   while ((trMatch = trRegex.exec(html)) !== null) {
     const rowContent = trMatch[1];
 
-    const linkMatch = /<a[^>]*href\s*=\s*["']?([^"'\s>]*view\.asp[^"'\s>]*)["']?[^>]*>([^<]*)<\/a>/i.exec(rowContent);
-    if (!linkMatch) continue;
+    const anchor = extractViewAnchor(rowContent);
+    if (!anchor) continue;
+    // Site-nav links point at root /view.asp?id=N; article links are under /board/
+    if (!anchor.url.includes("/board/view.asp")) continue;
 
-    const href = linkMatch[1];
-    const title = linkMatch[2].trim();
-    if (!title) continue;
-
-    const url = new URL(
-      href.startsWith("/") ? href : `./${href}`,
-      "https://www1.szu.edu.cn/board/",
-    ).href;
-
-    // Date in the last <td>
     const tdMatches = [...rowContent.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)];
-    const lastTd = tdMatches.length > 0 ? tdMatches[tdMatches.length - 1][1] : "";
-    const dateStr = stripTags(lastTd).trim();
+    let dateStr = "";
+    let location: string | undefined;
+    for (const td of tdMatches) {
+      const text = stripTags(td[1]).replace(/\s+/g, " ").trim();
+      if (!dateStr && /^\d{1,2}[/-]\d{1,2}(?:\s+\d{1,2}:\d{2})?$/.test(text)) {
+        dateStr = text;
+        continue;
+      }
+      if (!location) {
+        const attrRaw = /\stitle\s*=\s*["']([^"']*)["']/i.exec(td[0]);
+        if (attrRaw) {
+          const m = decodeEntities(attrRaw[1]).match(/^(粤海|丽湖|沧海|罗湖)｜[^-－]+/);
+          if (m) location = m[0];
+        }
+      }
+    }
 
-    articles.push({ title, url, section, publisher: "", dateStr });
+    articles.push({ title: anchor.title, url: anchor.url, section, publisher: "", dateStr, location });
   }
 
   return articles;
-}
-
-/**
- * Parse pagination links from an infolist page.
- */
-export function getPaginationUrls(html: string, baseUrl: string): string[] {
-  const urls: string[] = [];
-  const bodyText = stripTags(html);
-
-  const totalMatch = bodyText.match(/共\s*(\d+)\s*条/);
-  if (!totalMatch) return urls;
-
-  const totalRecords = parseInt(totalMatch[1], 10);
-  const PAGE_SIZE = 20;
-
-  if (totalRecords <= PAGE_SIZE) return urls;
-
-  const totalPages = Math.ceil(totalRecords / PAGE_SIZE);
-  const base = new URL(baseUrl);
-
-  for (let p = 2; p <= Math.min(totalPages, 5); p++) {
-    base.searchParams.set("page", String(p));
-    urls.push(base.toString());
-  }
-
-  return urls;
 }
 
 /**
@@ -259,59 +282,53 @@ const GBK_MAP: Record<string, [number, number]> = {
   "科": [0xBF, 0xC6], "研": [0xD1, 0xD0],
   "行": [0xD0, 0xD0], "政": [0xD5, 0xFE],
   "学": [0xD1, 0xA7], "工": [0xB9, 0xA4],
-  "讲": [0xBD, 0xB2], "座": [0xC5, 0xB7],
+  "讲": [0xBD, 0xB2], "座": [0xD7, 0xF9],
   "生": [0xC9, 0xFA], "活": [0xBB, 0xEE],
   "会": [0xBB, 0xE1], "议": [0xD2, 0xE9],
   "置": [0xD6, 0xC3], "顶": [0xB6, 0xA5],
 };
 
-export function getSectionFromInfotype(infotype: string): string {
-  const map: Record<string, string> = {
-    "教务": "教务教学",
-    "科研": "科研动态",
-    "行政": "党务行政",
-    "学工": "学生工作",
-    "讲座": "学术讲座",
-    "生活": "校园生活",
-    "会议": "会议通知",
-    "置顶": "置顶推荐",
-  };
-  return map[infotype] ?? infotype;
-}
-
 // -- helpers --
 
 function stripTags(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, "")
+  return decodeEntities(html.replace(/<[^>]*>/g, ""));
+}
+
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(parseInt(dec, 10)))
     .replace(/&nbsp;/g, " ")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
 }
 
+function pad2(n: number): string {
+  return String(n).padStart(2, "0");
+}
+
+// Format date parts directly — going through Date→toISOString shifts the day
+// for posts before 08:00 local time (UTC+8).
 function normalizeDate(raw: string): string {
   const cleaned = raw
     .replace(/[年月]/g, "-")
     .replace(/日/g, "")
     .replace(/\s+/g, " ")
     .trim();
-  const date = new Date(cleaned);
-  if (!isNaN(date.getTime())) {
-    return date.toISOString().split("T")[0];
-  }
-  const dateOnly = cleaned.match(/(\d{4}[\/-]\d{1,2}[\/-]\d{1,2})/);
-  if (dateOnly) {
-    const d = new Date(dateOnly[1]);
-    if (!isNaN(d.getTime())) return d.toISOString().split("T")[0];
+  const m = cleaned.match(/(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+  if (m) {
+    const [, y, mo, d] = m;
+    return `${y}-${pad2(Number(mo))}-${pad2(Number(d))}`;
   }
   return formatToday();
 }
 
 function formatToday(): string {
-  return new Date().toISOString().split("T")[0];
+  const now = new Date();
+  return `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())}`;
 }
 
 function extractInfoText(html: string): string {

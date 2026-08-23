@@ -175,11 +175,16 @@ export default defineBackground(() => {
 
   async function crawlStart(): Promise<MessageResponse<CrawlState>> {
     const current = await getCrawlState();
-    if (current.lastCrawlStatus === "crawling") {
+    // If the service worker died mid-crawl, the state stays "crawling" forever —
+    // allow a restart once enough time has passed.
+    const CRAWL_TIMEOUT_MS = 10 * 60 * 1000;
+    const stale = current.lastCrawlStatus === "crawling"
+      && (current.lastCrawlTime ?? 0) < Date.now() - CRAWL_TIMEOUT_MS;
+    if (current.lastCrawlStatus === "crawling" && !stale) {
       return { success: false, error: "Crawl already in progress" };
     }
 
-    await saveCrawlState({ lastCrawlStatus: "crawling", lastCrawlError: null });
+    await saveCrawlState({ lastCrawlStatus: "crawling", lastCrawlTime: Date.now(), lastCrawlError: null });
 
     try {
       await reclassifyExisting();

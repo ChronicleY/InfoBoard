@@ -5,11 +5,25 @@ export class SSOExpiredError extends Error {
   }
 }
 
-async function fetchAndCheck(url: string): Promise<Response> {
-  const response = await fetch(url, { credentials: "include" });
+// Chromium returns an opaque-redirect response (status 0, unreadable headers)
+// for redirect:"manual" fetches, so a redirect can only be detected by type/status.
+function isRedirectResponse(response: Response): boolean {
+  return (
+    response.type === "opaqueredirect" ||
+    response.status === 0 ||
+    (response.status >= 300 && response.status < 400)
+  );
+}
 
-  // Check for SSO redirect
-  if (response.redirected && response.url.includes("caslogin")) {
+function hasLoginForm(text: string): boolean {
+  return text.includes("统一身份认证平台") || text.includes("casLoginForm");
+}
+
+async function fetchAndCheck(url: string): Promise<Response> {
+  const response = await fetch(url, { credentials: "include", redirect: "manual" });
+
+  // Not logged in: the board redirects to the CAS login page
+  if (isRedirectResponse(response)) {
     throw new SSOExpiredError();
   }
 
@@ -27,7 +41,7 @@ export async function fetchBoardPage(url: string): Promise<string> {
   let html = decoder.decode(buffer);
 
   // Check for CAS login form in HTML
-  if (html.includes("统一身份认证平台") || html.includes("casLoginForm")) {
+  if (hasLoginForm(html)) {
     throw new SSOExpiredError();
   }
 
@@ -51,19 +65,15 @@ export async function checkSSO(): Promise<boolean> {
 
     console.log(`[fetcher] SSO check: status=${response.status}, type=${response.type}`);
 
-    // If redirected to CAS login, session is expired
-    if (response.status >= 300 && response.status < 400) {
-      const location = response.headers.get("location") || "";
-      console.log(`[fetcher] SSO redirect to: ${location}`);
-      if (location.includes("cas") || location.includes("login")) {
-        return false;
-      }
+    // Redirect to CAS login means the session is expired
+    if (isRedirectResponse(response)) {
+      return false;
     }
 
     // Also check body content for login form (some SSO setups don't redirect)
     if (response.status === 200) {
       const text = await response.text();
-      if (text.includes("统一身份认证平台") || text.includes("casLoginForm")) {
+      if (hasLoginForm(text)) {
         console.log("[fetcher] SSO check: login form detected in body");
         return false;
       }

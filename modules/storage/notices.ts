@@ -12,7 +12,7 @@ export async function getArticles(): Promise<Article[]> {
 
   const keys = entries.map((e) => articleKey(e.id));
   const result = await chrome.storage.local.get(keys);
-  return keys.map((k) => result[k]).filter(Boolean);
+  return keys.map((k) => result[k]).filter(Boolean) as Article[];
 }
 
 export async function getArticleIds(): Promise<string[]> {
