@@ -1,5 +1,10 @@
 # SZU 公文通助手
 
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Chrome](https://img.shields.io/badge/Chrome-MV3-4285F4?logo=googlechrome&logoColor=white)
+![Edge](https://img.shields.io/badge/Edge-MV3-0078D7?logo=microsoftedge&logoColor=white)
+
 深圳大学公文通分类浏览扩展，支持 **Chrome** / **Edge** 浏览器。
 
 每天上百条公文混在一起，讲座、活动、比赛、教务……很难快速找到自己关心的内容。这个扩展自动抓取公文、智能分类，还能根据你的学院和课程个性化排序。
