@@ -41,6 +41,36 @@ export async function saveArticles(articles: Article[]): Promise<void> {
   await chrome.storage.local.set(batch);
 }
 
+/**
+ * Insert or replace a batch of articles without rebuilding the whole index or
+ * re-reading every stored article. Used by the crawler to persist results
+ * incrementally while the crawl is still running.
+ */
+export async function upsertArticles(articles: Article[]): Promise<void> {
+  if (articles.length === 0) return;
+
+  const batch: Record<string, unknown> = {};
+  for (const article of articles) {
+    batch[articleKey(article.id)] = article;
+  }
+
+  const indexRes = await chrome.storage.local.get("meta:index");
+  const entries = (indexRes["meta:index"] || []) as IndexEntry[];
+  const byId = new Map(entries.map((e) => [e.id, e]));
+  for (const a of articles) {
+    byId.set(a.id, {
+      id: a.id,
+      category: a.category,
+      publishDate: a.publishDate,
+      section: a.section,
+      favorite: a.favorite,
+    });
+  }
+  batch["meta:index"] = [...byId.values()];
+
+  await chrome.storage.local.set(batch);
+}
+
 export async function updateArticle(id: string, changes: Partial<Article>): Promise<void> {
   const key = articleKey(id);
   const result = await chrome.storage.local.get(key);

@@ -31,6 +31,8 @@ export interface CrawlState {
   lastCrawlError: string | null;
   newArticleCount: number;
   totalArticleCount: number;
+  processedCount: number;
+  totalCount: number;
 }
 
 export interface Settings {

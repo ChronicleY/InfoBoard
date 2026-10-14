@@ -1,7 +1,23 @@
+const BOARD_HOME = "https://www1.szu.edu.cn/board/";
+
+/** The session is genuinely gone — the request landed on the CAS login gate. */
 export class SSOExpiredError extends Error {
-  constructor() {
-    super("SSO session expired. Please log in to www1.szu.edu.cn.");
+  constructor(url: string) {
+    super(`SSO session expired while fetching ${url}. Please log in to www1.szu.edu.cn.`);
     this.name = "SSOExpiredError";
+  }
+}
+
+/**
+ * The server redirected somewhere we did not expect (deleted post, anti-bot
+ * interstitial, http→https bounce, …). This is NOT necessarily a login failure,
+ * so callers that fetch individual articles must treat it as a skip rather than
+ * tearing down the whole crawl.
+ */
+export class BoardRedirectError extends Error {
+  constructor(url: string) {
+    super(`Unexpected redirect while fetching ${url}`);
+    this.name = "BoardRedirectError";
   }
 }
 
@@ -19,69 +35,54 @@ function hasLoginForm(text: string): boolean {
   return text.includes("统一身份认证平台") || text.includes("casLoginForm");
 }
 
-async function fetchAndCheck(url: string): Promise<Response> {
-  const response = await fetch(url, { credentials: "include", redirect: "manual" });
-
-  // Not logged in: the board redirects to the CAS login page
-  if (isRedirectResponse(response)) {
-    throw new SSOExpiredError();
+function decodeBoardHtml(buffer: ArrayBuffer): string {
+  // The board serves GB2312/GBK. Decode with GBK first, fall back to UTF-8 when
+  // the page turns out to be unicode (lots of replacement characters).
+  let html = new TextDecoder("gbk", { fatal: false }).decode(buffer);
+  const replacementCount = (html.match(/\uFFFD/g) || []).length;
+  if (replacementCount > 5) {
+    html = new TextDecoder("utf-8").decode(buffer);
   }
-
-  return response;
+  return html;
 }
 
+/**
+ * Fetch a board page with the current session.
+ *
+ * Throws {@link SSOExpiredError} when the request hits the CAS login gate, and
+ * {@link BoardRedirectError} for any other redirect.
+ */
 export async function fetchBoardPage(url: string): Promise<string> {
   console.log(`[fetcher] Fetching: ${url}`);
-  const response = await fetchAndCheck(url);
+  const response = await fetch(url, { credentials: "include", redirect: "manual" });
 
-  const buffer = await response.arrayBuffer();
-  console.log(`[fetcher] Response: ${buffer.byteLength} bytes`);
-  // Try GBK first (SZUniv board uses GB2312/GBK), fall back to UTF-8
-  const decoder = new TextDecoder("gbk", { fatal: false });
-  let html = decoder.decode(buffer);
-
-  // Check for CAS login form in HTML
-  if (hasLoginForm(html)) {
-    throw new SSOExpiredError();
+  if (isRedirectResponse(response)) {
+    throw new BoardRedirectError(url);
   }
 
-  // Quick mojibake detection — if lots of replacement chars, retry UTF-8
-  const replacementCount = (html.match(/�/g) || []).length;
-  if (replacementCount > 5) {
-    const utf8Decoder = new TextDecoder("utf-8");
-    html = utf8Decoder.decode(buffer);
+  const buffer = await response.arrayBuffer();
+  const html = decodeBoardHtml(buffer);
+  console.log(`[fetcher] Response: ${buffer.byteLength} bytes`);
+
+  if (hasLoginForm(html)) {
+    throw new SSOExpiredError(url);
   }
 
   return html;
 }
 
+/**
+ * Probe whether the current session can access the board.
+ * Uses the same GBK decoding path as the crawler so the two never disagree.
+ */
 export async function checkSSO(): Promise<boolean> {
   try {
     console.log("[fetcher] Checking SSO status...");
-    const response = await fetch("https://www1.szu.edu.cn/board/", {
-      credentials: "include",
-      redirect: "manual",
-    });
-
-    console.log(`[fetcher] SSO check: status=${response.status}, type=${response.type}`);
-
-    // Redirect to CAS login means the session is expired
-    if (isRedirectResponse(response)) {
-      return false;
-    }
-
-    // Also check body content for login form (some SSO setups don't redirect)
-    if (response.status === 200) {
-      const text = await response.text();
-      if (hasLoginForm(text)) {
-        console.log("[fetcher] SSO check: login form detected in body");
-        return false;
-      }
-    }
-
+    await fetchBoardPage(BOARD_HOME);
+    console.log("[fetcher] SSO check: session valid");
     return true;
   } catch (err) {
-    console.error("[fetcher] SSO check failed:", err);
+    console.log("[fetcher] SSO check: session unavailable:", String(err));
     return false;
   }
 }

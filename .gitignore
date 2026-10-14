@@ -28,6 +28,7 @@ yarn-error.log*
 .pnpm-debug.log*
 .debug-fixtures/
 .playwright-mcp/
+sso-login-page.png
 
 # env files
 .env*

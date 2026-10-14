@@ -17,7 +17,12 @@ const STATUS_LABELS: Record<string, string> = {
 
 export default function Header({ crawlState, onRefresh, onSettings }: HeaderProps) {
   const isCrawling = crawlState.lastCrawlStatus === "crawling";
-  const statusLabel = STATUS_LABELS[crawlState.lastCrawlStatus] || "";
+  const progress = isCrawling && crawlState.totalCount > 0
+    ? ` (${crawlState.processedCount}/${crawlState.totalCount})`
+    : "";
+  const statusLabel = isCrawling
+    ? `${STATUS_LABELS.crawling}${progress}`
+    : STATUS_LABELS[crawlState.lastCrawlStatus] || "";
   const lastTime = crawlState.lastCrawlTime
     ? new Date(crawlState.lastCrawlTime).toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" })
     : null;

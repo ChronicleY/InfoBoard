@@ -6,6 +6,8 @@ const DEFAULT_CRAWL_STATE: CrawlState = {
   lastCrawlError: null,
   newArticleCount: 0,
   totalArticleCount: 0,
+  processedCount: 0,
+  totalCount: 0,
 };
 
 export async function getCrawlState(): Promise<CrawlState> {

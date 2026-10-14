@@ -9,8 +9,10 @@ interface DeepSeekResponse {
   }>;
 }
 
+export type LlmClassifyInput = Pick<Article, "title" | "summary" | "publisher">;
+
 export async function classifyWithLLM(
-  article: Article,
+  article: LlmClassifyInput,
   apiKey: string,
   categories: CategoryDef[],
 ): Promise<string> {

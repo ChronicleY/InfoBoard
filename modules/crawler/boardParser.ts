@@ -331,6 +331,52 @@ function formatToday(): string {
   return `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())}`;
 }
 
+/**
+ * Parse the list-row date formats used by the board, e.g. "10/14", "10/15 9:30",
+ * "2026/8/24". The board omits the year for recent rows, so it is inferred from
+ * `now`; a month/day that is far enough ahead is assumed to belong to last year.
+ */
+export function parsePreviewDate(raw: string, now: Date = new Date()): Date | null {
+  if (!raw) return null;
+  const m = raw.match(/(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})|(\d{1,2})[\/-](\d{1,2})(?:\s+(\d{1,2}):(\d{2}))?/);
+  if (!m) return null;
+
+  if (m[1]) {
+    const year = Number(m[1]);
+    const month = Number(m[2]);
+    const day = Number(m[3]);
+    if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+    return new Date(year, month - 1, day);
+  }
+
+  const month = Number(m[4]);
+  const day = Number(m[5]);
+  const hour = m[6] ? Number(m[6]) : 0;
+  const minute = m[7] ? Number(m[7]) : 0;
+  if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+
+  let year = now.getFullYear();
+  const candidate = new Date(year, month - 1, day, hour, minute);
+  // Tolerate up to ~1 month of future-dated events (e.g. upcoming lectures);
+  // anything further ahead must belong to the previous year.
+  const FUTURE_TOLERANCE = 32 * 24 * 60 * 60 * 1000;
+  if (candidate.getTime() - now.getTime() > FUTURE_TOLERANCE) {
+    year -= 1;
+  }
+  return new Date(year, month - 1, day, hour, minute);
+}
+
+/**
+ * Keep dates from `days` ago through today (future-dated events are kept too).
+ * Unknown dates are kept so we never silently drop an article.
+ */
+export function isWithinDays(date: Date | null, days: number, now: Date = new Date()): boolean {
+  if (!date) return true;
+  const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  cutoff.setDate(cutoff.getDate() - Math.max(0, days));
+  return date.getTime() >= cutoff.getTime();
+}
+
 function extractInfoText(html: string): string {
   const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
   let match: RegExpExecArray | null;
