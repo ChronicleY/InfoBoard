@@ -1,0 +1,29 @@
+name: Build Chrome extension release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Package extension
+        run: zip -r ../../szu-board-extension-chrome-mv3.zip .
+        working-directory: dist/chrome-mv3
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" "szu-board-extension-chrome-mv3.zip" --title "$GITHUB_REF_NAME" --generate-notes

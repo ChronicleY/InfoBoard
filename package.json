@@ -2,6 +2,7 @@
   "name": "szu-board-extension",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@11.1.3",
   "scripts": {
     "dev": "wxt",
     "dev:chrome": "wxt -b chrome",
