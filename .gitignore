@@ -39,5 +39,8 @@ list.xlsx
 # env files
 .env*
 
+# Local course presentation
+/docs/course-report.html
+
 # typescript
 *.tsbuildinfo

@@ -63,9 +63,10 @@ export default function NoticeCard({ article, expanded, personalMatch, onToggleE
     onRefresh();
   };
 
-  const handleOpenLink = (e: React.MouseEvent) => {
+  const handleOpenLink = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    location.href = article.url;
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    await chrome.tabs.update(activeTab.id, { url: article.url });
   };
 
   const handleDelete = async () => {
