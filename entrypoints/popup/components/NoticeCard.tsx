@@ -65,7 +65,7 @@ export default function NoticeCard({ article, expanded, personalMatch, onToggleE
 
   const handleOpenLink = (e: React.MouseEvent) => {
     e.stopPropagation();
-    chrome.tabs.create({ url: article.url, active: false });
+    location.href = article.url;
   };
 
   const handleDelete = async () => {

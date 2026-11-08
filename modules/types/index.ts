@@ -296,8 +296,6 @@ export type Message =
   | { type: "classifier:status" }
   | { type: "classifier:train" }
   | { type: "classifier:rollback" }
-  | { type: "classifier:export" }
-  | { type: "classifier:import-labels"; csv: string }
   | { type: "settings:get" }
   | { type: "settings:save"; settings: Partial<Settings> }
   | { type: "check:sso" };

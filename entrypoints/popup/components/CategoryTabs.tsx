@@ -9,7 +9,7 @@ interface CategoryTabsProps {
   favoriteCount: number;
   active: string;
   onSelect: (category: string) => void;
-  onReorder: (categories: CategoryDef[]) => void;
+  onReorder?: (categories: CategoryDef[]) => void;
 }
 
 export default function CategoryTabs({ categories, counts, totalCount, favoriteCount, active, onSelect, onReorder }: CategoryTabsProps) {
@@ -18,9 +18,10 @@ export default function CategoryTabs({ categories, counts, totalCount, favoriteC
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dragged = useRef(false);
   useEffect(() => setOrder(categories), [categories]);
+  const reorder = onReorder;
 
   useEffect(() => {
-    if (!draggingId) return;
+    if (!draggingId || !reorder) return;
     const move = (event: PointerEvent) => {
       const target = document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>("[data-category-tab-id]");
       const overId = target?.dataset.categoryTabId;
@@ -37,7 +38,7 @@ export default function CategoryTabs({ categories, counts, totalCount, favoriteC
     };
     const end = () => {
       setDraggingId(null);
-      if (order.some((item, index) => item.id !== categories[index]?.id)) onReorder(order);
+      if (order.some((item, index) => item.id !== categories[index]?.id)) reorder(order);
     };
     const cancel = () => {
       setDraggingId(null);
@@ -51,11 +52,11 @@ export default function CategoryTabs({ categories, counts, totalCount, favoriteC
       window.removeEventListener("pointerup", end);
       window.removeEventListener("pointercancel", cancel);
     };
-  }, [draggingId, onReorder, order, categories]);
+  }, [draggingId, reorder, order, categories]);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
-  const tabProps = (category: CategoryDef) => ({
+  const tabProps = (category: CategoryDef) => reorder ? {
     onPointerDown: (event: React.PointerEvent<HTMLButtonElement>) => {
       if (timer.current) clearTimeout(timer.current);
       event.currentTarget.setPointerCapture(event.pointerId);
@@ -82,7 +83,7 @@ export default function CategoryTabs({ categories, counts, totalCount, favoriteC
       }
       onSelect(category.id);
     },
-  });
+  } : { onClick: () => onSelect(category.id) };
 
   return (
     <div className="max-h-24 shrink-0 overflow-y-auto border-b border-gray-100 px-3 py-2">

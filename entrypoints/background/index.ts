@@ -19,9 +19,7 @@ import {
   commitTrainedModel,
   getClassifierState,
   getClassifierStatus,
-  getExportData,
   getLatestTrainingExamples,
-  importClassifierLabelsCsv,
   initializeClassifierModel,
   recordManualLabel,
 } from "../../modules/storage/classifier";
@@ -360,15 +358,6 @@ export default defineBackground(() => {
       case "classifier:rollback": {
         return withClassifierJob("rollback", rollbackClassifierModel);
       }
-      case "classifier:export": {
-        await ensureClassifierReady();
-        return { success: true, data: await getExportData() };
-      }
-      case "classifier:import-labels": {
-        await ensureClassifierReady();
-        const result = await importClassifierLabelsCsv(message.csv);
-        return { success: true, data: { ...result, status: await getClassifierStatus() } };
-      }
       case "notice:favorite": {
         await updateArticle(message.id, { favorite: message.favorite });
         return { success: true, data: undefined };
@@ -394,6 +383,7 @@ export default defineBackground(() => {
       }
       case "settings:save": {
         await saveSettings(message.settings);
+        await cleanupExpired();
         return { success: true, data: undefined };
       }
       case "notice:delete": {
@@ -494,6 +484,7 @@ export default defineBackground(() => {
       processedCount: 0,
       totalCount: 0,
     });
+    await cleanupExpired();
 
     // Serialise every crawl-state write so concurrent workers cannot clobber
     // each other's read-modify-write.

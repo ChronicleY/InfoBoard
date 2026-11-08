@@ -4,8 +4,6 @@ interface HeaderProps {
   crawlState: CrawlState;
   onRefresh: () => void;
   onSettings: () => void;
-  onCategories?: () => void;
-  onOpenTab?: () => void;
 }
 
 const STATUS_LABELS: Record<string, string> = {
@@ -17,7 +15,7 @@ const STATUS_LABELS: Record<string, string> = {
   sso_expired: "登录已过期",
 };
 
-export default function Header({ crawlState, onRefresh, onSettings, onCategories, onOpenTab }: HeaderProps) {
+export default function Header({ crawlState, onRefresh, onSettings }: HeaderProps) {
   const isCrawling = crawlState.lastCrawlStatus === "crawling";
   const progress = isCrawling && crawlState.totalCount > 0
     ? ` (${crawlState.processedCount}/${crawlState.totalCount})`
@@ -33,12 +31,6 @@ export default function Header({ crawlState, onRefresh, onSettings, onCategories
     <div className="flex flex-col px-4 py-3 border-b border-gray-100 bg-white sticky top-0 z-10">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {onCategories && (
-            <button onClick={onCategories} title="管理分类" className="px-2 py-1.5 text-[11px] text-gray-600 hover:bg-gray-100">分类</button>
-          )}
-          {onOpenTab && (
-            <button onClick={onOpenTab} title="在独立标签页打开" aria-label="在独立标签页打开" className="px-1.5 py-1 text-sm text-gray-500 hover:bg-gray-100">↗</button>
-          )}
           <div className="w-7 h-7 rounded bg-szu-red flex items-center justify-center text-white font-bold text-xs">
             SZU
           </div>
