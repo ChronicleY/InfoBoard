@@ -65,7 +65,7 @@ export default function NoticeCard({ article, expanded, personalMatch, onToggleE
 
   const handleOpenLink = (e: React.MouseEvent) => {
     e.stopPropagation();
-    chrome.tabs.create({ url: article.url });
+    chrome.tabs.create({ url: article.url, active: false });
   };
 
   const handleDelete = async () => {
@@ -131,8 +131,8 @@ export default function NoticeCard({ article, expanded, personalMatch, onToggleE
                     {article.competitionMatch}
                   </span>
                 )}
-                {article.llmClassified && !article.manuallyClassified && (
-                  <span className="text-[10px] text-accent-blue bg-blue-50 px-1 py-0.5 rounded">AI分类</span>
+                {article.needsReview && (
+                  <span className="text-[10px] text-amber-700 bg-amber-50 px-1 py-0.5 rounded">待复核</span>
                 )}
               </div>
             </div>

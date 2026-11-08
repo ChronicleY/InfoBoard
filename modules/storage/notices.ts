@@ -1,4 +1,6 @@
 import type { Article, IndexEntry } from "../types";
+import { serializeStorageWrite } from "./writeQueue";
+import { archiveArticlesUnsafe } from "./classifier";
 
 function articleKey(id: string): `articles:${string}` {
   return `articles:${id}`;
@@ -22,6 +24,10 @@ export async function getArticleIds(): Promise<string[]> {
 }
 
 export async function saveArticles(articles: Article[]): Promise<void> {
+  return serializeStorageWrite(async () => saveArticlesUnsafe(articles));
+}
+
+async function saveArticlesUnsafe(articles: Article[]): Promise<void> {
   const batch: Record<string, unknown> = {};
 
   for (const article of articles) {
@@ -39,6 +45,7 @@ export async function saveArticles(articles: Article[]): Promise<void> {
 
   batch["meta:index"] = index;
   await chrome.storage.local.set(batch);
+  await archiveArticlesUnsafe(articles);
 }
 
 /**
@@ -47,6 +54,10 @@ export async function saveArticles(articles: Article[]): Promise<void> {
  * incrementally while the crawl is still running.
  */
 export async function upsertArticles(articles: Article[]): Promise<void> {
+  return serializeStorageWrite(async () => upsertArticlesUnsafe(articles));
+}
+
+async function upsertArticlesUnsafe(articles: Article[]): Promise<void> {
   if (articles.length === 0) return;
 
   const batch: Record<string, unknown> = {};
@@ -69,9 +80,14 @@ export async function upsertArticles(articles: Article[]): Promise<void> {
   batch["meta:index"] = [...byId.values()];
 
   await chrome.storage.local.set(batch);
+  await archiveArticlesUnsafe(articles);
 }
 
 export async function updateArticle(id: string, changes: Partial<Article>): Promise<void> {
+  return serializeStorageWrite(async () => updateArticleUnsafe(id, changes));
+}
+
+async function updateArticleUnsafe(id: string, changes: Partial<Article>): Promise<void> {
   const key = articleKey(id);
   const result = await chrome.storage.local.get(key);
   const article = result[key] as Article | undefined;
@@ -95,6 +111,10 @@ export async function updateArticle(id: string, changes: Partial<Article>): Prom
 }
 
 export async function deleteArticles(ids: string[]): Promise<void> {
+  return serializeStorageWrite(async () => deleteArticlesUnsafe(ids));
+}
+
+async function deleteArticlesUnsafe(ids: string[]): Promise<void> {
   await chrome.storage.local.remove(ids.map((id) => articleKey(id)));
 
   const indexRes = await chrome.storage.local.get("meta:index");
@@ -106,4 +126,9 @@ export async function deleteArticles(ids: string[]): Promise<void> {
 export async function getArticleExists(id: string): Promise<boolean> {
   const result = await chrome.storage.local.get(articleKey(id));
   return articleKey(id) in result;
+}
+
+export async function getArticle(id: string): Promise<Article | null> {
+  const result = await chrome.storage.local.get(articleKey(id));
+  return (result[articleKey(id)] as Article | undefined) ?? null;
 }

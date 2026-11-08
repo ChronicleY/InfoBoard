@@ -17,5 +17,13 @@ export function useNotices() {
     refresh();
   }, [refresh]);
 
+  useEffect(() => {
+    const onChanged = (changes: Record<string, chrome.storage.StorageChange>, area: string) => {
+      if (area === "local" && (changes["meta:index"] || Object.keys(changes).some((key) => key.startsWith("articles:")))) refresh();
+    };
+    chrome.storage.onChanged.addListener(onChanged);
+    return () => chrome.storage.onChanged.removeListener(onChanged);
+  }, [refresh]);
+
   return { articles, loading, refresh };
 }

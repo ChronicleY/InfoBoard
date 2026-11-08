@@ -7,6 +7,9 @@ export interface ArticlePreview {
   publisher: string;
   dateStr: string;
   location?: string;
+  eventTime?: string;
+  topic?: string;
+  titleAttributes?: string;
 }
 
 /**
@@ -58,11 +61,7 @@ export function parseBoardList(html: string): ArticlePreview[] {
       // Lecture rows carry 地点 in the anchor title attribute, e.g.
       // "时间：2026/8/24 10:00:00\n地点：粤海｜致知楼-706\n专题：..."
       let location: string | undefined;
-      const locAttr = anchor.attrTitle?.match(/地点：([^\n]+)/);
-      if (locAttr) {
-        const locMatch = locAttr[1].match(/^(粤海|丽湖|沧海|罗湖)｜[^-－]+/);
-        if (locMatch) location = locMatch[0];
-      }
+      if (!location && anchor.location) location = anchor.location;
       // Fallback: visible text prefix like "粤海｜汇文楼｜..."
       if (!location) {
         const pipeParts = anchor.innerText.split("｜");
@@ -78,6 +77,9 @@ export function parseBoardList(html: string): ArticlePreview[] {
         publisher: "",
         dateStr,
         location,
+        eventTime: anchor.eventTime,
+        topic: anchor.topic,
+        titleAttributes: anchor.attrTitle ?? undefined,
       });
     }
   }
@@ -95,6 +97,9 @@ function extractViewAnchor(fragment: string): {
   url: string;
   attrTitle: string | null;
   innerText: string;
+  eventTime: string;
+  location: string;
+  topic: string;
 } | null {
   const linkMatch =
     /<a[^>]*href\s*=\s*["']?([^"'\s>]*view\.asp[^"'\s>]*)["']?[^>]*>([\s\S]*?)<\/a>/i.exec(fragment);
@@ -105,19 +110,24 @@ function extractViewAnchor(fragment: string): {
   if (!innerText) return null;
 
   const attrRaw = /\stitle\s*=\s*["']([^"']*)["']/i.exec(linkMatch[0]);
-  let attrTitle = attrRaw ? decodeEntities(attrRaw[1]).replace(/\s+/g, " ").trim() : "";
-  // Lecture anchors: "时间：… 地点：… 专题：<real title>"
-  const zhuanTi = attrTitle.lastIndexOf("专题：");
-  if (zhuanTi >= 0) attrTitle = attrTitle.substring(zhuanTi + "专题：".length).trim();
-
-  const title = attrTitle.length >= innerText.length ? attrTitle : innerText;
+  const attrTitle = attrRaw ? decodeEntities(attrRaw[1]).replace(/\r/g, "").trim() : "";
+  const eventTime = /(?:时间|活动时间)[：:]\s*([^\n]+)/.exec(attrTitle)?.[1]?.trim() ?? "";
+  const location = /地点[：:]\s*([^\n]+)/.exec(attrTitle)?.[1]?.trim() ?? "";
+  const topic = /专题[：:]\s*([\s\S]*)$/.exec(attrTitle)?.[1]?.trim() ?? "";
+  const plainAttributeTitle = attrTitle
+    .split(/\r?\n/)
+    .filter((line) => !/^(?:时间|活动时间|地点)[：:]/.test(line.trim()))
+    .join(" ")
+    .replace(/^专题[：:]\s*/, "")
+    .trim();
+  const title = topic || (plainAttributeTitle.length >= innerText.length ? plainAttributeTitle : innerText);
 
   const url = new URL(
     href.startsWith("/") ? href : `./${href}`,
     "https://www1.szu.edu.cn/board/",
   ).href;
 
-  return { title, url, attrTitle: attrRaw ? attrTitle : null, innerText };
+  return { title, url, attrTitle: attrRaw ? attrTitle : null, innerText, eventTime, location, topic };
 }
 
 function isBoardSection(name: string): boolean {
@@ -146,6 +156,8 @@ export function parseBoardDetail(html: string): {
   location: string | null;
   summary: string;
   bodyText: string;
+  eventDate: string | null;
+  updatedAt: string | null;
 } {
   let publisher = "";
   let publishDate = "";
@@ -168,20 +180,8 @@ export function parseBoardDetail(html: string): {
     }
   }
 
-  // Extract body from <p> tags
-  const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
-  let pMatch: RegExpExecArray | null;
-  const parts: string[] = [];
-
-  while ((pMatch = pRegex.exec(html)) !== null) {
-    const text = stripTags(pMatch[1]).trim();
-    if (!text) continue;
-    if (/^撰稿[：:]/.test(text)) continue;
-    if (/^（[^）]+）$/.test(text) && text.length < 30) continue;
-    if (bodyText.length + text.length > 2000) break;
-    parts.push(text);
-    bodyText = parts.join("\n\n");
-  }
+  const bodyCell = extractArticleBodyCell(html);
+  bodyText = extractBodyText(bodyCell);
 
   // Fallback: if no <p> tags found, try extracting from large <td> cells
   if (!publisher) {
@@ -192,7 +192,7 @@ export function parseBoardDetail(html: string): {
   }
 
   if (!bodyText) {
-    bodyText = extractBodyFallback(html);
+    bodyText = extractBodyFallback(bodyCell || html);
   }
 
   const summary = bodyText.substring(0, 500);
@@ -203,12 +203,17 @@ export function parseBoardDetail(html: string): {
   );
   if (locMatch) location = locMatch[1].trim();
 
+  const eventDateMatch = bodyText.match(/(?:活动|讲座|会议|考试|报名|举办)(?:时间|日期)[：:]\s*([^\n]{2,80})/);
+  const updatedMatch = html.match(/(?:更新于|更新时间[：:]?\s*)(\d{4}[\/-]\d{1,2}[\/-]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?)?)/);
+
   return {
     publisher: publisher || "未知发布单位",
-    publishDate: publishDate || formatToday(),
+    publishDate,
     location,
     summary,
-    bodyText: bodyText.substring(0, 2000),
+    bodyText: bodyText.substring(0, 20000),
+    eventDate: eventDateMatch?.[1]?.trim() ?? null,
+    updatedAt: updatedMatch ? normalizeDate(updatedMatch[1]) || null : null,
   };
 }
 
@@ -250,7 +255,17 @@ export function parseInfolistPage(html: string, section: string): ArticlePreview
       }
     }
 
-    articles.push({ title: anchor.title, url: anchor.url, section, publisher: "", dateStr, location });
+    articles.push({
+      title: anchor.title,
+      url: anchor.url,
+      section,
+      publisher: "",
+      dateStr,
+      location,
+      eventTime: anchor.eventTime,
+      topic: anchor.topic,
+      titleAttributes: anchor.attrTitle ?? undefined,
+    });
   }
 
   return articles;
@@ -323,12 +338,7 @@ function normalizeDate(raw: string): string {
     const [, y, mo, d] = m;
     return `${y}-${pad2(Number(mo))}-${pad2(Number(d))}`;
   }
-  return formatToday();
-}
-
-function formatToday(): string {
-  const now = new Date();
-  return `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())}`;
+  return "";
 }
 
 /**
@@ -410,9 +420,50 @@ function extractBodyFallback(html: string): string {
   while ((match = pRegex.exec(html)) !== null) {
     const text = stripTags(match[1]).trim();
     if (!text) continue;
-    if (/^撰稿[：:]/.test(text)) continue;
+    if (/^(?:撰稿|审核|審核|更新时间|更新于|浏览记录|浏览日志)[：:]?/.test(text)) continue;
     if (/^（[^）]+）$/.test(text) && text.length < 30) continue;
     parts.push(text);
   }
   return parts.join("\n\n");
+}
+
+function extractArticleBodyCell(html: string): string {
+  const tdRegex = /<td\b[^>]*>/gi;
+  let match: RegExpExecArray | null;
+  const candidates: string[] = [];
+  while ((match = tdRegex.exec(html)) !== null) {
+    const attrs = match[0];
+    if (!/\bheight\s*=\s*["']?300\b/i.test(attrs) || !/\bvalign\s*=\s*["']?top\b/i.test(attrs)) continue;
+    candidates.push(extractBalancedTagContent(html, match.index + attrs.length, "td"));
+  }
+  return candidates.sort((a, b) => a.length - b.length).find((candidate) => candidate.trim()) ?? "";
+}
+
+function extractBalancedTagContent(html: string, contentStart: number, tagName: string): string {
+  const tagRegex = new RegExp(`<\\/?${tagName}\\b[^>]*>`, "gi");
+  tagRegex.lastIndex = contentStart;
+  let depth = 1;
+  let match: RegExpExecArray | null;
+  while ((match = tagRegex.exec(html)) !== null) {
+    if (/^<\//.test(match[0])) depth--;
+    else if (!/\/\s*>$/.test(match[0])) depth++;
+    if (depth === 0) return html.substring(contentStart, match.index);
+  }
+  return html.substring(contentStart);
+}
+
+function extractBodyText(html: string): string {
+  if (!html) return "";
+  const cleanHtml = html
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, " ");
+  const withBreaks = cleanHtml
+    .replace(/<br\b[^>]*\/?\s*>/gi, "\n")
+    .replace(/<\/?(?:p|div|section|article|li|tr|h[1-6])\b[^>]*>/gi, "\n")
+    .replace(/<\/?td\b[^>]*>/gi, "\n");
+  return stripTags(withBreaks)
+    .split(/\n+/)
+    .map((text) => text.replace(/\s+/g, " ").trim())
+    .filter((text) => text && !/^(?:撰稿|审核|審核|更新时间|更新于|浏览记录|浏览日志)[：:]?/.test(text))
+    .join("\n\n");
 }

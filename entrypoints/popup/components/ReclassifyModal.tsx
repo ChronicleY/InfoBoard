@@ -9,16 +9,28 @@ interface ReclassifyModalProps {
 }
 
 export default function ReclassifyModal({ article, categories, onClose, onReclassified }: ReclassifyModalProps) {
-  const [selected, setSelected] = useState(article.category);
+  const [selected, setSelected] = useState(article.categoryId ?? categories.find((category) => category.name === article.category)?.id ?? "other");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const handleConfirm = async () => {
-    await chrome.runtime.sendMessage({
-      type: "notice:update",
-      id: article.id,
-      changes: { category: selected, matchedKeywords: [], manuallyClassified: true, llmClassified: false },
-    });
-    onReclassified();
-    onClose();
+    setSaving(true);
+    setError("");
+    try {
+      const response = await chrome.runtime.sendMessage({
+        type: "notice:label",
+        id: article.id,
+        category: categories.find((category) => category.id === selected)?.name ?? "其他",
+        categoryId: selected,
+      });
+      if (!response?.success) throw new Error(response?.error ?? "保存分类失败");
+      await onReclassified();
+      onClose();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : String(cause));
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -35,9 +47,9 @@ export default function ReclassifyModal({ article, categories, onClose, onReclas
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setSelected(cat.name)}
+              onClick={() => setSelected(cat.id)}
               className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                selected === cat.name
+                selected === cat.id
                   ? "bg-szu-red text-white"
                   : "bg-gray-50 text-gray-700 hover:bg-gray-100"
               }`}
@@ -46,12 +58,13 @@ export default function ReclassifyModal({ article, categories, onClose, onReclas
             </button>
           ))}
         </div>
+        {error && <p role="alert" className="px-4 pb-2 text-xs text-red-600">{error}</p>}
         <div className="sticky bottom-0 bg-white border-t border-gray-100 flex gap-2 p-4">
-          <button onClick={onClose} className="flex-1 py-2 text-xs rounded-md border border-gray-200 text-gray-600">
+          <button onClick={onClose} disabled={saving} className="flex-1 py-2 text-xs rounded-md border border-gray-200 text-gray-600 disabled:opacity-50">
             取消
           </button>
-          <button onClick={handleConfirm} className="flex-1 py-2 text-xs rounded-md bg-accent-blue text-white">
-            确认
+          <button onClick={handleConfirm} disabled={saving} className="flex-1 py-2 text-xs rounded-md bg-accent-blue text-white disabled:opacity-50">
+            {saving ? "保存中…" : "确认"}
           </button>
         </div>
       </div>

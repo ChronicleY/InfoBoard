@@ -13,7 +13,12 @@ export async function cleanupExpired(): Promise<number> {
   for (const article of articles) {
     if (article.favorite) continue;
     const pubDate = new Date(article.publishDate);
-    if (isNaN(pubDate.getTime()) || pubDate < cutoff) {
+    // Some detail pages omit publication time. Retain those articles based on
+    // crawl time instead of deleting them immediately as invalid dates.
+    const effectiveTime = Number.isNaN(pubDate.getTime())
+      ? new Date(article.crawledAt)
+      : pubDate;
+    if (!Number.isNaN(effectiveTime.getTime()) && effectiveTime < cutoff) {
       toDelete.push(article.id);
     }
   }

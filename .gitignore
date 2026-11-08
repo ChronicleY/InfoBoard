@@ -30,6 +30,12 @@ yarn-error.log*
 .playwright-mcp/
 sso-login-page.png
 
+# Local classifier exports may contain private notice text and user labels
+szu-classifier-training-*.csv
+szu-classifier-backup-*.jsonl
+list.xlsx
+.pnpm-store/
+
 # env files
 .env*
 
