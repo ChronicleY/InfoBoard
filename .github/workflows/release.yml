@@ -23,7 +23,16 @@ jobs:
       - name: Package extension
         run: zip -r ../../szu-board-extension-chrome-mv3.zip .
         working-directory: dist/chrome-mv3
-      - name: Create GitHub Release
+      - name: Ensure GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" "szu-board-extension-chrome-mv3.zip" --title "$GITHUB_REF_NAME" --generate-notes
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release already exists"
+          else
+            gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes
+          fi
+      - name: Upload release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" "szu-board-extension-chrome-mv3.zip" --clobber --repo "$GITHUB_REPOSITORY"
